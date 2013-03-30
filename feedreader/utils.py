@@ -11,7 +11,11 @@ def poll_feed(db_feed, verbose=False):
     """
     Read through a feed looking for new entries.
     """
-    options = Options.objects.all()[0]
+    options = Options.objects.all()
+    if options:
+        options = options[0]
+    else:  # Create options row with default values
+        options = Options.objects.create()
     parsed = feedparser.parse(db_feed.xml_url)
     if hasattr(parsed.feed, 'bozo_exception'):
         # Malformed feed

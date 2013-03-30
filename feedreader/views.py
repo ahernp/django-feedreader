@@ -38,7 +38,11 @@ def build_context(get):
         except Group.DoesNotExist:
             pass
 
-    options = Options.objects.all()[0]
+    options = Options.objects.all()
+    if options:
+        options = options[0]
+    else:  # Create options row with default values
+        options = Options.objects.create()
     if feed:
         if mark_read_flag:
             entries = Entry.objects.filter(feed=feed, read_flag=False)
