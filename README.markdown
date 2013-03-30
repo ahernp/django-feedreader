@@ -4,7 +4,18 @@ Feedreader
 
 Feedreader is a simple Django app to aggregate RSS feeds.
 
+Features
+--------
+
+* Locally stored feed link, title and description.
+* Locally stored entry link, title and description.
+* Show recent entries.
+* String search of locally stored data.
+* Uses Django admin to mamage feeds.
+
 Detailed documentation is in the "docs" directory.
+These are available online 
+[here](http://ahernp.com/static/doc/django-feedreader/).
 
 Quick start
 -----------
@@ -30,3 +41,8 @@ Quick start
    Only each feed's xml url is needed.
 
 6. Visit http://127.0.0.1:8000/feedreader/ to see the contents of the feeds.
+
+Dependencies
+------------
+
+* [feedparser](https://pypi.python.org/pypi/feedparser)
