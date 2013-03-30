@@ -120,6 +120,12 @@
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="feedreader.models.Feed.save">
+<tt class="descname">save</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.models.Feed.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Poll new Feed</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -210,14 +216,21 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-feedreader.utils">
-<span id="utilities"></span><span id="id5"></span><h2>Utilities<a class="headerlink" href="#module-feedreader.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<div class="section" id="utilities">
+<span id="id5"></span><h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-feedreader.utils"></span><dl class="function">
 <dt id="feedreader.utils.poll_feed">
 <tt class="descclassname">feedreader.utils.</tt><tt class="descname">poll_feed</tt><big>(</big><em>db_feed</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#feedreader.utils.poll_feed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read through a feed looking for new entries.</p>
 </dd></dl>
 
+</div>
+<div class="section" id="commands">
+<span id="id6"></span><h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-feedreader.management.commands.poll_feeds">
+<span id="poll-feeds"></span><h3>poll_feeds<a class="headerlink" href="#module-feedreader.management.commands.poll_feeds" title="Permalink to this headline">¶</a></h3>
+<p>This command polls all of the Feeds and inserts any new entries found.</p>
+</div>
 </div>
 </div>
 
@@ -233,7 +246,11 @@
 <li><a class="reference internal" href="#models">Models</a></li>
 <li><a class="reference internal" href="#views">Views</a></li>
 <li><a class="reference internal" href="#forms">Forms</a></li>
-<li><a class="reference internal" href="#module-feedreader.utils">Utilities</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
+<li><a class="reference internal" href="#commands">Commands</a><ul>
+<li><a class="reference internal" href="#module-feedreader.management.commands.poll_feeds">poll_feeds</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

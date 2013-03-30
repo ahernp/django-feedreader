@@ -59,19 +59,60 @@
 <div class="section" id="feedreader">
 <span id="id2"></span><h2>Feedreader<a class="headerlink" href="#feedreader" title="Permalink to this headline">¶</a></h2>
 <p>Django Feedreader
-is a web application built using the <a class="reference external" href="http://www.djangoproject.org/">Django</a> framework.
+is a web application built using the
+<a class="reference external" href="http://www.djangoproject.org/">Django</a> framework.
 It enables users to aggregate the contents of RSS feeds.</p>
+<p>The link, title and descriptions of each feed and recent feed entries
+are saved in the database.</p>
+<p>A <a class="reference external" href="code.html#commands">poll_fields</a>
+Django command is included which can be run on a regular basis using
+<tt class="docutils literal"><span class="pre">cron</span></tt> or some other scheduling mechanism to keep the local database
+of recent entries up to date.</p>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">Allow import and export of feed details in an XML format.</p>
+<p class="last">Add import and export of feed details in an XML format.</p>
 </div>
 <div class="section" id="sample-output">
 <span id="index-1"></span><h3>Sample Output<a class="headerlink" href="#sample-output" title="Permalink to this headline">¶</a></h3>
-<img alt="sample feedreader output" id="image-home-page" src="_images/feed_output.png" />
+<img alt="sample feedreader output" id="image-sample-output" src="_images/feed_output.png" />
+</div>
+<div class="section" id="usage">
+<span id="index-2"></span><h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<img alt="annotated feedreader output" id="image-annotated-output" src="_images/annotated_output.png" />
+<p>In the image above:</p>
+<ol class="arabic simple">
+<li>Menu controlling what output is displayed.</li>
+<li>Most recent Feed entries.</li>
+<li>Toggle between showing all entries or only those which are unread.</li>
+<li>Show entries from all feeds.
+In brackets is number of unread entries.
+Clicking on this number marks them all as read.</li>
+<li>Accordion of feed groups.
+As well as the group name each button shows the number of unread
+entries.</li>
+<li>Current group. Shows the feed names.
+These can be individually selected.
+The down-arrows can be clicked to poll an individual feed
+or all those in the group.</li>
+<li>Feeds not in any group.</li>
+<li>String search feed and entry text.</li>
+<li>Link to Django Admin.</li>
+</ol>
+<p>In addition to explicitly marking sets of entries as read,
+scrolling to the end of the page causes all of the unread entries
+displayed to that point to be marked as read.
+Additional entries, if any exist, are added to list displayed.</p>
+<p>Django Admin can be used to add or remove feeds from the
+<a class="reference external" href="code.html#feedreader.models.Feed">Feed</a> model.
+Adding a new feed causes it to be polled immediately.</p>
+<p>The numbers of entries initially displayed, how many entries are saved
+in the local database and how many additionally entries are displayed
+on scrolling tot he bottom of the page are set in the
+<a class="reference external" href="code.html#feedreader.models.Options">Options</a> model.</p>
 </div>
 </div>
 <div class="section" id="release-notes">
-<span id="index-2"></span><span id="id3"></span><h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<span id="index-3"></span><span id="id3"></span><h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="version-0-5">
 <h3>Version 0.5<a class="headerlink" href="#version-0-5" title="Permalink to this headline">¶</a></h3>
 <p>Released on 30 March 2013.</p>
@@ -82,12 +123,12 @@ It enables users to aggregate the contents of RSS feeds.</p>
 </div>
 </div>
 <div class="section" id="to-do-list">
-<span id="todo-list"></span><span id="index-3"></span><h2>To Do List<a class="headerlink" href="#to-do-list" title="Permalink to this headline">¶</a></h2>
+<span id="todo-list"></span><span id="index-4"></span><h2>To Do List<a class="headerlink" href="#to-do-list" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">Allow import and export of feed details in an XML format.</p>
+<p class="last">Add import and export of feed details in an XML format.</p>
 </div>
-<p class="todo-source">(The <a class="reference internal" href="#index-0"><em>original entry</em></a> is located in  /home/ahernp/Documents/ahernp.com/site/doc/django-feedreader/overview.rst, line 18.)</p>
+<p class="todo-source">(The <a class="reference internal" href="#index-0"><em>original entry</em></a> is located in  /home/ahernp/Documents/ahernp.com/site/doc/django-feedreader/overview.rst, line 27.)</p>
 </div>
 </div>
 
@@ -102,6 +143,7 @@ It enables users to aggregate the contents of RSS feeds.</p>
 <li><a class="reference internal" href="#">Overview</a><ul>
 <li><a class="reference internal" href="#feedreader">Feedreader</a><ul>
 <li><a class="reference internal" href="#sample-output">Sample Output</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a><ul>
