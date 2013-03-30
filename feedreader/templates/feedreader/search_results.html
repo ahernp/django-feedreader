@@ -35,8 +35,8 @@
             <ol>
             {% for entry in title_matches %}
                 <li>
-                    <a href="{{ entry.link }}" title="{{ entry.description }}">{{ entry.title }}</a>
-                    ({{ entry.feed.title }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago)
+                    <a href="{{ entry.link }}" title="{{ entry.description|safe }}">{{ entry.title|safe }}</a>
+                    ({{ entry.feed.title|safe }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago)
                 </li>
             {% endfor %}
             </ol>
@@ -48,8 +48,8 @@
             <ol>
             {% for entry in description_matches %}
                 <li>
-                    <a href="{{ entry.link }}">{{ entry.title }}</a>
-                    ({{ entry.feed.title }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago):
+                    <a href="{{ entry.link }}">{{ entry.title|safe }}</a>
+                    ({{ entry.feed.title|safe }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago):
                     <p>{{ entry.description|safe }}</p>
                 </li>
             {% endfor %}

@@ -172,12 +172,12 @@
                             <p class="feedreader_menu">
                                 <a class="load_request" 
                                     href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
-                                    title="{{ feed.description }}">
+                                    title="{{ feed.description|safe }}">
                                     {{ feed.title }}
                                 </a>
                                 <a class="load_request poll_request" 
                                     href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}&poll_flag=1" 
-                                    title="Poll {{ feed.title }} feed">
+                                    title="Poll {{ feed.title|safe }} feed">
                                     &darr;
                                 </a>
                                 <span id="unread_feed{{feed.id}}"
@@ -195,12 +195,12 @@
                 <p>
                     <a class="load_request"
                         href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
-                        title="{{ feed.description }}">
+                        title="{{ feed.description|safe }}">
                         {{ feed.title }}
                     </a>
                     <a class="load_request poll_request" 
                         href="{% url 'feedreader.views.feeds' %}?feed=_id{{ feed.id }}&poll_flag=1" 
-                        title="Poll {{ feed.title }} feed">
+                        title="Poll {{ feed.title|safe }} feed">
                         &darr;
                     </a>
                     <span id="unread_feed{{feed.id}}"
