@@ -86,6 +86,7 @@ class Feed(models.Model):
 
 
     def save(self, *args, **kwargs):
+        """Poll new Feed"""
         try:
             Feed.objects.get(xml_url=self.xml_url)
             super(Feed, self).save(*args, **kwargs)

@@ -1,5 +1,5 @@
 """
-This command polls all of the Feeds and inserts or updates any new entries found.
+This command polls all of the Feeds and inserts any new entries found.
 """
 from optparse import make_option
 from django.core.management.base import BaseCommand

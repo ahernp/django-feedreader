@@ -12,7 +12,7 @@ setup(
     license = 'BSD License',
     description = 'A simple Django app to aggregate RSS feeds.',
     long_description = README,
-    url = 'http://github.com/ahernp/django-feedreader/',
+    url = 'https://github.com/ahernp/django-feedreader',
     author = 'Paul Ahern',
     author_email = 'ahernp@ahernp.com',
     classifiers = [
