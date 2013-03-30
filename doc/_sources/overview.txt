@@ -1,0 +1,53 @@
+.. _overview:
+
+
+********
+Overview
+********
+
+.. _Feedreader:
+
+Feedreader
+==========
+
+Django Feedreader
+is a web application built using the `Django <http://www.djangoproject.org/>`_ framework.
+It enables users to aggregate the contents of RSS feeds.
+
+
+.. todo:: Allow import and export of feed details in an XML format.
+
+.. index:: Sample Feedreader Output
+
+Sample Output
+-------------
+
+.. _image-home-page:
+.. image:: _static/feed_output.png
+    :alt: sample feedreader output
+
+
+.. index:: Release Notes (Overview)
+
+.. _release_notes:
+
+Release Notes
+=============
+
+Version 0.5
+-----------
+
+Released on 30 March 2013.
+
+*  Show feed contents.
+*  Manage Feeds using Django admin pages.
+
+
+.. index:: To Do List (Overview)
+
+.. _todo_list:
+
+To Do List
+==========
+
+.. todolist::

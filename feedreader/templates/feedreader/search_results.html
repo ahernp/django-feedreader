@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    <style type="text/css">
+        #content {width: 80%;}
+    </style>
+{% endblock %}
+
+{% block title %}{{ site.domain }}: Feed Reader Search Results{% endblock %}
+
+{% block nav_path %}
+    <a href="/">{{ site.domain }}</a> &rsaquo; 
+    <a href="{% url 'feedreader.views.feeds' %}">Feed Reader</a> &rsaquo; 
+    Search Results
+{% endblock %}
+
+{% block content %}
+    <div style="padding-top:0.5em;">
+        <form name="input" action="{% url 'feedreader_search_entries' %}" method="get" style="padding-right:1em;">
+            New Search:
+            <input type="text" tabindex="2" size="10"
+                {% if feedreader_search_string %}style="color:#000;"{% else %}style="color:#ccc;"{% endif %}
+                name="feedreader_search_string" title="Search Feeds" class="text" 
+                value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
+        </form> 
+    </div>
+    
+    {% if too_small %}
+        <h1>No Search Results</h1>
+        <p>Search string "{{ feedreader_search_string }}" too small.</p>
+    {% else %}
+        <h1>Search Results for "{{ feedreader_search_string }}"</h1>
+        <h2>Title Matches</h2> 
+        {% if title_matches %}
+            <ol>
+            {% for entry in title_matches %}
+                <li>
+                    <a href="{{ entry.link }}" title="{{ entry.description }}">{{ entry.title }}</a>
+                    ({{ entry.feed.title }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago)
+                </li>
+            {% endfor %}
+            </ol>
+        {% else %}
+            <p>No matching titles found.</p>
+        {% endif %}
+        <h2>Description Matches</h2> 
+        {% if description_matches %}
+            <ol>
+            {% for entry in description_matches %}
+                <li>
+                    <a href="{{ entry.link }}">{{ entry.title }}</a>
+                    ({{ entry.feed.title }}; {{ entry.published_time}}; {{ entry.published_time|timesince }} ago):
+                    <p>{{ entry.description|safe }}</p>
+                </li>
+            {% endfor %}
+            </ol>
+        {% else %}
+            <p>No matching content found.</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

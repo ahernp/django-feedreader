@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+
+{% load admin_urls %}
+
+{% block extra_head %}
+    <style type="text/css">
+        #menu {margin-bottom: 1em;}
+        .mark_read_request {font-weight:bold;}
+        .poll_request {text-decoration:none;}
+        p.feedreader_menu {font-size: small; margin: 0;}
+        p.feedreader_subtitle {font-size: small;}
+        #content {width: 80%;}
+        .feed_entry {padding: 0.2em 0.5em; margin: 0.5em; border: 1px solid #046; border-radius: 1em;}
+        .read_entry {color:#888;}
+        #spinner {position: fixed; top: 50%; left: 50%; margin-top: -64px; margin-left: -64px; z-index: 3;}
+    </style>
+    <script type="text/javascript">
+        function get_feedreader_filter(elem, current_filter) {
+            if ($(elem).attr('id') == 'show_read') {
+                var feedreader_filter = current_filter.group_id+'&'+current_filter.feed_id;
+                if ($(elem).prop('checked')) {
+                    feedreader_filter +='&show_read_flag=1';
+                };
+            }
+            else {
+                var group_id = $(elem).parents('div.group').attr('id');
+                var feed_id = $(elem).parents('div.feed').attr('id');
+                var feedreader_filter = '';
+                if (group_id != null) {
+                    feedreader_filter = group_id;
+                }
+                if (feed_id != null) {
+                    if (feedreader_filter != '') {feedreader_filter += '&';}
+                    feedreader_filter += feed_id;
+                };
+                if ($(elem).hasClass('poll_request')) {
+                    if (feedreader_filter != '') {feedreader_filter += '&';}
+                    feedreader_filter += 'poll_flag=1';
+                };
+                if ($(elem).hasClass('mark_read_request')) {
+                    if (feedreader_filter != '') {feedreader_filter += '&';}
+                    feedreader_filter += 'mark_read_flag=1';
+                };
+                if ($('#show_read').prop('checked')) {
+                    if (feedreader_filter != '') {feedreader_filter += '&';}
+                    feedreader_filter +='show_read_flag=1';
+                };
+            }
+            return feedreader_filter
+        };
+        function populate_unread_nums() {
+            $.get('/feedreader/get_num_unread/',
+                function(json) {
+                    $.each(json, function(key, value) {
+                        if (value == 0) {
+                            $('#'+key).text('');
+                        }
+                        else {
+                            $('#'+key).text('('+value+')');
+                        }
+                    });
+                }
+            )
+        };
+        $(function() {
+            var current_filter = {
+                group_id: 'group_id=0',
+                feed_id: 'feed_id=0'
+            };
+            $('a.load_request').click(function(e) { // Disable links
+                e.preventDefault();
+            });
+            $('#accordion').accordion({heightStyle: 'content', collapsible: true, active: false});
+            $('.ui-accordion-content').css({'padding': '1em'});
+            $('#spinner').hide().ajaxStart(function() {$(this).show();})
+                                .ajaxStop(function() {$(this).hide();});
+            $('.load_request').click(function() {
+                var request_elem = this;
+                $('#entries').load('/feedreader/get_feeds/',
+                    get_feedreader_filter(this, current_filter),
+                    function () {
+                        populate_unread_nums();
+                        if ($(request_elem).attr('id') != 'show_read') {
+                            group_id = $(request_elem).parents('div.group').attr('id');
+                            if (group_id == null) {group_id = 'group_id=0';}
+                            current_filter.group_id = group_id;
+                            feed_id = $(request_elem).parents('div.feed').attr('id');
+                            if (feed_id == null) {feed_id = 'feed_id=0';}
+                            current_filter.feed_id = feed_id;
+                        }
+                    }
+                )
+            });
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                    // Has reached bottom of the page
+                    $('#entries > .feed_entry').not('.read_entry').addClass('read_entry');
+                    var entry_id = $('#entries > .feed_entry').last().attr('id');
+                    var feedreader_filter = current_filter.group_id+'&'+current_filter.feed_id+'&'+entry_id;
+                    if ($('#show_read').prop('checked')) {
+                        feedreader_filter += '&show_read_flag=1';
+                    };
+                    if (entry_id == null) {entry_id = '';}
+                    $.get('/feedreader/get_feeds/',
+                        feedreader_filter,
+                        function (data) {
+                            $('#entries').append(data);
+                            populate_unread_nums();
+                        }
+                    );
+                }
+            });
+            populate_unread_nums();
+        });
+    </script>
+{% endblock %}
+
+{% block title %}{{ site.domain }}: Feed Reader{% endblock %}
+
+{% block nav_path %}<a href="/">{{ site.domain }}</a> &rsaquo; Feed Reader{% endblock %}
+
+{% block content %}
+    <h1>Feed Reader</h1>
+    <div id="menu" style="width:20%;float:left">
+        <p>
+            <input id="show_read" 
+                class="load_request"
+                type="checkbox" 
+                name="Show Stories Already Read">
+            Show Read Stories
+        </p>
+        <h3>
+            <a class="load_request" 
+                href="{% url 'feedreader.views.feeds' %}"
+                title="Show All feeds">
+                All stories
+            </a>
+            <span 
+                id="unread_total"
+                title="Mark as Read"
+                class="load_request mark_read_request">
+            </span>
+        </h3>
+        <div id="accordion">
+            {% for group in groups %}
+                <h3>
+                    {{ group.name }} 
+                    <span 
+                        id="unread_group_button{{group.id}}" 
+                        class="load_request mark_read">
+                    </span>
+                </h3>
+                <div id="group_id={{ group.id }}" class="group">
+                    <p class="feedreader_menu">
+                        <a class="load_request" 
+                            href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}"
+                            title="Show All {{ group.name }} feeds">
+                            All {{ group.name }}
+                        </a>
+                        <a class="load_request poll_request" 
+                            href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}&poll_flag=1"
+                            title="Poll All {{ group.name }} feeds">
+                            &darr;
+                        </a>
+                        <span id="unread_group{{group.id}}"
+                            class="load_request mark_read_request"
+                            title="Mark as Read">
+                        </span>
+                    <p>
+                    {% for feed in group.feed_set.all %}
+                        <div id="feed_id={{ feed.id }}" class="feed">
+                            <p class="feedreader_menu">
+                                <a class="load_request" 
+                                    href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
+                                    title="{{ feed.description }}">
+                                    {{ feed.title }}
+                                </a>
+                                <a class="load_request poll_request" 
+                                    href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}&poll_flag=1" 
+                                    title="Poll {{ feed.title }} feed">
+                                    &darr;
+                                </a>
+                                <span id="unread_feed{{feed.id}}"
+                                    class="load_request mark_read_request"
+                                    title="Mark as Read">
+                                </span>
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div> <!-- accordion -->
+        {% for feed in no_group %}
+            <div id="feed_id={{ feed.id }}" class="feed">
+                <p>
+                    <a class="load_request"
+                        href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
+                        title="{{ feed.description }}">
+                        {{ feed.title }}
+                    </a>
+                    <a class="load_request poll_request" 
+                        href="{% url 'feedreader.views.feeds' %}?feed=_id{{ feed.id }}&poll_flag=1" 
+                        title="Poll {{ feed.title }} feed">
+                        &darr;
+                    </a>
+                    <span id="unread_feed{{feed.id}}"
+                        class="load_request mark_read_request"
+                        title="Mark as Read">
+                    </span>
+                </p>
+            </div>
+        {% endfor %}
+        <form name="input" action="{% url 'feedreader_search_entries' %}" method="get" style="padding-right:1em;">
+            <input type="text" tabindex="2" size="10"
+                style="color:{% if feedreader_search_string %}#000;{% else %}#ccc{% endif %};"
+                name="feedreader_search_string" title="Search Feeds" class="text" 
+                value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
+        </form> 
+    </div>
+    <div id="entries" style="width:75%;float:left;padding-left:1em;">
+        {% include "feedreader/feed_entries.html" %}
+    </div>
+    <div style="clear:both"></div>
+    <div id="spinner">
+        <img src="{{ STATIC_URL }}spinner.gif" alt="Please wait" title="Please Wait" />
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <a href="/admin/feedreader/feed/" title="Edit Feeds">Edit</a>
+    <a href="/accounts/logout">Logout</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+        {% if entries_header %}<h2>{{ entries_header }}</h2>{% endif %}
+        {% if entries %}
+            {% for entry in entries %}
+                <div id="entry_id={{ entry.id }}" class="feed_entry {% if entry.read_flag %}read_entry{% endif %}">
+                    <h3><a href="{{ entry.link }}">{{ entry.title }}</a></h3>
+                    <p class="feedreader_subtitle">
+                        from 
+                        <a href="{{ entry.feed.link }}" title="{{ entry.feed.description }}">
+                            {{ entry.feed.title|safe }}
+                        </a>
+                        on {{ entry.published_time|date:"d M Y" }} ({{ entry.published_time|timesince }} ago)
+                    </p>
+                    <p>{{ entry.description|safe }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% if entries_header %}
+                <p>
+                    No
+                    {% if show_read_flag %}{% else %}unread{% endif %} 
+                    stories found
+                </p>
+            {% endif %}
+        {% endif %}

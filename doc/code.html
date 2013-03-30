@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Code &mdash; Feedreader 0.5.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Feedreader 0.5.0 documentation" href="index.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="code">
+<span id="id1"></span><h1>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="models">
+<span id="id2"></span><h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-feedreader.models"></span><dl class="class">
+<dt id="feedreader.models.Entry">
+<em class="property">class </em><tt class="descclassname">feedreader.models.</tt><tt class="descname">Entry</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.models.Entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed entry information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Fields :</th><td class="field-body"><dl class="first last docutils">
+<dt>feed <span class="classifier-delimiter">:</span> <span class="classifier">ForeignKey</span></dt>
+<dd><p class="first last">Feed this entry is a part of.</p>
+</dd>
+<dt>title <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">Title of entry.</p>
+</dd>
+<dt>link <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">URL of entry.</p>
+</dd>
+<dt>description <span class="classifier-delimiter">:</span> <span class="classifier">text</span></dt>
+<dd><p class="first last">Description of entry.</p>
+</dd>
+<dt>updated_time <span class="classifier-delimiter">:</span> <span class="classifier">date_time</span></dt>
+<dd><p class="first last">When entry was last updated.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="feedreader.models.Feed">
+<em class="property">class </em><tt class="descclassname">feedreader.models.</tt><tt class="descname">Feed</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.models.Feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feed information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Fields :</th><td class="field-body"><dl class="first last docutils">
+<dt>title <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">Title of feed.</p>
+</dd>
+<dt>xml_url <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">URL of xml feed.</p>
+</dd>
+<dt>link <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">URL of feed site.</p>
+</dd>
+<dt>description <span class="classifier-delimiter">:</span> <span class="classifier">text</span></dt>
+<dd><p class="first last">Description of feed.</p>
+</dd>
+<dt>updated_time <span class="classifier-delimiter">:</span> <span class="classifier">date_time</span></dt>
+<dd><p class="first last">When feed was last updated.</p>
+</dd>
+<dt>last_polled_time <span class="classifier-delimiter">:</span> <span class="classifier">date_time</span></dt>
+<dd><p class="first last">When feed was last polled.</p>
+</dd>
+<dt>group <span class="classifier-delimiter">:</span> <span class="classifier">ForeignKey</span></dt>
+<dd><p class="first last">Group this feed is a part of.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="feedreader.models.Group">
+<em class="property">class </em><tt class="descclassname">feedreader.models.</tt><tt class="descname">Group</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.models.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group of feeds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Fields :</th><td class="field-body"><dl class="first last docutils">
+<dt>name <span class="classifier-delimiter">:</span> <span class="classifier">char</span></dt>
+<dd><p class="first last">Name of group.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="feedreader.models.Options">
+<em class="property">class </em><tt class="descclassname">feedreader.models.</tt><tt class="descname">Options</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.models.Options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Options controlling feed reader behavior</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Fields :</th><td class="field-body"><dl class="first last docutils">
+<dt>number_initially_displayed <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last">Number of entries, from all feeds, initially displayed on webpage.</p>
+</dd>
+<dt>number_additionally_displayed <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last">Number of entries added to displayed results when scrolling down.</p>
+</dd>
+<dt>max_entries_saved <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last">Maximum number of entries to store for each feed.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="views">
+<span id="id3"></span><h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-feedreader.views"></span><dl class="function">
+<dt id="feedreader.views.ajax_get_feeds">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">ajax_get_feeds</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.views.ajax_get_feeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get feed contents</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="feedreader.views.ajax_get_num_unread">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">ajax_get_num_unread</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.views.ajax_get_num_unread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count numbers of unread entries</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="feedreader.views.build_context">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">build_context</tt><big>(</big><em>get</em><big>)</big><a class="headerlink" href="#feedreader.views.build_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build common context dictionary</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="feedreader.views.feeds">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">feeds</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.views.feeds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show most recent feed contents on page</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="feedreader.views.search_entries">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">search_entries</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#feedreader.views.search_entries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple string search.</p>
+<p>Display entries with titles and/or descriptions which contain the string searched for.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="forms">
+<span id="id4"></span><h2>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-feedreader.forms"></span><dl class="class">
+<dt id="feedreader.forms.StringSearchForm">
+<em class="property">class </em><tt class="descclassname">feedreader.forms.</tt><tt class="descname">StringSearchForm</tt><big>(</big><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.util.ErrorList'&gt;</em>, <em>label_suffix=u':'</em>, <em>empty_permitted=False</em><big>)</big><a class="headerlink" href="#feedreader.forms.StringSearchForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow user to enter a string to search the for matching entries.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-feedreader.utils">
+<span id="utilities"></span><span id="id5"></span><h2>Utilities<a class="headerlink" href="#module-feedreader.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="feedreader.utils.poll_feed">
+<tt class="descclassname">feedreader.utils.</tt><tt class="descname">poll_feed</tt><big>(</big><em>db_feed</em>, <em>verbose=False</em><big>)</big><a class="headerlink" href="#feedreader.utils.poll_feed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read through a feed looking for new entries.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Code</a><ul>
+<li><a class="reference internal" href="#models">Models</a></li>
+<li><a class="reference internal" href="#views">Views</a></li>
+<li><a class="reference internal" href="#forms">Forms</a></li>
+<li><a class="reference internal" href="#module-feedreader.utils">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Overview</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/code.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >previous</a> |</li>
+        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Paul Ahern.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
