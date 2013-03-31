@@ -27,7 +27,7 @@ Quick start
           'feedreader',
       )
 
-2. Include the polls URLconf in your project urls.py like this::
+2. Include the feedreader URLconf in your project urls.py like this::
 
       url(r'^feedreader/', include('feedreader.urls')),
 
@@ -45,5 +45,5 @@ Quick start
 Dependencies
 ------------
 
-* [Django 1.5](https://pypi.python.org/pypi/Django/1.5.1)
+* [Django 1.5.1](https://pypi.python.org/pypi/Django/1.5.1)
 * [feedparser](https://pypi.python.org/pypi/feedparser)
