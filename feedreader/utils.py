@@ -1,7 +1,10 @@
 import feedparser
+import pytz
 from datetime import datetime
 from time import mktime
-from django.utils.html import escape
+from django.conf import settings
+from django.utils import html
+from django.utils import timezone
 from feedreader.models import Entry, Options
 
 import logging
@@ -26,6 +29,7 @@ def poll_feed(db_feed, verbose=False):
         return
     if hasattr(parsed.feed, 'published_parsed'):
         published_time = datetime.fromtimestamp(mktime(parsed.feed.published_parsed))
+        published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
         if db_feed.published_time and db_feed.published_time >= published_time:
             return
         db_feed.published_time = published_time
@@ -37,15 +41,15 @@ def poll_feed(db_feed, verbose=False):
                 print(msg)
             return
     if parsed.feed.title_detail.type == 'text/plain':
-        db_feed.title = escape(parsed.feed.title)
+        db_feed.title = html.escape(parsed.feed.title)
     else:
         db_feed.title = parsed.feed.title
     db_feed.link = parsed.feed.link
     if parsed.feed.description_detail.type == 'text/plain':
-        db_feed.description = escape(parsed.feed.description)
+        db_feed.description = html.escape(parsed.feed.description)
     else:
         db_feed.description = parsed.feed.description
-    db_feed.last_polled_time = datetime.now()
+    db_feed.last_polled_time = timezone.now()
     db_feed.save()
     if verbose:
         print('%d entries to process in %s' % (len(parsed.entries), db_feed.title))
@@ -72,17 +76,18 @@ def poll_feed(db_feed, verbose=False):
         if created:
             if hasattr(entry, 'published_parsed'):
                 published_time = datetime.fromtimestamp(mktime(entry.published_parsed))
-                now = datetime.now()
+                published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+                now = timezone.now()
                 if published_time > now:
                     published_time = now
                 db_entry.published_time = published_time
             if entry.title_detail.type == 'text/plain':
-                db_entry.title = escape(entry.title)
+                db_entry.title = html.escape(entry.title)
             else:
                 db_entry.title = entry.title
             # Lots of entries are missing descrtion_detail attributes. Escape their content by default
             if hasattr(entry, 'description_detail') and entry.description_detail.type != 'text/plain':
                 db_entry.description = entry.description
             else:
-                db_entry.description = escape(entry.description)
+                db_entry.description = html.escape(entry.description)
             db_entry.save()
