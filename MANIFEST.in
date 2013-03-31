@@ -3,4 +3,5 @@ include README.markdown
 recursive-include feedreader/templates *
 recursive-include feedreader/management *
 recursive-include feedreader/fixtures *
+recursive-include feedreader/static *
 recursive-include doc *
