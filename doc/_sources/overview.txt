@@ -12,7 +12,7 @@ Feedreader
 
 Django Feedreader
 is a web application built using the 
-`Django <http://www.djangoproject.org/>`_ framework.
+`Django <http://www.djangoproject.com/>`_ framework.
 It enables users to aggregate the contents of RSS feeds.
 
 The link, title and descriptions of each feed and recent feed entries 
@@ -22,7 +22,6 @@ A `poll_fields <code.html#commands>`_
 Django command is included which can be run on a regular basis using 
 ``cron`` or some other scheduling mechanism to keep the local database 
 of recent entries up to date.
-
 
 .. todo:: Add import and export of feed details in an XML format.
 
@@ -35,6 +34,17 @@ Sample Output
 .. image:: _static/feed_output.png
     :alt: sample feedreader output
 
+.. index:: Requirements
+
+Requirements
+------------
+
+Feedreader was developed and tested using:
+
+* `Django 1.5.1 <https://www.djangoproject.com/weblog/2013/mar/28/django-151/>`_
+* `Feedparser 5.1.3 <https://pypi.python.org/pypi/feedparser/>`_
+* `JQuery 1.8.1 <http://jquery.com/>`_
+* `JQuery UI 1.10.2 <http://jqueryui.com/>`_
 
 .. index:: Usage
 
@@ -49,7 +59,7 @@ In the image above:
 
 1. Menu controlling what output is displayed.
 
-2. Most recent Feed entries.
+2. Most recent entries/stories.
 
 3. Toggle between showing all entries or only those which are unread.
 
@@ -94,8 +104,15 @@ on scrolling tot he bottom of the page are set in the
 Release Notes
 =============
 
-Version 0.5
------------
+Version 0.5.1
+-------------
+
+Released on 1 April 2013.
+
+* Use timezone-aware timestamps.
+
+Version 0.5.0
+-------------
 
 Released on 30 March 2013.
 
