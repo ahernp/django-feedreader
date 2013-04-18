@@ -118,6 +118,21 @@ def ajax_get_feeds(request):
 
 
 @login_required
+def ajax_mark_entry_read(request):
+    """Mark entry as read"""
+    entry_id = request.GET.get('entry_id', None)
+    if entry_id:
+        try:
+            entry = Entry.objects.get(pk=entry_id)
+            if entry.read_flag == False:
+                entry.read_flag = True
+                entry.save()
+        except Entry.DoesNotExist:
+            pass
+    return HttpResponse('')
+
+
+@login_required
 def feeds(request):
     """Show most recent feed contents on page"""
     context = build_context(request.GET)

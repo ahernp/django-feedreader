@@ -109,6 +109,16 @@
                 }
             });
             populate_unread_nums();
+            $('.feed_entry').mousedown(function() {
+                // Mark entry as read on click
+                var entry_id = $(this).attr('id');
+                var request_elem = this;
+                $.ajax({url:'/feedreader/mark_entry_read/?'+entry_id,
+                    success:function(){
+                        $(request_elem).not('.read_entry').addClass('read_entry');
+                        populate_unread_nums();
+                    }});
+            });
         });
     </script>
 {% endblock %}
