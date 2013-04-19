@@ -11,6 +11,7 @@
         .feed_entry {padding: 0.2em 0.5em; margin: 0.5em; border: 1px solid #046; border-radius: 1em;}
         .read_entry {color:#888;}
         #spinner {position: fixed; top: 50%; left: 50%; margin-top: -64px; margin-left: -64px; z-index: 3;}
+        #import_opml_label {color:#046; text-decoration:underline; cursor:pointer;}
     </style>
     <script type="text/javascript">
         function get_feedreader_filter(elem, current_filter) {
@@ -118,6 +119,9 @@
                         $(request_elem).not('.read_entry').addClass('read_entry');
                         populate_unread_nums();
                     }});
+            });
+            $('#import_opml_label').click(function() {
+                $('#import_opml_body').toggle('slow', function() {});
             });
         });
     </script>
@@ -235,6 +239,17 @@
 {% endblock %}
 
 {% block footer %}
-    <a href="/admin/feedreader/feed/" title="Edit Feeds">Edit</a>
-    <a href="/accounts/logout">Logout</a>
+    <div id="import_opml_body" style="display: none">
+        <form enctype="multipart/form-data" method="post" action="import_opml/">
+            {% csrf_token %}
+            <input type="submit" value="Import" id="import"/>
+            {{ import_form.opml_file }}
+        </form>
+    </div>
+    <p>
+        <a href="/admin/feedreader/feed/" title="Edit Feeds">Edit</a>.
+        <span id="import_opml_label">Import</span>;
+        <a href="export_opml" title="Export RSS Feed Subscriptions as OPML file">Export</a>;
+        <a href="/accounts/logout">Logout</a>.
+    </p>
 {% endblock %}

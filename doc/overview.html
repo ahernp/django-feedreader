@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview &mdash; Feedreader 0.5.0 documentation</title>
+    <title>Overview &mdash; Feedreader 0.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Feedreader 0.5.0 documentation" href="index.html" />
+    <link rel="top" title="Feedreader 0.7.0 documentation" href="index.html" />
     <link rel="next" title="Code" href="code.html" />
     <link rel="prev" title="Welcome to Feedreader’s documentation!" href="index.html" /> 
   </head>
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to Feedreader’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Feedreader 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -68,16 +68,12 @@ are saved in the database.</p>
 Django command is included which can be run on a regular basis using
 <tt class="docutils literal"><span class="pre">cron</span></tt> or some other scheduling mechanism to keep the local database
 of recent entries up to date.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Add import and export of feed details in an XML format.</p>
-</div>
 <div class="section" id="sample-output">
-<span id="index-1"></span><h3>Sample Output<a class="headerlink" href="#sample-output" title="Permalink to this headline">¶</a></h3>
+<span id="index-0"></span><h3>Sample Output<a class="headerlink" href="#sample-output" title="Permalink to this headline">¶</a></h3>
 <img alt="sample feedreader output" id="image-sample-output" src="_images/feed_output.png" />
 </div>
 <div class="section" id="requirements">
-<span id="index-2"></span><h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<span id="index-1"></span><h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
 <p>Feedreader was developed and tested using:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.djangoproject.com/weblog/2013/mar/28/django-151/">Django 1.5.1</a></li>
@@ -87,7 +83,7 @@ of recent entries up to date.</p>
 </ul>
 </div>
 <div class="section" id="usage">
-<span id="index-3"></span><h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
+<span id="index-2"></span><h3>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h3>
 <img alt="annotated feedreader output" id="image-annotated-output" src="_images/annotated_output.png" />
 <p>In the image above:</p>
 <ol class="arabic simple">
@@ -100,13 +96,15 @@ Clicking on this number marks them all as read.</li>
 <li>Accordion of feed groups.
 As well as the group name each button shows the number of unread
 entries.</li>
-<li>Current group. Shows the feed names.
+<li>Feed group. Shows the feed names.
 These can be individually selected.
 The down-arrows can be clicked to poll an individual feed
 or all those in the group.</li>
 <li>Feeds not in any group.</li>
 <li>String search feed and entry text.</li>
 <li>Link to Django Admin.</li>
+<li>Import feeds in OPML xml format.</li>
+<li>Export feeds in OPML xml format.</li>
 </ol>
 <p>In addition to explicitly marking sets of entries as read,
 scrolling to the end of the page causes all of the unread entries
@@ -122,7 +120,14 @@ on scrolling tot he bottom of the page are set in the
 </div>
 </div>
 <div class="section" id="release-notes">
-<span id="index-4"></span><span id="id3"></span><h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<span id="index-3"></span><span id="id3"></span><h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="version-0-7-0">
+<h3>Version 0.7.0<a class="headerlink" href="#version-0-7-0" title="Permalink to this headline">¶</a></h3>
+<p>Released on 19 April 2013.</p>
+<ul class="simple">
+<li>Added options to import and export feeds in OPML xml format.</li>
+</ul>
+</div>
 <div class="section" id="version-0-6-0">
 <h3>Version 0.6.0<a class="headerlink" href="#version-0-6-0" title="Permalink to this headline">¶</a></h3>
 <p>Released on 18 April 2013.</p>
@@ -147,12 +152,7 @@ on scrolling tot he bottom of the page are set in the
 </div>
 </div>
 <div class="section" id="to-do-list">
-<span id="todo-list"></span><span id="index-5"></span><h2>To Do List<a class="headerlink" href="#to-do-list" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Add import and export of feed details in an XML format.</p>
-</div>
-<p class="todo-source">(The <a class="reference internal" href="#index-0"><em>original entry</em></a> is located in  /home/ahernp/Documents/ahernp.com/site/doc/django-feedreader/overview.rst, line 26.)</p>
+<span id="todo-list"></span><span id="index-4"></span><h2>To Do List<a class="headerlink" href="#to-do-list" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -172,6 +172,7 @@ on scrolling tot he bottom of the page are set in the
 </ul>
 </li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a><ul>
+<li><a class="reference internal" href="#version-0-7-0">Version 0.7.0</a></li>
 <li><a class="reference internal" href="#version-0-6-0">Version 0.6.0</a></li>
 <li><a class="reference internal" href="#version-0-5-1">Version 0.5.1</a></li>
 <li><a class="reference internal" href="#version-0-5-0">Version 0.5.0</a></li>
@@ -225,7 +226,7 @@ on scrolling tot he bottom of the page are set in the
         <li class="right" >
           <a href="index.html" title="Welcome to Feedreader’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Feedreader 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

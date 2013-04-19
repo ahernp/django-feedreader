@@ -2,8 +2,6 @@ import feedparser
 import pytz
 from datetime import datetime
 from time import mktime
-from xml.etree import ElementTree
-from xml.dom import minidom
 from django.conf import settings
 from django.utils import html
 from django.utils import timezone
@@ -93,60 +91,3 @@ def poll_feed(db_feed, verbose=False):
             else:
                 db_entry.description = html.escape(entry.description)
             db_entry.save()
-
-def opml_export(filename):
-    """Write out all the feed subscriptions in OPML format."""
-    filename = '/home/ahernp/Desktop/' + filename
-    root = ElementTree.Element('opml')
-    root.set('version', '2.0')
-    head = ElementTree.SubElement(root, 'head')
-    title = ElementTree.SubElement(head, 'title')
-    title.text = 'Feedreader Feeds'
-    body = ElementTree.SubElement(root, 'body')
-
-    feeds = Feed.objects.filter(group=None)
-    for feed in feeds:
-        feed_xml = ElementTree.SubElement(body,
-                              'outline',
-                              {'type': 'rss',
-                               'text': feed.title,
-                               'xmlUrl': feed.xml_url,
-                               }
-        )
-
-    groups = Group.objects.all()
-    for group in groups:
-        group_xml = ElementTree.SubElement(body,
-                               'outline',
-                               {'text': group.name,
-                                }
-        )
-        feeds = Feed.objects.filter(group=group)
-        for feed in feeds:
-            feed_xml = ElementTree.SubElement(group_xml,
-                                  'outline',
-                                  {'type': 'rss',
-                                   'text': feed.title,
-                                   'xmlUrl': feed.xml_url,
-                                   }
-            )
-    
-    file = open(filename, 'w')
-    file.write(minidom.parseString(ElementTree.tostring(root, 'utf-8')).toprettyxml(indent="  "))
-    file.close()
-
-def opml_import(filename):
-    """Import feed subscriptions in OPML format."""
-    with open(filename, 'rt') as file:
-        tree = ElementTree.parse(file)
-    group = None
-    for node in tree.iter('outline'):
-        name = node.attrib.get('text')
-        url = node.attrib.get('xmlUrl')
-        if name and url:
-            try:
-                feed = Feed.objects.get(xml_url=url)
-            except Feed.DoesNotExist:
-                Feed.objects.create(xml_url=url, group=group)
-        else:
-            group, created = Group.objects.get_or_create(name=name)

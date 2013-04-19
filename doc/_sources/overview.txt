@@ -23,8 +23,6 @@ Django command is included which can be run on a regular basis using
 ``cron`` or some other scheduling mechanism to keep the local database 
 of recent entries up to date.
 
-.. todo:: Add import and export of feed details in an XML format.
-
 .. index:: Sample Feedreader Output
 
 Sample Output
@@ -71,7 +69,7 @@ In the image above:
    As well as the group name each button shows the number of unread 
    entries.
 
-6. Current group. Shows the feed names. 
+6. Feed group. Shows the feed names. 
    These can be individually selected.
    The down-arrows can be clicked to poll an individual feed 
    or all those in the group.
@@ -81,6 +79,10 @@ In the image above:
 8. String search feed and entry text.
 
 9. Link to Django Admin.
+
+10. Import feeds in OPML xml format.
+
+11. Export feeds in OPML xml format.
 
 In addition to explicitly marking sets of entries as read, 
 scrolling to the end of the page causes all of the unread entries 
@@ -103,6 +105,13 @@ on scrolling tot he bottom of the page are set in the
 
 Release Notes
 =============
+
+Version 0.7.0
+-------------
+
+Released on 19 April 2013.
+
+* Added options to import and export feeds in OPML xml format.
 
 Version 0.6.0
 -------------

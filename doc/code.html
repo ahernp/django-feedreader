@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Code &mdash; Feedreader 0.5.0 documentation</title>
+    <title>Code &mdash; Feedreader 0.7.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.5.0',
+        VERSION:     '0.7.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Feedreader 0.5.0 documentation" href="index.html" />
+    <link rel="top" title="Feedreader 0.7.0 documentation" href="index.html" />
     <link rel="prev" title="Overview" href="overview.html" /> 
   </head>
   <body>
@@ -41,7 +41,7 @@
         <li class="right" >
           <a href="overview.html" title="Overview"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Feedreader 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -200,9 +200,21 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="feedreader.views.export_opml">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">export_opml</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#feedreader.views.export_opml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return feed subscriptions in OPML format.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="feedreader.views.feeds">
 <tt class="descclassname">feedreader.views.</tt><tt class="descname">feeds</tt><big>(</big><em>request</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#feedreader.views.feeds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show most recent feed contents on page</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="feedreader.views.import_opml">
+<tt class="descclassname">feedreader.views.</tt><tt class="descname">import_opml</tt><big>(</big><em>request</em><big>)</big><a class="headerlink" href="#feedreader.views.import_opml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import feed subscriptions in OPML format</p>
 </dd></dl>
 
 <dl class="function">
@@ -216,6 +228,12 @@
 <div class="section" id="forms">
 <span id="id4"></span><h2>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-feedreader.forms"></span><dl class="class">
+<dt id="feedreader.forms.ImportOpmlFileForm">
+<em class="property">class </em><tt class="descclassname">feedreader.forms.</tt><tt class="descname">ImportOpmlFileForm</tt><big>(</big><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.util.ErrorList'&gt;</em>, <em>label_suffix=u':'</em>, <em>empty_permitted=False</em><big>)</big><a class="headerlink" href="#feedreader.forms.ImportOpmlFileForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load local OPML xml file from browser.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="feedreader.forms.StringSearchForm">
 <em class="property">class </em><tt class="descclassname">feedreader.forms.</tt><tt class="descname">StringSearchForm</tt><big>(</big><em>data=None</em>, <em>files=None</em>, <em>auto_id=u'id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.util.ErrorList'&gt;</em>, <em>label_suffix=u':'</em>, <em>empty_permitted=False</em><big>)</big><a class="headerlink" href="#feedreader.forms.StringSearchForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Allow user to enter a string to search the for matching entries.</p>
@@ -298,7 +316,7 @@
         <li class="right" >
           <a href="overview.html" title="Overview"
              >previous</a> |</li>
-        <li><a href="index.html">Feedreader 0.5.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Feedreader 0.7.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
