@@ -2,10 +2,12 @@ import feedparser
 import pytz
 from datetime import datetime
 from time import mktime
+from xml.etree.ElementTree import Element, SubElement, Comment, tostring
+from xml.dom import minidom
 from django.conf import settings
 from django.utils import html
 from django.utils import timezone
-from feedreader.models import Entry, Options
+from feedreader.models import Entry, Options, Group, Feed
 
 import logging
 logger = logging.getLogger('feedreader')
@@ -91,3 +93,49 @@ def poll_feed(db_feed, verbose=False):
             else:
                 db_entry.description = html.escape(entry.description)
             db_entry.save()
+
+def opml_export(filename):
+    """
+    Write out all the feed subscriptions in OPML format.
+    """
+    filename = '/home/ahernp/Desktop/' + filename
+    root = Element('opml')
+    root.set('version', '2.0')
+    head = SubElement(root, 'head')
+    title = SubElement(head, 'title')
+    title.text = 'Feedreader Feeds'
+    body = SubElement(root, 'body')
+    groups = Group.objects.all()
+    for group in groups:
+        group_xml = SubElement(body,
+                               'outline',
+                               {'text': group.name,
+#                                'title': group.name,
+                                }
+        )
+        feeds = Feed.objects.filter(group=group)
+        for feed in feeds:
+            feed_xml = SubElement(group_xml,
+                                  'outline',
+                                  {'type': 'rss',
+                                   'text': feed.title,
+#                                   'title': feed.title,
+                                   'xmlHtml': feed.xml_url,
+#                                   'htmlUrl': feed.link,
+                                   }
+            )
+    feeds = Feed.objects.filter(group=None)
+    for feed in feeds:
+        feed_xml = SubElement(body,
+                              'outline',
+                              {'type': 'rss',
+                               'text': feed.title,
+#                               'title': feed.title,
+                               'xmlHtml': feed.xml_url,
+#                               'htmlUrl': feed.link,
+                               }
+        )
+    
+    file = open(filename, 'w')
+    file.write(minidom.parseString(tostring(root, 'utf-8')).toprettyxml(indent="  "))
+    file.close()

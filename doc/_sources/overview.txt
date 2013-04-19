@@ -104,6 +104,13 @@ on scrolling tot he bottom of the page are set in the
 Release Notes
 =============
 
+Version 0.6.0
+-------------
+
+Released on 18 April 2013.
+
+* Mark entries as read when clicked.
+
 Version 0.5.1
 -------------
 
