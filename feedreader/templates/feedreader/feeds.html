@@ -71,8 +71,8 @@
             });
             $('#accordion').accordion({heightStyle: 'content', collapsible: true, active: false});
             $('.ui-accordion-content').css({'padding': '1em'});
-            $('#spinner').hide().ajaxStart(function() {$(this).show();})
-                                .ajaxStop(function() {$(this).hide();});
+            $(document).hide().ajaxStart(function() {$('#spinner').show();})
+                                .ajaxStop(function() {$('#spinner').hide();});
             $('.load_request').click(function() {
                 var request_elem = this;
                 $('#entries').load('/feedreader/get_feeds/',
