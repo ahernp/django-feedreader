@@ -242,8 +242,8 @@
     <div id="import_opml_body" style="display: none">
         <form enctype="multipart/form-data" method="post" action="import_opml/">
             {% csrf_token %}
-            <input type="submit" value="Import" id="import"/>
             {{ import_form.opml_file }}
+            <input type="submit" value="Import" id="import"/>
         </form>
     </div>
     <p>

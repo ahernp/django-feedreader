@@ -106,6 +106,13 @@ on scrolling tot he bottom of the page are set in the
 Release Notes
 =============
 
+Version 0.7.1
+-------------
+
+Released on 21 April 2013.
+
+* Use jQuery 2.0.0.
+
 Version 0.7.0
 -------------
 
