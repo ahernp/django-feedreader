@@ -61,6 +61,20 @@
                 }
             )
         };
+        function mark_read_on_click() {
+            $('.feed_entry').not('.click_read').not('.read_entry').mousedown(function() {
+                // Mark entry as read on click
+                var entry_id = $(this).attr('id');
+                var request_elem = this;
+                $.ajax({url:'/feedreader/mark_entry_read/?'+entry_id,
+                    success:function(){
+                        $(request_elem).not('.read_entry').addClass('read_entry');
+                        populate_unread_nums();
+                        mark_read_on_click();
+                    }});
+            });
+            $('.feed_entry').not('.click_read').addClass('mark_read');
+        };
         $(function() {
             var current_filter = {
                 group_id: 'group_id=0',
@@ -79,6 +93,7 @@
                     get_feedreader_filter(this, current_filter),
                     function () {
                         populate_unread_nums();
+                        mark_read_on_click();
                         if ($(request_elem).attr('id') != 'show_read') {
                             group_id = $(request_elem).parents('div.group').attr('id');
                             if (group_id == null) {group_id = 'group_id=0';}
@@ -105,21 +120,13 @@
                         function (data) {
                             $('#entries').append(data);
                             populate_unread_nums();
+                            mark_read_on_click();
                         }
                     );
                 }
             });
             populate_unread_nums();
-            $('.feed_entry').mousedown(function() {
-                // Mark entry as read on click
-                var entry_id = $(this).attr('id');
-                var request_elem = this;
-                $.ajax({url:'/feedreader/mark_entry_read/?'+entry_id,
-                    success:function(){
-                        $(request_elem).not('.read_entry').addClass('read_entry');
-                        populate_unread_nums();
-                    }});
-            });
+            mark_read_on_click();
             $('#import_opml_label').click(function() {
                 $('#import_opml_body').toggle('slow', function() {});
             });
