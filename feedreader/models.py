@@ -79,7 +79,7 @@ class Feed(models.Model):
         ordering = ['title']
 
     def __unicode__(self):
-        return self.title
+        return self.title or self.xml_url
 
     def num_unread(self):
         return len(Entry.objects.filter(feed=self, read=False))
