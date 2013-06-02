@@ -106,6 +106,13 @@ on scrolling tot he bottom of the page are set in the
 Release Notes
 =============
 
+Version 0.7.4
+-------------
+
+Released on 25 May 2013.
+
+* Allow for blank titles when creating Feed records.
+
 Version 0.7.3
 -------------
 

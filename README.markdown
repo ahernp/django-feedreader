@@ -11,7 +11,7 @@ Features
 * Locally stored entry link, title and description.
 * Show recent entries.
 * String search of locally stored data.
-* Uses Django admin to mamage feeds.
+* Uses Django admin to manage feeds.
 
 Detailed documentation is in the "docs" directory.
 These are available online 
