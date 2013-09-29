@@ -6,7 +6,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.markdown')).read()
 
 setup(
     name = 'django-feedreader',
-    version = '0.7.5',
+    version = '0.7.6',
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
@@ -28,7 +28,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-		'Django==1.5.1',
+		'Django==1.5.4',
 		'feedparser==5.1.3',
     ],
 )
