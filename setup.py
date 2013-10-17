@@ -30,5 +30,6 @@ setup(
     install_requires=[
 		'Django==1.5.4',
 		'feedparser==5.1.3',
+		'pytz==2013.7'
     ],
 )
