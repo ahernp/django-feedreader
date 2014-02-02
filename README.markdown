@@ -2,7 +2,7 @@
 Feedreader
 ==========
 
-Feedreader is a simple Django 1.5 app to aggregate RSS feeds.
+Feedreader is a simple Django 1.6 app to aggregate RSS feeds.
 
 Features
 --------
@@ -45,5 +45,5 @@ Quick start
 Dependencies
 ------------
 
-* [Django 1.5.4](https://pypi.python.org/pypi/Django/1.5.4)
+* [Django 1.6.1](https://pypi.python.org/pypi/Django/1.6.1)
 * [feedparser](https://pypi.python.org/pypi/feedparser)

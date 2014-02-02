@@ -151,9 +151,7 @@
         <h3>
             <a class="load_request" 
                 href="{% url 'feedreader.views.feeds' %}"
-                title="Show All feeds">
-                All stories
-            </a>
+                title="Show All feeds">All stories</a>
             <span 
                 id="unread_total"
                 title="Mark as Read"
@@ -173,14 +171,10 @@
                     <p class="feedreader_menu">
                         <a class="load_request" 
                             href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}"
-                            title="Show All {{ group.name }} feeds">
-                            All {{ group.name }}
-                        </a>
+                            title="Show All {{ group.name }} feeds">All {{ group.name }}</a>
                         <a class="load_request poll_request" 
                             href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}&poll_flag=1"
-                            title="Poll All {{ group.name }} feeds">
-                            &darr;
-                        </a>
+                            title="Poll All {{ group.name }} feeds">&darr;</a>
                         <span id="unread_group{{group.id}}"
                             class="load_request mark_read_request"
                             title="Mark as Read">
@@ -191,14 +185,10 @@
                             <p class="feedreader_menu">
                                 <a class="load_request" 
                                     href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
-                                    title="{{ feed.description|safe }}">
-                                    {{ feed.title }}
-                                </a>
+                                    title="{{ feed.description|safe }}">{{ feed.title }}</a>
                                 <a class="load_request poll_request" 
                                     href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}&poll_flag=1" 
-                                    title="Poll {{ feed.title|safe }} feed">
-                                    &darr;
-                                </a>
+                                    title="Poll {{ feed.title|safe }} feed">&darr;</a>
                                 <span id="unread_feed{{feed.id}}"
                                     class="load_request mark_read_request"
                                     title="Mark as Read">
@@ -214,14 +204,10 @@
                 <p>
                     <a class="load_request"
                         href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
-                        title="{{ feed.description|safe }}">
-                        {{ feed.title }}
-                    </a>
+                        title="{{ feed.description|safe }}">{{ feed.title }}</a>
                     <a class="load_request poll_request" 
                         href="{% url 'feedreader.views.feeds' %}?feed=_id{{ feed.id }}&poll_flag=1" 
-                        title="Poll {{ feed.title|safe }} feed">
-                        &darr;
-                    </a>
+                        title="Poll {{ feed.title|safe }} feed">&darr;</a>
                     <span id="unread_feed{{feed.id}}"
                         class="load_request mark_read_request"
                         title="Mark as Read">

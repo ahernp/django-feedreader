@@ -12,7 +12,7 @@ except ImportError:
 
 setup(
     name = 'django-feedreader',
-    version = '0.7.8',
+    version = '0.7.9',
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
@@ -33,7 +33,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-		'Django>=1.5.4',
+		'Django>=1.6.1',
 		'feedparser==5.1.3',
 		'pytz>=2013.7'
     ],

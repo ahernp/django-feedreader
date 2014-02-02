@@ -37,9 +37,9 @@ Sample Output
 Requirements
 ------------
 
-Feedreader was developed and tested using:
+Feedreader has been tested using:
 
-* `Django 1.5.1 <https://www.djangoproject.com/weblog/2013/mar/28/django-151/>`_
+* `Django 1.6.1 <https://pypi.python.org/pypi/Django/1.6.1>`_
 * `Feedparser 5.1.3 <https://pypi.python.org/pypi/feedparser/>`_
 * `JQuery 1.8.1 <http://jquery.com/>`_
 * `JQuery UI 1.10.2 <http://jqueryui.com/>`_
@@ -105,6 +105,42 @@ on scrolling tot he bottom of the page are set in the
 
 Release Notes
 =============
+
+Version 0.7.9
+-------------
+
+Released on 2 Feb 2014.
+
+* Removed trailing spaces in anchor text.
+
+Version 0.7.8
+-------------
+
+Released on 25 Dec 2013.
+
+* Stopped including tooltip of title in search results. Breaks when title contains quotes.
+
+Version 0.7.7
+-------------
+
+Released on 17 Oct 2013.
+
+* Third-party patch from `zsoldosp <https://github.com/zsoldosp>`_: 
+  Added missing dependency (pytz) to install_requires.
+
+Version 0.7.6
+-------------
+
+Released on 29 Sep 2013.
+
+* Added 'Top' local link to footer.
+
+Version 0.7.5
+-------------
+
+Released on 2 Jun 2013.
+
+* Fixed typos in documentation.
 
 Version 0.7.4
 -------------
