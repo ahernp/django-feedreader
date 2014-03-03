@@ -1,18 +1,11 @@
 import os
 from setuptools import setup
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.markdown')).read()
-
-# Convert Markdown README to reStructuredText for PyPi
-try:
-    import pandoc
-    long_description = pypandoc.convert(README , 'rst', format='md')
-except ImportError:
-    long_description = README
+long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 setup(
     name = 'django-feedreader',
-    version = '0.7.10',
+    version = '0.8.7',
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
