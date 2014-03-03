@@ -62,18 +62,18 @@
             )
         };
         function mark_read_on_click() {
-            $('.feed_entry').not('.click_read').not('.read_entry').mousedown(function() {
+            $('.feed_entry').not('.read_entry').mousedown(function() {
                 // Mark entry as read on click
                 var entry_id = $(this).attr('id');
                 var request_elem = this;
                 $.ajax({url:'/feedreader/mark_entry_read/?'+entry_id,
                     success:function(){
-                        $(request_elem).not('.read_entry').addClass('read_entry');
+                        $(request_elem).addClass('read_entry');
                         populate_unread_nums();
                         mark_read_on_click();
+                        $(request_elem).off('mousedown');
                     }});
             });
-            $('.feed_entry').not('.click_read').addClass('mark_read');
         };
         $(function() {
             var current_filter = {
@@ -108,7 +108,7 @@
             $(window).scroll(function() {
                 if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
                     // Has reached bottom of the page
-                    $('#entries > .feed_entry').not('.read_entry').addClass('read_entry');
+                    $('#entries > .feed_entry').not('.read_entry').addClass('read_entry').off('mousedown');
                     var entry_id = $('#entries > .feed_entry').last().attr('id');
                     var feedreader_filter = current_filter.group_id+'&'+current_filter.feed_id+'&'+entry_id;
                     if ($('#show_read').prop('checked')) {
