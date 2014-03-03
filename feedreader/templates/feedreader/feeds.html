@@ -108,21 +108,23 @@
             $(window).scroll(function() {
                 if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
                     // Has reached bottom of the page
-                    $('#entries > .feed_entry').not('.read_entry').addClass('read_entry').off('mousedown');
-                    var entry_id = $('#entries > .feed_entry').last().attr('id');
-                    var feedreader_filter = current_filter.group_id+'&'+current_filter.feed_id+'&'+entry_id;
-                    if ($('#show_read').prop('checked')) {
-                        feedreader_filter += '&show_read_flag=1';
-                    };
-                    if (entry_id == null) {entry_id = '';}
-                    $.get('/feedreader/get_feeds/',
-                        feedreader_filter,
-                        function (data) {
-                            $('#entries').append(data);
-                            populate_unread_nums();
-                            mark_read_on_click();
-                        }
-                    );
+                    if ($('#no_entries').length == 0) {
+	                    $('#entries > .feed_entry').not('.read_entry').addClass('read_entry').off('mousedown');
+	                    var entry_id = $('#entries > .feed_entry').last().attr('id');
+	                    var feedreader_filter = current_filter.group_id+'&'+current_filter.feed_id+'&'+entry_id;
+	                    if ($('#show_read').prop('checked')) {
+	                        feedreader_filter += '&show_read_flag=1';
+	                    };
+	                    if (entry_id == null) {entry_id = '';}
+	                    $.get('/feedreader/get_feeds/',
+	                        feedreader_filter,
+	                        function (data) {
+	                            $('#entries').append(data);
+	                            populate_unread_nums();
+	                            mark_read_on_click();
+	                        }
+	                    );
+	                }
                 }
             });
             populate_unread_nums();
