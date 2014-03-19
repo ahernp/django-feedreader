@@ -1,7 +1,10 @@
+from __future__ import absolute_import
+
 from django.conf.urls import patterns, url
-from feedreader.views import (feeds, search_entries, ajax_get_feeds,
-                              ajax_get_num_unread, ajax_mark_entry_read,
-                              import_opml, export_opml)
+
+from .views import (feeds, search_entries, ajax_get_feeds,
+                    ajax_get_num_unread, ajax_mark_entry_read,
+                    import_opml, export_opml)
 
 urlpatterns = patterns(
     '',

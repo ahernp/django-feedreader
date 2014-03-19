@@ -1,5 +1,8 @@
+from __future__ import absolute_import
+
 from django.contrib import admin
-from feedreader.models import Options, Group, Feed, Entry
+
+from .models import Options, Group, Feed, Entry
 
 
 class OptionsAdmin(admin.ModelAdmin):

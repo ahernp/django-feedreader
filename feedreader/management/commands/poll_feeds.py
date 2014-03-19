@@ -1,13 +1,18 @@
 """
 This command polls all of the Feeds and inserts any new entries found.
 """
+from __future__ import absolute_import
+
 from optparse import make_option
+
 from django.core.management.base import BaseCommand
-from feedreader.models import Feed, Entry, Options
-from feedreader.utils import poll_feed
+
+from .models import Feed, Entry, Options
+from .utils import poll_feed
 
 import logging
 logger = logging.getLogger('feedreader')
+
 
 class Command(BaseCommand):
     args = 'none'

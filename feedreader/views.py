@@ -1,14 +1,19 @@
+from __future__ import absolute_import
+
+import json
+
 from xml.etree import ElementTree
 from xml.dom import minidom
+
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.utils import simplejson
-from feedreader.forms import StringSearchForm, ImportOpmlFileForm
-from feedreader.models import Options, Group, Feed, Entry
-from feedreader.utils import poll_feed
+
+from .forms import StringSearchForm, ImportOpmlFileForm
+from .models import Options, Group, Feed, Entry
+from .utils import poll_feed
 
 
 def build_context(get):
@@ -110,7 +115,7 @@ def ajax_get_num_unread(request):
     feeds = Feed.objects.all()
     for feed in feeds:
         context['unread_feed%s' % (feed.id)] = Entry.objects.filter(feed=feed, read_flag=False).count()
-    return HttpResponse(simplejson.dumps(context), mimetype='application/json')
+    return HttpResponse(json.dumps(context), content_type='application/json')
 
 
 @login_required

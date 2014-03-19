@@ -1,11 +1,16 @@
-import feedparser
-import pytz
+from __future__ import absolute_import
+
 from datetime import datetime
 from time import mktime
+
+import feedparser
+import pytz
+
 from django.conf import settings
 from django.utils import html
 from django.utils import timezone
-from feedreader.models import Entry, Options, Group, Feed
+
+from .models import Entry, Options, Group, Feed
 
 import logging
 logger = logging.getLogger('feedreader')
