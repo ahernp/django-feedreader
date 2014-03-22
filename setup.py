@@ -5,7 +5,7 @@ long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).r
 
 setup(
     name = 'django-feedreader',
-    version = '0.8.7',
+    version = '0.9.0',
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
@@ -26,7 +26,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-		'Django>=1.6.1',
+		'Django==1.6.2',
 		'feedparser==5.1.3',
 		'pytz>=2013.7'
     ],

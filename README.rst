@@ -41,7 +41,7 @@ Quick start
 Dependencies
 ------------
 
--  `Django 1.6.1 <https://pypi.python.org/pypi/Django/1.6.1>`__
+-  `Django 1.6.2 <https://pypi.python.org/pypi/Django/1.6.2>`__
 -  `feedparser <https://pypi.python.org/pypi/feedparser>`__
 -  `pytz <https://pypi.python.org/pypi/pytz/2013.9>`__
 

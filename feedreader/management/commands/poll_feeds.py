@@ -7,8 +7,8 @@ from optparse import make_option
 
 from django.core.management.base import BaseCommand
 
-from .models import Feed, Entry, Options
-from .utils import poll_feed
+from ...models import Feed, Entry, Options
+from ...utils import poll_feed
 
 import logging
 logger = logging.getLogger('feedreader')

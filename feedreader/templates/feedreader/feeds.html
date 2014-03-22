@@ -152,7 +152,7 @@
         </p>
         <h3>
             <a class="load_request" 
-                href="{% url 'feedreader.views.feeds' %}"
+                href="{% url 'feedreader:feeds' %}"
                 title="Show All feeds">All stories</a>
             <span 
                 id="unread_total"
@@ -172,10 +172,10 @@
                 <div id="group_id={{ group.id }}" class="group">
                     <p class="feedreader_menu">
                         <a class="load_request" 
-                            href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}"
+                            href="{% url 'feedreader:feeds' %}?group_id={{ group.id }}"
                             title="Show All {{ group.name }} feeds">All {{ group.name }}</a>
                         <a class="load_request poll_request" 
-                            href="{% url 'feedreader.views.feeds' %}?group_id={{ group.id }}&poll_flag=1"
+                            href="{% url 'feedreader:feeds' %}?group_id={{ group.id }}&poll_flag=1"
                             title="Poll All {{ group.name }} feeds">&darr;</a>
                         <span id="unread_group{{group.id}}"
                             class="load_request mark_read_request"
@@ -186,10 +186,10 @@
                         <div id="feed_id={{ feed.id }}" class="feed">
                             <p class="feedreader_menu">
                                 <a class="load_request" 
-                                    href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
+                                    href="{% url 'feedreader:feeds' %}?feed_id={{ feed.id }}" 
                                     title="{{ feed.description|safe }}">{{ feed.title }}</a>
                                 <a class="load_request poll_request" 
-                                    href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}&poll_flag=1" 
+                                    href="{% url 'feedreader:feeds' %}?feed_id={{ feed.id }}&poll_flag=1" 
                                     title="Poll {{ feed.title|safe }} feed">&darr;</a>
                                 <span id="unread_feed{{feed.id}}"
                                     class="load_request mark_read_request"
@@ -205,10 +205,10 @@
             <div id="feed_id={{ feed.id }}" class="feed">
                 <p>
                     <a class="load_request"
-                        href="{% url 'feedreader.views.feeds' %}?feed_id={{ feed.id }}" 
+                        href="{% url 'feedreader:feeds' %}?feed_id={{ feed.id }}" 
                         title="{{ feed.description|safe }}">{{ feed.title }}</a>
                     <a class="load_request poll_request" 
-                        href="{% url 'feedreader.views.feeds' %}?feed=_id{{ feed.id }}&poll_flag=1" 
+                        href="{% url 'feedreader:feeds' %}?feed=_id{{ feed.id }}&poll_flag=1" 
                         title="Poll {{ feed.title|safe }} feed">&darr;</a>
                     <span id="unread_feed{{feed.id}}"
                         class="load_request mark_read_request"
@@ -217,7 +217,7 @@
                 </p>
             </div>
         {% endfor %}
-        <form name="input" action="{% url 'feedreader_search_entries' %}" method="get" style="padding-right:1em;">
+        <form name="input" action="{% url 'feedreader:search_entries' %}" method="get" style="padding-right:1em;">
             <input type="text" tabindex="2" size="10"
                 style="color:{% if feedreader_search_string %}#000;{% else %}#ccc{% endif %};"
                 name="feedreader_search_string" title="Search Feeds" class="text" 
