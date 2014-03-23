@@ -3,6 +3,15 @@ from __future__ import absolute_import
 from django.db import models
 
 
+class OptionsManager(models.Manager):
+    def get_options(self):
+        options = Options.objects.all()
+        if options:
+            options = options[0]
+        else:  # Create options row with default values
+            options = Options.objects.create()
+        return options
+
 class Options(models.Model):
     """
     Options controlling feed reader behavior
@@ -19,6 +28,9 @@ class Options(models.Model):
     number_initially_displayed = models.IntegerField(default=10)
     number_additionally_displayed = models.IntegerField(default=5)
     max_entries_saved = models.IntegerField(default=100)
+
+    objects = models.Manager()
+    get_options = OptionsManager()
 
     class Meta:
         verbose_name_plural = "options"

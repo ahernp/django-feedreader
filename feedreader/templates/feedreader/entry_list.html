@@ -1,6 +1,6 @@
         {% if entries_header %}<h2>{{ entries_header }}</h2>{% endif %}
-        {% if entries %}
-            {% for entry in entries %}
+        {% if entry_list %}
+            {% for entry in entry_list %}
                 <div id="entry_id={{ entry.id }}" class="feed_entry {% if entry.read_flag %}read_entry{% endif %}">
                     <h3><a href="{{ entry.link }}">{{ entry.title|safe }}</a></h3>
                     <p class="feedreader_subtitle">

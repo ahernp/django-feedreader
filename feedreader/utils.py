@@ -15,6 +15,98 @@ from .models import Entry, Options, Group, Feed
 import logging
 logger = logging.getLogger('feedreader')
 
+
+def build_context(request, context={}):
+    """
+    Find flag and id values in the request and use them
+    to build a common context dictionary. Including the 
+    list of entries to display.
+    """
+
+
+    options = Options.get_options.get_options()
+    poll_flag = request.GET.get('poll_flag', None)
+    mark_read_flag = request.GET.get('mark_read_flag', None)
+    show_read_flag = request.GET.get('show_read_flag', None)
+
+    last_entry = None
+    last_entry_id = request.GET.get('entry_id', None)  # Last entry on page
+    if last_entry_id:
+        try:
+            last_entry = Entry.objects.get(pk=last_entry_id)
+        except Entry.DoesNotExist:
+            pass
+
+    context['show_read_flag'] = show_read_flag
+    feed = None
+    feed_id = request.GET.get('feed_id', None)
+    if feed_id:
+        try:
+            feed = Feed.objects.get(pk=feed_id)
+        except Feed.DoesNotExist:
+            pass
+
+    group = None
+    group_id = request.GET.get('group_id', None)
+    if group_id:
+        try:
+            group = Group.objects.get(pk=group_id)
+        except Group.DoesNotExist:
+            pass
+
+    if feed:
+        if mark_read_flag:
+            entries = Entry.objects.filter(feed=feed, read_flag=False)
+            entries.update(read_flag=True)
+        if poll_flag:
+            poll_feed(feed)
+        if show_read_flag:
+            entries = Entry.objects.filter(feed=feed)
+        else:
+            entries = Entry.objects.filter(feed=feed, read_flag=False)
+        context['entries_header'] = feed.title
+    elif group:
+        feeds = Feed.objects.filter(group=group)
+        if mark_read_flag:
+            entries = Entry.objects.filter(feed__group=group, read_flag=False)
+            entries.update(read_flag=True)
+        if poll_flag:
+            for feed in feeds:
+                poll_feed(feed)
+        if show_read_flag:
+            entries = Entry.objects.filter(feed__group=group)
+        else:
+            entries = Entry.objects.filter(feed__group=group, read_flag=False)
+        context['entries_header'] = group.name
+    else:
+        if mark_read_flag:
+            entries = Entry.objects.filter(read_flag=False)
+            entries.update(read_flag=True)
+        if show_read_flag:
+            entries = Entry.objects.all()
+        else:
+            entries = Entry.objects.filter(read_flag=False)
+        context['entries_header'] = 'All items'
+
+    if last_entry:
+        entry_list = list(entries)
+        if last_entry in entry_list:
+            last_entry_pos = entry_list.index(last_entry)
+            for i in range(last_entry_pos + 1):
+                if entry_list[i].read_flag == False:
+                    entry_list[i].read_flag = True
+                    entry_list[i].save()
+            del entry_list[:last_entry_pos + 1]
+            context['entry_list'] = entry_list[:options.number_additionally_displayed]
+        else:
+            context['entry_list'] = []
+        context['entries_header'] = None
+    else:
+        context['entry_list'] = entries[:options.number_initially_displayed]
+
+    return context
+
+
 def poll_feed(db_feed, verbose=False):
     """
     Read through a feed looking for new entries.

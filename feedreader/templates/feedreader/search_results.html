@@ -10,13 +10,13 @@
 
 {% block nav_path %}
     <a href="/">{{ site.domain }}</a> &rsaquo; 
-    <a href="{% url 'feedreader:feeds' %}">Feed Reader</a> &rsaquo; 
+    <a href="{% url 'feedreader:feed_list' %}">Feed Reader</a> &rsaquo; 
     Search Results
 {% endblock %}
 
 {% block content %}
     <div style="padding-top:0.5em;">
-        <form name="input" action="{% url 'feedreader:search_entries' %}" method="get" style="padding-right:1em;">
+        <form name="input" action="{% url 'feedreader:search' %}" method="get" style="padding-right:1em;">
             New Search:
             <input type="text" tabindex="2" size="10"
                 {% if feedreader_search_string %}style="color:#000;"{% else %}style="color:#ccc;"{% endif %}
