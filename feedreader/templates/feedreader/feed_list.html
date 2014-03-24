@@ -243,9 +243,9 @@
     </div>
     <p>
     	<a href="#" title="Back to Top">Top</a>;
-        <a href="/admin/feedreader/feed/" title="Edit Feeds">Edit</a>;
+        <a href="{% url 'admin:feedreader_feed_changelist' %}" title="Edit Feeds">Edit</a>;
         <span id="import_opml_label">Import</span>;
-        <a href="export_opml" title="Export RSS Feed Subscriptions as OPML file">Export</a>;
-        <a href="/accounts/logout">Logout</a>.
+        <a href="{% url 'feedreader:export_opml' %}" title="Export RSS Feed Subscriptions as OPML file">Export</a>;
+        <a href="{% url 'logout' %}">Logout</a>.
     </p>
 {% endblock %}
