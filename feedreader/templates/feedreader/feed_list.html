@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block extra_head %}
     <style type="text/css">
         #menu {margin-bottom: 1em;}
@@ -229,7 +231,7 @@
     </div>
     <div style="clear:both"></div>
     <div id="spinner">
-        <img src="{{ STATIC_URL }}spinner.gif" alt="Please wait" title="Please Wait" />
+        <img src="{% static 'spinner.gif' %}" alt="Please wait" title="Please Wait" />
     </div>
 {% endblock %}
 

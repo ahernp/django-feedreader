@@ -1,8 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{% load staticfiles %}
 <html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" type="image/ico" /> 
+        <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/ico" /> 
         <title>{% block title %}{% endblock %}</title>
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
