@@ -14,4 +14,4 @@ class ImportOpmlFileForm(forms.Form):
     """
     Load local OPML xml file from browser.
     """
-    opml_file = forms.FileField()
+    opml_file = forms.FileField(required=True)

@@ -4,7 +4,7 @@ from django.conf.urls import patterns, url
 
 from .views import (FeedList, Search, EntryList,
                     NumbersUnread, MarkEntryRead,
-                    import_opml, export_opml)
+                    ImportOpml, ExportOpml)
 
 urlpatterns = patterns('',
     url(regex=r'^$',
@@ -23,9 +23,9 @@ urlpatterns = patterns('',
         view=Search.as_view(),
         name='search'),
     url(regex=r'^import_opml/$',
-        view=import_opml,
+        view=ImportOpml.as_view(),
         name='import_opml'),
     url(regex=r'^export_opml/$',
-        view=export_opml,
+        view=ExportOpml.as_view(),
         name='export_opml'),
 )

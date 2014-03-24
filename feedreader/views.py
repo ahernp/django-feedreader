@@ -5,7 +5,6 @@ import json
 from xml.etree import ElementTree
 from xml.dom import minidom
 
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, render
@@ -108,67 +107,67 @@ class Search(LoginRequiredMixin, TemplateView):
         return self.render_to_response(context)
 
 
-@login_required
-def import_opml(request):
+class ImportOpml(LoginRequiredMixin, View):
     """
     Import feed subscriptions in OPML format
     """
-    form = ImportOpmlFileForm(request.POST, request.FILES)
-    if form.is_valid():
-        tree = ElementTree.parse(request.FILES['opml_file'])
-        group = None
-        for node in tree.iter('outline'):
-            name = node.attrib.get('text')
-            url = node.attrib.get('xmlUrl')
-            if name and url:
-                try:
-                    feed = Feed.objects.get(xml_url=url)
-                except Feed.DoesNotExist:
-                    Feed.objects.create(xml_url=url, group=group)
-            else:
-                group, created = Group.objects.get_or_create(name=name)
-    return redirect(reverse('admin:feedreader_feed_changelist'))
+    def post(self, request, *args, **kwargs):
+        form = ImportOpmlFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            tree = ElementTree.parse(request.FILES['opml_file'])
+            group = None
+            for node in tree.iter('outline'):
+                name = node.attrib.get('text')
+                url = node.attrib.get('xmlUrl')
+                if name and url:
+                    try:
+                        feed = Feed.objects.get(xml_url=url)
+                    except Feed.DoesNotExist:
+                        Feed.objects.create(xml_url=url, group=group)
+                else:
+                    group, created = Group.objects.get_or_create(name=name)
+        return redirect(reverse('admin:feedreader_feed_changelist'))
 
 
-@login_required
-def export_opml(request):
+class ExportOpml(LoginRequiredMixin, View):
     """
     Return feed subscriptions in OPML format.
     """
-    root = ElementTree.Element('opml')
-    root.set('version', '2.0')
-    head = ElementTree.SubElement(root, 'head')
-    title = ElementTree.SubElement(head, 'title')
-    title.text = 'Feedreader Feeds'
-    body = ElementTree.SubElement(root, 'body')
+    def get(self, request, *args, **kwargs):
+        root = ElementTree.Element('opml')
+        root.set('version', '2.0')
+        head = ElementTree.SubElement(root, 'head')
+        title = ElementTree.SubElement(head, 'title')
+        title.text = 'Feedreader Feeds'
+        body = ElementTree.SubElement(root, 'body')
 
-    feeds = Feed.objects.filter(group=None)
-    for feed in feeds:
-        feed_xml = ElementTree.SubElement(body,
-                              'outline',
-                              {'type': 'rss',
-                               'text': feed.title,
-                               'xmlUrl': feed.xml_url,
-                               }
-        )
-
-    groups = Group.objects.all()
-    for group in groups:
-        group_xml = ElementTree.SubElement(body,
-                               'outline',
-                               {'text': group.name,
-                                }
-        )
-        feeds = Feed.objects.filter(group=group)
+        feeds = Feed.objects.filter(group=None)
         for feed in feeds:
-            feed_xml = ElementTree.SubElement(group_xml,
+            feed_xml = ElementTree.SubElement(body,
                                   'outline',
                                   {'type': 'rss',
                                    'text': feed.title,
                                    'xmlUrl': feed.xml_url,
                                    }
             )
-    response = HttpResponse(content_type='text/xml')
-    response['Content-Disposition'] = 'attachment; filename="feedreader.opml"'
-    response.write(minidom.parseString(ElementTree.tostring(root, 'utf-8')).toprettyxml(indent="  "))
-    return response
+
+        groups = Group.objects.all()
+        for group in groups:
+            group_xml = ElementTree.SubElement(body,
+                                   'outline',
+                                   {'text': group.name,
+                                    }
+            )
+            feeds = Feed.objects.filter(group=group)
+            for feed in feeds:
+                feed_xml = ElementTree.SubElement(group_xml,
+                                      'outline',
+                                      {'type': 'rss',
+                                       'text': feed.title,
+                                       'xmlUrl': feed.xml_url,
+                                       }
+                )
+        response = HttpResponse(content_type='text/xml')
+        response['Content-Disposition'] = 'attachment; filename="feedreader.opml"'
+        response.write(minidom.parseString(ElementTree.tostring(root, 'utf-8')).toprettyxml(indent="  "))
+        return response
