@@ -26,8 +26,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-		'Django==1.6.2',
-		'feedparser==5.1.3',
-		'pytz>=2013.7'
+        'Django==1.6.2',
+        'django-braces==1.4.0',
+        'feedparser==5.1.3',
+        'pytz>=2013.7'
     ],
 )

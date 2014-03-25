@@ -42,6 +42,7 @@ Dependencies
 ------------
 
 -  `Django 1.6.2 <https://pypi.python.org/pypi/Django/1.6.2>`__
--  `feedparser <https://pypi.python.org/pypi/feedparser>`__
+-  `django-braces 1.4.0 <https://pypi.python.org/pypi/django-braces/1.4.0>`__
+-  `feedparser 5.1.3 <https://pypi.python.org/pypi/feedparser/5.1.3>`__
 -  `pytz <https://pypi.python.org/pypi/pytz/2013.9>`__
 
