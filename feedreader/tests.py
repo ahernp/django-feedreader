@@ -2,7 +2,7 @@
 
 from django.test import TestCase
 from django.test.client import Client
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 
 TEST_URLS = [
@@ -18,7 +18,7 @@ class WorkingURLsTest(TestCase):
     fixtures = ['dmcm/fixtures/unit_test.json']
     def test_urls(self):
         """Visit each URL in turn"""
-        self.user = User.objects.create_user('john', 'john@montypython.com', 'password')
+        self.user = get_user_model().objects.create_user('john', 'john@montypython.com', 'password')
         self.user.is_staff = True
         self.user.save()
         self.client = Client()
