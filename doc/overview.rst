@@ -11,16 +11,16 @@ Feedreader
 ==========
 
 Django Feedreader
-is a web application built using the 
+is a web application built using the
 `Django <http://www.djangoproject.com/>`_ framework.
 It enables users to aggregate the contents of RSS feeds.
 
-The link, title and descriptions of each feed and recent feed entries 
+The link, title and descriptions of each feed and recent feed entries
 are saved in the database.
 
-A `poll_fields <code.html#commands>`_ 
-Django command is included which can be run on a regular basis using 
-``cron`` or some other scheduling mechanism to keep the local database 
+A `poll_fields <code.html#commands>`_
+Django command is included which can be run on a regular basis using
+``cron`` or some other scheduling mechanism to keep the local database
 of recent entries up to date.
 
 .. index:: Sample Feedreader Output
@@ -61,17 +61,17 @@ In the image above:
 
 3. Toggle between showing all entries or only those which are unread.
 
-4. Show entries from all feeds. 
-   In brackets is number of unread entries. 
+4. Show entries from all feeds.
+   In brackets is number of unread entries.
    Clicking on this number marks them all as read.
 
-5. Accordion of feed groups. 
-   As well as the group name each button shows the number of unread 
+5. Accordion of feed groups.
+   As well as the group name each button shows the number of unread
    entries.
 
-6. Feed group. Shows the feed names. 
+6. Feed group. Shows the feed names.
    These can be individually selected.
-   The down-arrows can be clicked to poll an individual feed 
+   The down-arrows can be clicked to poll an individual feed
    or all those in the group.
 
 7. Feeds not in any group.
@@ -84,18 +84,18 @@ In the image above:
 
 11. Export feeds in OPML xml format.
 
-In addition to explicitly marking sets of entries as read, 
-scrolling to the end of the page causes all of the unread entries 
+In addition to explicitly marking sets of entries as read,
+scrolling to the end of the page causes all of the unread entries
 displayed to that point to be marked as read.
 Additional entries, if any exist, are added to list displayed.
 
 Django Admin can be used to add or remove feeds from the
-`Feed <code.html#feedreader.models.Feed>`_ model. 
+`Feed <code.html#feedreader.models.Feed>`_ model.
 Adding a new feed causes it to be polled immediately.
 
-The numbers of entries initially displayed, how many entries are saved 
+The numbers of entries initially displayed, how many entries are saved
 in the local database and how many additionally entries are displayed
-on scrolling tot he bottom of the page are set in the 
+on scrolling tot he bottom of the page are set in the
 `Options <code.html#feedreader.models.Options>`_ model.
 
 
@@ -105,6 +105,29 @@ on scrolling tot he bottom of the page are set in the
 
 Release Notes
 =============
+
+Version 0.9.1
+-------------
+
+Released on 29 Mar 2014.
+
+* Added Sphinx-based documentation.
+
+
+Version 0.8.1-7
+---------------
+
+Released on 3 Mar 2014.
+
+* Tidied README.rst for PyPI.
+
+Version 0.8.0
+-------------
+
+Released on 3 Mar 2014.
+
+* Stopped marking entries as read if they are already marked as such.
+* Stopped trying to read more entries on scrolldown if none were found.
 
 Version 0.7.9
 -------------
@@ -125,7 +148,7 @@ Version 0.7.7
 
 Released on 17 Oct 2013.
 
-* Third-party patch from `zsoldosp <https://github.com/zsoldosp>`_: 
+* Third-party patch from `zsoldosp <https://github.com/zsoldosp>`_:
   Added missing dependency (pytz) to install_requires.
 
 Version 0.7.6

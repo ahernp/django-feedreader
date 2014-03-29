@@ -1,21 +1,41 @@
+# Python bytecode:
+*.py[co]
+
+# Packaging files:
+*.egg*
+dist
+
+# Sphinx docs:
+_build
+
+# SQLite3 database files:
+*.db
+
+# Logs:
+*.log
+
+# Eclipse
 .project
 .pydevproject
-.ropeproject
-*.pyc
-*.sqlite
-*.sqlite3
-*.sqlite-journal
-*.conflict
+.settings
+
+# Linux Editors
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
 *.swp
-*.aux
-*.log
-*.dvi
-*.out
-.coverage
-*.Rout
-*.RData
-*.pdf
-localsettings.py
-auth.json
-dist
-django_feedreader.egg-info
+*.swo
+
+# Mac
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+

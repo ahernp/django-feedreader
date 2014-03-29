@@ -1,11 +1,14 @@
 import os
 from setuptools import setup
 
+import feedreader
+
+version = feedreader.__version__
 long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 setup(
     name = 'django-feedreader',
-    version = '0.9.0',
+    version = version
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
