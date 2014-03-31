@@ -1,0 +1,87 @@
+.. :changelog:
+
+History
+-------
+
+0.9.1 (2014-03-29)
+++++++++++++++++++
+
+* Added Sphinx-based documentation.
+
+0.8.1-7 (2014-03-03)
+++++++++++++++++++++
+
+* Tidied README.rst for PyPI.
+
+0.8.0 (2014-03-03)
+++++++++++++++++++
+
+* Stopped marking entries as read if they are already marked as such.
+* Stopped trying to read more entries on scrolldown if none were found.
+
+0.7.9 (2014-02-02)
+++++++++++++++++++
+
+* Removed trailing spaces in anchor text.
+
+0.7.8 (2013-12-25)
+++++++++++++++++++
+
+* Stopped including tooltip of title in search results. Breaks when title contains quotes.
+
+0.7.7 (2013-10-17)
+++++++++++++++++++
+
+* Third-party patch from `zsoldosp <https://github.com/zsoldosp>`_:
+  Added missing dependency (pytz) to install_requires.
+
+0.7.6 (2013-09-29)
+++++++++++++++++++
+
+* Added 'Top' local link to footer.
+
+0.7.5 (2013-06-02)
+++++++++++++++++++
+
+* Fixed typos in documentation.
+
+0.7.4 (2013-05-25)
+++++++++++++++++++
+
+* Allow for blank titles when creating Feed records.
+
+0.7.3 (2013-04-22)
+++++++++++++++++++
+
+* Mark entries as read when clicked fix.
+
+0.7.2 (2013-04-21)
+++++++++++++++++++
+
+* Attach ajax Start and Stop events to document to fix spinner.
+
+0.7.1 (2013-04-21)
+++++++++++++++++++
+
+* Use jQuery 2.0.0.
+
+0.7.0 (2013-04-19)
+++++++++++++++++++
+
+* Added options to import and export feeds in OPML xml format.
+
+0.6.0 (2013-04-18)
+++++++++++++++++++
+
+* Mark entries as read when clicked.
+
+0.5.1 (2013-04-01)
+++++++++++++++++++
+
+* Use timezone-aware timestamps.
+
+0.5.0 (2013-03-30)
+++++++++++++++++++
+
+*  Show feed contents.
+*  Manage Feeds using Django admin pages.

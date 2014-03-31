@@ -1,5 +1,5 @@
-Feedreader
-----------
+README
+======
 
 Feedreader is a simple Django 1.6 app to aggregate RSS feeds.
 
@@ -13,14 +13,16 @@ Features
 -  Uses Django admin to manage feeds.
 
 Detailed documentation is in the "docs" directory. These are available
-online `here <http://ahernp.com/static/doc/django-feedreader/>`__.
+online `here <http://ahernp.com/media/doc/django-feedreader/>`__.
 
 Quick start
 -----------
 
 1. Add "feedreader" to your INSTALLED\_APPS setting like this::
 
-     INSTALLED\_APPS = ( ... 'feedreader', )
+     INSTALLED_APPS = (...
+                       'feedreader',
+                       )
 
 2. Include the feedreader URLconf in your project urls.py like this::
 
@@ -32,11 +34,11 @@ Quick start
    project's static root.
 
 5. Start the development server and visit
-   http://127.0.0.1:8000/admin/feedreader/feed to add feeds. Only each
-   feed's xml url is needed.
+   `/admin/feedreader/feed/ <http://127.0.0.1:8000/admin/feedreader/feed>`__
+   to add feeds. Only each feed's xml url is needed.
 
-6. Visit http://127.0.0.1:8000/feedreader/ to see the contents of the
-   feeds.
+6. Visit `/feedreader/ <http://127.0.0.1:8000/feedreader/>`__
+   to see the contents of the feeds.
 
 Dependencies
 ------------

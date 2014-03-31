@@ -11,10 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   overview.rst
-  
-   
-   code.rst
+   overview
+
+   readme
+   history
 
 Indices and tables
 ==================
