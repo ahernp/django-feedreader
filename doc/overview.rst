@@ -3,8 +3,7 @@
 Overview
 ========
 
-Django Feedreader
-is a web application built using the
+Django Feedreader is a web application built using the
 `Django <http://www.djangoproject.com/>`_ framework.
 It enables users to aggregate the contents of RSS feeds.
 
@@ -90,4 +89,3 @@ The numbers of entries initially displayed, how many entries are saved
 in the local database and how many additionally entries are displayed
 on scrolling tot he bottom of the page are set in the
 `Options <code.html#feedreader.models.Options>`_ model.
-

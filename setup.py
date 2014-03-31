@@ -8,7 +8,7 @@ long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).r
 
 setup(
     name = 'django-feedreader',
-    version = version
+    version = version,
     packages = ['feedreader'],
     include_package_data = True,
     license = 'BSD License',
