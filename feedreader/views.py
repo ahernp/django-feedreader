@@ -22,15 +22,15 @@ class NumbersUnread(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         """Count numbers of unread entries, return in json object"""
         context = {}
-        context['unread_total'] = Entry.objects.filter(read_flag=False).count()
+        context['unread_total'] = Entry.manager.num_unread()
         groups = Group.objects.all()
         for group in groups:
-            num_unread = Entry.objects.filter(feed__group=group, read_flag=False).count()
+            num_unread = group.num_unread_entries()
             context['unread_group%s' % (group.id)] = num_unread
             context['unread_group_button%s' % (group.id)] = num_unread
         feeds = Feed.objects.all()
         for feed in feeds:
-            context['unread_feed%s' % (feed.id)] = Entry.objects.filter(feed=feed, read_flag=False).count()
+            context['unread_feed%s' % (feed.id)] = feed.num_unread_entries()
         return HttpResponse(json.dumps(context), content_type='application/json')
 
 

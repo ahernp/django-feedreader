@@ -24,7 +24,7 @@ def build_context(request, context={}):
     """
 
 
-    options = Options.get_options.get_options()
+    options = Options.manager.get_options()
     poll_flag = request.GET.get('poll_flag', None)
     mark_read_flag = request.GET.get('mark_read_flag', None)
     show_read_flag = request.GET.get('show_read_flag', None)
@@ -111,11 +111,7 @@ def poll_feed(db_feed, verbose=False):
     """
     Read through a feed looking for new entries.
     """
-    options = Options.objects.all()
-    if options:
-        options = options[0]
-    else:  # Create options row with default values
-        options = Options.objects.create()
+    options = Options.manager.get_options()
     parsed = feedparser.parse(db_feed.xml_url)
     if hasattr(parsed.feed, 'bozo_exception'):
         # Malformed feed

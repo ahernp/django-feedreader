@@ -1,13 +1,18 @@
 """Feedreader Unit Test."""
 
+from django.core.management import call_command
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth import get_user_model
 
+from .models import Options
 
 TEST_URLS = [
     # (url, status_code, text_on_page)
     ('/feedreader/', 200, 'Feed Reader'),
+    ('/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id=1"'),
+    ('/feedreader/num_unread/', 200, 'unread_feed'),
+    ('/feedreader/entry_list/?eed_id=1&entry_id=1', 200, '<div id="entry_id='),
 ]
 
 
@@ -34,3 +39,22 @@ class WorkingURLsTest(TestCase):
                                     expected_text,
                                     msg_prefix='URL %s' % (url))
 
+
+class TestBranchImport(TestCase):
+    """
+    Test the command which polls the feeds.
+    """
+    def test_poll_feeds(self):
+        """Test poll_feeds command."""
+        args = []
+        opts = {'verbose': True}
+
+        # Ensure some Entries are deleted
+        feedreader_options = Options.objects.all()[0]
+        feedreader_options.max_entries_saved = 1
+        feedreader_options.save()
+        call_command('poll_feeds', *args, **opts)
+
+        # Command creates default Options if none are found
+        Options.objects.all().delete()
+        call_command('poll_feeds', *args, **opts)

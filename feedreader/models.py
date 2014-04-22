@@ -12,6 +12,7 @@ class OptionsManager(models.Manager):
             options = Options.objects.create()
         return options
 
+
 class Options(models.Model):
     """
     Options controlling feed reader behavior
@@ -30,7 +31,7 @@ class Options(models.Model):
     max_entries_saved = models.IntegerField(default=100)
 
     objects = models.Manager()
-    get_options = OptionsManager()
+    manager = OptionsManager()
 
     class Meta:
         verbose_name_plural = "options"
@@ -56,8 +57,8 @@ class Group(models.Model):
     def __unicode__(self):
         return self.name
 
-    def num_unread(self):
-        return len(Entry.objects.filter(feed__group=self, read=False))
+    def num_unread_entries(self):
+        return len(Entry.objects.filter(feed__group=self, read_flag=False))
 
 
 class Feed(models.Model):
@@ -95,8 +96,8 @@ class Feed(models.Model):
     def __unicode__(self):
         return self.title or self.xml_url
 
-    def num_unread(self):
-        return len(Entry.objects.filter(feed=self, read=False))
+    def num_unread_entries(self):
+        return len(Entry.objects.filter(feed=self, read_flag=False))
 
 
     def save(self, *args, **kwargs):
@@ -108,6 +109,11 @@ class Feed(models.Model):
             super(Feed, self).save(*args, **kwargs)
             from feedreader.utils import poll_feed
             poll_feed(self)
+
+
+class EntryManager(models.Manager):
+    def num_unread(self):
+        return Entry.objects.filter(read_flag=False).count()
 
 
 class Entry(models.Model):
@@ -141,3 +147,5 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    objects = models.Manager()
+    manager = EntryManager()

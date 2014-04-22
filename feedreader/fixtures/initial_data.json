@@ -1,0 +1,31 @@
+[
+{
+    "pk": 1, 
+    "model": "feedreader.options", 
+    "fields": {
+        "number_additionally_displayed": 5, 
+        "max_entries_saved": 100, 
+        "number_initially_displayed": 10
+    }
+},
+{
+    "pk": 1, 
+    "model": "feedreader.group", 
+    "fields": {
+        "name": "News"
+    }
+},
+{
+    "pk": 1, 
+    "model": "feedreader.feed", 
+    "fields": {
+        "published_time": null, 
+        "description": "Recent Blog Entries.", 
+        "title": "ahernp.com blog", 
+        "last_polled_time": "2014-04-14T15:17:02.554Z", 
+        "xml_url": "http://ahernp.com/blog/feed", 
+        "link": "http://ahernp.com/blog/", 
+        "group": null
+    }
+}
+]

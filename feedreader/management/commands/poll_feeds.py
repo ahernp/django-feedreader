@@ -30,11 +30,7 @@ class Command(BaseCommand):
         Read through all the feeds looking for new entries.
         """
         verbose = options['verbose']
-        feedreader_options = Options.objects.all()
-        if feedreader_options:
-            feedreader_options = feedreader_options[0]
-        else:  # Create options row with default values
-            feedreader_options = Options.objects.create()
+        feedreader_options = Options.manager.get_options()
         feeds = Feed.objects.all()
         num_feeds = len(feeds)
         if verbose:
