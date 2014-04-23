@@ -12,25 +12,6 @@ from .utils import poll_feed
 from mock import Mock, patch
 import pytz
 
-TEST_RSS = """<?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Test Channel</title>
-        <link>http://ahernp.com/test/</link>
-        <description>Test RSS Feed.</description>
-        <atom:link href="http://ahernp.com/test/feed/" rel="self"></atom:link>
-        <language>en-gb</language>
-        <lastBuildDate>Sun, 13 Apr 2014 09:33:47 +0000</lastBuildDate>
-        <item>
-            <title>Test Item</title>
-            <link>http://ahernp.com/test-item/</link>
-            <description>Test RSS Feed Item</description>
-            <pubDate>Sun, 13 Apr 2014 09:33:47 +0000</pubDate>
-            <guid>http://ahernp.com/test-item/</guid>
-        </item>
-    </channel>
-</rss>"""
-
 
 @patch('feedreader.utils.feedparser.parse')
 class TestPollFeed(TestCase):
@@ -87,4 +68,49 @@ class TestPollFeed(TestCase):
         parse_mock.return_value.feed.description = 'Test Feed Description'
         with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
             poll_feed(self.feed_mock, verbose=True)
+
+
+@patch('feedreader.utils.feedparser.parse')
+class TestPollEntries(TestCase):
+    def setUp(self):
+        feed_mock = Mock(spec=Feed)
+        feed_mock.xml_url = 'test-feed-url'
+        feed_mock.published_time = None
+        self.feed_mock = feed_mock
+
+    def test_feed_entry_blank_title(self, parse_mock):
+        """Test with missing attribute: description_detail"""
+        del parse_mock.return_value.feed.bozo_exception
+        parse_mock.return_value.feed.published_parsed = (2014, 01, 01,
+                                                         12, 0, 0,
+                                                         2, 1, 0)  # 2014-01-01 12:00:00
+        entry_attrs = {'link': 'test_entry_link',
+                       'published_parsed': (2014, 01, 01, 12, 0, 0, 2, 1, 0),  # 2014-01-01 12:00:00
+                       }
+        entry_mock = Mock(**entry_attrs)
+        entry_mock.title = ''
+        parse_mock.return_value.entries = [entry_mock]
+        db_entry_mock = Mock()
+        db_entry_mock.objects.get_or_create.return_value = (Mock(), True)
+        with patch('feedreader.utils.Entry', db_entry_mock):
+            # with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
+                poll_feed(self.feed_mock, verbose=True)
+
+    def test_feed_entry_missing_description(self, parse_mock):
+        """Test with missing attribute: description_detail"""
+        del parse_mock.return_value.feed.bozo_exception
+        parse_mock.return_value.feed.published_parsed = (2014, 01, 01,
+                                                         12, 0, 0,
+                                                         2, 1, 0)  # 2014-01-01 12:00:00
+        entry_attrs = {'link': 'test_entry_link',
+                       'published_parsed': (2014, 01, 01, 12, 0, 0, 2, 1, 0),  # 2014-01-01 12:00:00
+                       }
+        entry_mock = Mock(**entry_attrs)
+        del entry_mock.description
+        parse_mock.return_value.entries = [entry_mock]
+        db_entry_mock = Mock()
+        db_entry_mock.objects.get_or_create.return_value = (Mock(), True)
+        with patch('feedreader.utils.Entry', db_entry_mock):
+            # with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
+                poll_feed(self.feed_mock, verbose=True)
 
