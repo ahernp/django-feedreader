@@ -27,5 +27,18 @@
         "link": "http://ahernp.com/blog/", 
         "group": 1
     }
+},
+{
+    "pk": 2, 
+    "model": "feedreader.feed", 
+    "fields": {
+        "published_time": null, 
+        "description": "Recent Blog Entries.", 
+        "title": "ahernp.com blog2", 
+        "last_polled_time": "2014-04-14T15:17:02.554Z", 
+        "xml_url": "http://ahernp.com/blog2/feed", 
+        "link": "http://ahernp.com/blog2/", 
+        "group": null
+    }
 }
 ]

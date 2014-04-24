@@ -44,6 +44,12 @@ TEST_URLS = [
     ('/feedreader/entry_list/?group_id=1', 200, '<p id="no_entries">'),
     # No entries found in Feed
     ('/feedreader/entry_list/?feed_id=1', 200, '<p id="no_entries">'),
+    # Search
+    ('/feedreader/search/?feedreader_search_string=co-op', 200, 'Search Results for'),
+    # Search string too small
+    ('/feedreader/search/?feedreader_search_string=py', 200, 'Search string "py" too small.'),
+    # Export feeds in OPML format
+    ('/feedreader/export_opml/', 200, 'feed')
 ]
 
 

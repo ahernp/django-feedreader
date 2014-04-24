@@ -13,25 +13,7 @@ from mock import Mock, patch
 import pytz
 
 
-@patch('feedreader.utils.feedparser.parse')
-class TestPollFeedBozoException(TestCase):
-    """
-    Test polling feeds where Bozo Exception returned.
-    """
-    def setUp(self):
-        feed_mock = Mock(spec=Feed)
-        feed_mock.xml_url = 'test-feed-url'
-        feed_mock.published_time = None
-        self.feed_mock = feed_mock
-
-    def test_bozo_exception(self, parse_mock):
-        """Test with Bozo Exception returned"""
-        parse_mock.return_value.feed.bozo_exception = 'bozo_exception returned'
-        with patch('sys.stdout', new=StringIO()):  # Suppress printed output from test
-            poll_feed(self.feed_mock, verbose=True)
-
-
-class TestPollFeed(TestCase):
+class PollFeedTest(TestCase):
     """
     Test polling feeds.
     """
@@ -83,7 +65,25 @@ class TestPollFeed(TestCase):
                 poll_feed(self.feed_mock, verbose=True)
 
 
-class TestPollEntries(TestCase):
+@patch('feedreader.utils.feedparser.parse')
+class PollFeedBozoExceptionTest(TestCase):
+    """
+    Test polling feeds where Bozo Exception returned.
+    """
+    def setUp(self):
+        feed_mock = Mock(spec=Feed)
+        feed_mock.xml_url = 'test-feed-url'
+        feed_mock.published_time = None
+        self.feed_mock = feed_mock
+
+    def test_bozo_exception(self, parse_mock):
+        """Test with Bozo Exception returned"""
+        parse_mock.return_value.feed.bozo_exception = 'bozo_exception returned'
+        with patch('sys.stdout', new=StringIO()):  # Suppress printed output from test
+            poll_feed(self.feed_mock, verbose=True)
+
+
+class PollEntriesTest(TestCase):
     def setUp(self):
         # Create feedparser.parse_mock object
         parse_mock = Mock()
