@@ -161,9 +161,9 @@ def poll_feed(db_feed, verbose=False):
             continue
         if entry.title == "":
             msg = 'Feedreader poll_feeds. Entry "%s" has a blank title' % (entry.link)
-            logger.warning(msg)
             if verbose:
                 print(msg)
+            logger.warning(msg)
             continue
         db_entry, created = Entry.objects.get_or_create(feed=db_feed, link=entry.link)
         if created:

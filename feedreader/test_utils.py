@@ -93,7 +93,7 @@ class TestPollEntries(TestCase):
         db_entry_mock = Mock()
         db_entry_mock.objects.get_or_create.return_value = (Mock(), True)
         with patch('feedreader.utils.Entry', db_entry_mock):
-            # with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
+            with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
                 poll_feed(self.feed_mock, verbose=True)
 
     def test_feed_entry_missing_description(self, parse_mock):
@@ -111,6 +111,25 @@ class TestPollEntries(TestCase):
         db_entry_mock = Mock()
         db_entry_mock.objects.get_or_create.return_value = (Mock(), True)
         with patch('feedreader.utils.Entry', db_entry_mock):
-            # with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
+            with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
+                poll_feed(self.feed_mock, verbose=True)
+
+    def test_feed_entry_future_published_time(self, parse_mock):
+        """Test with missing attribute: description_detail"""
+        del parse_mock.return_value.feed.bozo_exception
+        parse_mock.return_value.feed.published_parsed = (2014, 01, 01,
+                                                         12, 0, 0,
+                                                         2, 1, 0)  # 2014-01-01 12:00:00
+        entry_attrs = {'link': 'test_entry_link',
+                       'published_parsed': (2114, 01, 01, 12, 0, 0, 2, 1, 0),  # 2114-01-01 12:00:00
+                       }
+        entry_mock = Mock(**entry_attrs)
+        entry_mock.description_detail.type = 'text/plain'
+        entry_mock.description = 'Test Feed Description'
+        parse_mock.return_value.entries = [entry_mock]
+        db_entry_mock = Mock()
+        db_entry_mock.objects.get_or_create.return_value = (Mock(), True)
+        with patch('feedreader.utils.Entry', db_entry_mock):
+            with patch('sys.stdout', new=StringIO()) as fake_out:  # Suppress printed output from test
                 poll_feed(self.feed_mock, verbose=True)
 
