@@ -7,22 +7,20 @@ from xml.dom import minidom
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect, render
-from django.template import RequestContext
+from django.shortcuts import redirect
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
 
 from .forms import StringSearchForm, ImportOpmlFileForm
-from .models import Options, Group, Feed, Entry
-from .utils import poll_feed, build_context
+from .models import Group, Feed, Entry
+from .utils import build_context
 
 
 class NumbersUnread(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         """Count numbers of unread entries, return in json object"""
-        context = {}
-        context['unread_total'] = Entry.manager.num_unread()
+        context = {'unread_total': Entry.manager.num_unread()}
         groups = Group.objects.all()
         for group in groups:
             num_unread = group.num_unread_entries()

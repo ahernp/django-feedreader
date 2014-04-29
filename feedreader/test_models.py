@@ -1,8 +1,17 @@
 """Feedreader Models Unit Test."""
+from __future__ import absolute_import
 
 from django.test import TestCase
 
 from .models import Entry, Feed, Group, Options
+from .simple_test_server import (PORT, setUpModule as server_setup,
+                                 tearDownModule as server_teardown)
+
+def setUpModule():
+    server_setup()
+
+def tearDownModule():
+    server_teardown()
 
 
 class OptionsTest(TestCase):
@@ -42,7 +51,7 @@ class FeedTest(TestCase):
     Create and access Feed.
     """
     def setUp(self):
-        self.feed = Feed.objects.create(xml_url='https://github.com/ahernp.atom')
+        self.feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
         self.feed.title = 'Test Feed'
         self.feed.save()
 
@@ -60,10 +69,10 @@ class EntryTest(TestCase):
     Create and access Entry.
     """
     def setUp(self):
-        self.feed = Feed.objects.create(xml_url='https://github.com/ahernp.atom')
+        self.feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
         self.entry = Entry.objects.create(feed=self.feed,
                                           title='Test Entry',
-                                          link='http://ahernp.com/test')
+                                          link='http://example.com/test')
 
     def test_entry_unicode(self):
         """Retrieve Entry object's unicode string."""

@@ -32,6 +32,7 @@ setup(
         'Django==1.6.2',
         'django-braces==1.4.0',
         'feedparser==5.1.3',
-        'pytz>=2013.7'
+        'pytz>=2013.7',
+        'factory-boy==2.3.1',
     ],
 )

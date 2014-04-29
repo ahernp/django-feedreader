@@ -147,7 +147,7 @@ def poll_feed(db_feed, verbose=False):
     if verbose:
         print('%d entries to process in %s' % (len(parsed.entries), db_feed.title))
     for i, entry in enumerate(parsed.entries):
-        if i > options.max_entries_saved:
+        if i >= options.max_entries_saved:
             break
         missing_attr = False
         for attr in ['title', 'title_detail', 'link', 'description']:
