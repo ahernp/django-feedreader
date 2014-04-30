@@ -10,7 +10,7 @@ It enables users to aggregate the contents of RSS feeds.
 The link, title and descriptions of each feed and recent feed entries
 are saved in the database.
 
-A `poll_fields <code.html#commands>`_
+A ``poll_fields``
 Django command is included which can be run on a regular basis using
 ``cron`` or some other scheduling mechanism to keep the local database
 of recent entries up to date.
@@ -23,18 +23,6 @@ Sample Output
 .. _image-sample-output:
 .. image:: _static/feed_output.png
     :alt: sample feedreader output
-
-.. index:: Requirements
-
-Requirements
-------------
-
-Feedreader has been tested using:
-
-* `Django 1.6.1 <https://pypi.python.org/pypi/Django/1.6.1>`_
-* `Feedparser 5.1.3 <https://pypi.python.org/pypi/feedparser/>`_
-* `JQuery 1.8.1 <http://jquery.com/>`_
-* `JQuery UI 1.10.2 <http://jqueryui.com/>`_
 
 .. index:: Usage
 
@@ -82,10 +70,10 @@ displayed to that point to be marked as read.
 Additional entries, if any exist, are added to list displayed.
 
 Django Admin can be used to add or remove feeds from the
-`Feed <code.html#feedreader.models.Feed>`_ model.
+``Feed`` model.
 Adding a new feed causes it to be polled immediately.
 
 The numbers of entries initially displayed, how many entries are saved
 in the local database and how many additionally entries are displayed
 on scrolling tot he bottom of the page are set in the
-`Options <code.html#feedreader.models.Options>`_ model.
+``Options`` model.

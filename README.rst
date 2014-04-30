@@ -45,6 +45,8 @@ Dependencies
 
 -  `Django 1.6.2 <https://pypi.python.org/pypi/Django/1.6.2>`__
 -  `django-braces 1.4.0 <https://pypi.python.org/pypi/django-braces/1.4.0>`__
+-  `factory_boy 2.3.1 <https://pypi.python.org/pypi/factory_boy/2.3.1>`__
 -  `feedparser 5.1.3 <https://pypi.python.org/pypi/feedparser/5.1.3>`__
+-  `mock 1.0.1 <https://pypi.python.org/pypi/mock/1.0.1>`__
 -  `pytz <https://pypi.python.org/pypi/pytz/2013.9>`__
 

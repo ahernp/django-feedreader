@@ -31,8 +31,9 @@ setup(
     install_requires=[
         'Django==1.6.2',
         'django-braces==1.4.0',
-        'feedparser==5.1.3',
-        'pytz>=2013.7',
         'factory-boy==2.3.1',
+        'feedparser==5.1.3',
+        'mock==1.0.1',
+        'pytz>=2013.7',
     ],
 )
