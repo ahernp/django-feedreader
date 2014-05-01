@@ -5,9 +5,10 @@ import json
 from xml.etree import ElementTree
 from xml.dom import minidom
 
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
@@ -109,11 +110,15 @@ class ImportOpml(LoginRequiredMixin, View):
     """
     Import feed subscriptions in OPML format
     """
+    form_class =ImportOpmlFileForm
+
     def post(self, request, *args, **kwargs):
-        form = ImportOpmlFileForm(request.POST, request.FILES)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            tree = ElementTree.parse(request.FILES['opml_file'])
+            tree = form.cleaned_data.get('opml_file')
+            new_feed_count = 0
             group = None
+            new_group_count = 0
             for node in tree.iter('outline'):
                 name = node.attrib.get('text')
                 url = node.attrib.get('xmlUrl')
@@ -122,10 +127,19 @@ class ImportOpml(LoginRequiredMixin, View):
                         feed = Feed.objects.get(xml_url=url)
                     except Feed.DoesNotExist:
                         Feed.objects.create(xml_url=url, group=group)
+                        new_feed_count += 1
                 else:
                     group, created = Group.objects.get_or_create(name=name)
+                    if created: new_group_count += 1
+            msg = 'OPML parsed successfully. ' \
+                  'Imported {0:d} new Feeds in {1:d} new Groups.'.format(new_feed_count, new_group_count)
+            messages.add_message(request, messages.INFO, msg)
+        else:
+            for field_name, message_list in form.errors.items():
+                for message in message_list:
+                    msg = '{0:s}: {1:s} No Feeds imported.'.format(field_name, message)
+                    messages.add_message(request, messages.ERROR, msg)
         return redirect(reverse('admin:feedreader_feed_changelist'))
-
 
 class ExportOpml(LoginRequiredMixin, View):
     """
