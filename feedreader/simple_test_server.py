@@ -41,6 +41,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/rss+xml')
         self.end_headers()
+        # Can use self.path to choose data to return
         self.wfile.write(TEST_RSS)
         return
 
@@ -62,3 +63,6 @@ def setUpModule():
 def tearDownModule():
     """Stop server which returned test rss data"""
     test_server.shutdown()
+
+if __name__ == '__main__':
+    test_server.serve_forever()
