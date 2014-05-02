@@ -6,14 +6,15 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
-from django.views.generic import ListView, TemplateView, View
+from django.shortcuts import redirect, render, render_to_response
+from django.template import RequestContext
+from django.views.generic import ListView, FormView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
 
-from .forms import StringSearchForm, ImportOpmlFileForm
+from .forms import AddFeedsForm, StringSearchForm
 from .models import Group, Feed, Entry
 from .utils import build_context
 
@@ -77,7 +78,6 @@ class FeedList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(FeedList, self).get_context_data(**kwargs)
         context['no_group'] = Feed.objects.filter(group=None)
-        context['import_form'] = ImportOpmlFileForm()
         self.extra_context.update(context)
         return self.extra_context
 
@@ -106,40 +106,49 @@ class Search(LoginRequiredMixin, TemplateView):
         return self.render_to_response(context)
 
 
-class ImportOpml(LoginRequiredMixin, View):
-    """
-    Import feed subscriptions in OPML format
-    """
-    form_class =ImportOpmlFileForm
 
+
+class EditFeeds(LoginRequiredMixin, FormView):
+    """
+    Edit feed subscriptions
+    """
+    template_name = 'feedreader/edit_feeds.html'
+    form_class = AddFeedsForm
+    success_url = reverse_lazy('feedreader:feed_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(EditFeeds, self).get_context_data(**kwargs)
+        context['groups'] = Group.objects.select_related().all()
+        context['no_group'] = Feed.objects.filter(group=None)
+        return context
+
+    # def form_valid(self, form):
+    #     import pdb; pdb.set_trace() # Start debugging
+    #     return self.render_to_response(self.get_context_data(form=form))
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
+            feed_url = form.cleaned_data.get('feed_url')
+            feed_group = form.cleaned_data.get('feed_group')
+            if feed_url:
+                feed = Feed.objects.create(xml_url=feed_url)
+                if feed_group:
+                    feed.group = feed_group
+                    feed.save()
             tree = form.cleaned_data.get('opml_file')
-            new_feed_count = 0
-            group = None
-            new_group_count = 0
-            for node in tree.iter('outline'):
-                name = node.attrib.get('text')
-                url = node.attrib.get('xmlUrl')
-                if name and url:
-                    try:
-                        feed = Feed.objects.get(xml_url=url)
-                    except Feed.DoesNotExist:
-                        Feed.objects.create(xml_url=url, group=group)
-                        new_feed_count += 1
-                else:
-                    group, created = Group.objects.get_or_create(name=name)
-                    if created: new_group_count += 1
-            msg = 'OPML parsed successfully. ' \
-                  'Imported {0:d} new Feeds in {1:d} new Groups.'.format(new_feed_count, new_group_count)
-            messages.add_message(request, messages.INFO, msg)
-        else:
-            for field_name, message_list in form.errors.items():
-                for message in message_list:
-                    msg = '{0:s}: {1:s} No Feeds imported.'.format(field_name, message)
-                    messages.add_message(request, messages.ERROR, msg)
-        return redirect(reverse('admin:feedreader_feed_changelist'))
+            if tree:
+                for node in tree.iter('outline'):
+                    name = node.attrib.get('text')
+                    url = node.attrib.get('xmlUrl')
+                    if name and url:
+                        try:
+                            feed = Feed.objects.get(xml_url=url)
+                        except Feed.DoesNotExist:
+                            Feed.objects.create(xml_url=url, group=group)
+                    else:
+                        group, created = Group.objects.get_or_create(name=name)
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 class ExportOpml(LoginRequiredMixin, View):
     """
@@ -183,3 +192,34 @@ class ExportOpml(LoginRequiredMixin, View):
         response['Content-Disposition'] = 'attachment; filename="feedreader.opml"'
         response.write(minidom.parseString(ElementTree.tostring(root, 'utf-8')).toprettyxml(indent="  "))
         return response
+
+from django.contrib.auth.decorators import login_required
+from django.db.models import get_model
+
+@login_required
+def update_item(request):
+    """
+    Update value in database.
+    @param request: POST includes identifier and new value.
+
+    @return Empty response.
+    """
+    identifier = request.POST.get('identifier', None)
+    data_value = request.POST.get('data_value', None)
+    if identifier:
+        app_label, model_name, fieldname, primary_key = identifier.split('-')
+        model = get_model(app_label, model_name)
+        if primary_key.isdigit():
+            item = model.objects.get(pk=primary_key)
+            if fieldname == 'delete':
+                item.delete()
+            else:
+                field = model._meta.get_field(fieldname)
+                field_type = field.get_internal_type()
+                if field_type == 'BooleanField':
+                    data_value = data_value == 'true'
+                elif field_type == 'ForeignKey':
+                    data_value = field.rel.to.objects.get(pk=data_value)
+                setattr(item, fieldname, data_value)
+                item.save()
+    return HttpResponse('')

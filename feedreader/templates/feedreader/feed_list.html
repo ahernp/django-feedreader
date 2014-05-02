@@ -236,18 +236,9 @@
 {% endblock %}
 
 {% block footer %}
-    <div id="import_opml_body" style="display: none">
-        <form enctype="multipart/form-data" method="post" action="import_opml/">
-            {% csrf_token %}
-            {{ import_form.opml_file }}
-            <input type="submit" value="Import" id="import"/>
-        </form>
-    </div>
     <p>
     	<a href="#" title="Back to Top">Top</a>;
-        <a href="{% url 'admin:feedreader_feed_changelist' %}" title="Edit Feeds">Edit</a>;
-        <span id="import_opml_label">Import</span>;
-        <a href="{% url 'feedreader:export_opml' %}" title="Export RSS Feed Subscriptions as OPML file">Export</a>;
+        <a href="{% url 'feedreader:edit_feeds' %}" title="Edit Feeds">Edit</a>;
         <a href="{% url 'logout' %}">Logout</a>.
     </p>
 {% endblock %}

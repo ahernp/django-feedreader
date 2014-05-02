@@ -4,6 +4,8 @@ from xml.etree import ElementTree
 
 from django import forms
 
+from .models import Feed, Group
+
 
 class StringSearchForm(forms.Form):
     """
@@ -12,17 +14,30 @@ class StringSearchForm(forms.Form):
     feedreader_search_string = forms.CharField()
 
 
-class ImportOpmlFileForm(forms.Form):
+class AddFeedsForm(forms.Form):
     """
-    Load local OPML xml file from browser.
+    Add feeds individually or using an OPML file.
     """
-    opml_file = forms.FileField(required=True)
+    feed_url = forms.CharField(required=False)
+    feed_group = forms.ModelChoiceField(queryset=Group.objects.all(), required=False)
+    opml_file = forms.FileField(required=False)
+
+    def clean_feed_url(self):
+        """Check OPML file contents."""
+        feed_url = self.cleaned_data['feed_url']
+        try:
+            Feed.objects.get(xml_url=feed_url)
+            raise forms.ValidationError('Feed already exists')
+        except Feed.DoesNotExist as e:
+            pass
+        return feed_url
 
     def clean_opml_file(self):
         """Check OPML file contents."""
-        opml_file = data = self.cleaned_data['opml_file']
-        try:
-            opml_tree = ElementTree.parse(opml_file)
-        except ElementTree.ParseError as e:
-            raise forms.ValidationError('Error Parsing OPML file: %s' % e.msg)
-        return opml_tree
+        opml_file = self.cleaned_data['opml_file']
+        if opml_file:
+            try:
+                opml_tree = ElementTree.parse(opml_file)
+            except ElementTree.ParseError as e:
+                raise forms.ValidationError('Error Parsing OPML file: %s' % e.msg)
+            return opml_tree
