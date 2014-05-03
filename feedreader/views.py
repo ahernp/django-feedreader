@@ -122,11 +122,7 @@ class EditFeeds(LoginRequiredMixin, FormView):
         context['no_group'] = Feed.objects.filter(group=None)
         return context
 
-    # def form_valid(self, form):
-    #     import pdb; pdb.set_trace() # Start debugging
-    #     return self.render_to_response(self.get_context_data(form=form))
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
+    def form_valid(self, form):
         if form.is_valid():
             feed_url = form.cleaned_data.get('feed_url')
             feed_group = form.cleaned_data.get('feed_group')
@@ -135,7 +131,11 @@ class EditFeeds(LoginRequiredMixin, FormView):
                 if feed_group:
                     feed.group = feed_group
                     feed.save()
+            new_group = form.cleaned_data.get('new_group')
+            if new_group:
+                group = Group.objects.create(name=new_group)
             tree = form.cleaned_data.get('opml_file')
+            group = None
             if tree:
                 for node in tree.iter('outline'):
                     name = node.attrib.get('text')
@@ -219,7 +219,10 @@ def update_item(request):
                 if field_type == 'BooleanField':
                     data_value = data_value == 'true'
                 elif field_type == 'ForeignKey':
-                    data_value = field.rel.to.objects.get(pk=data_value)
-                setattr(item, fieldname, data_value)
+                    if data_value:
+                        data_value = field.rel.to.objects.get(pk=data_value)
+                        setattr(item, fieldname, data_value)
+                    else:
+                        setattr(item, fieldname, None)
                 item.save()
     return HttpResponse('')

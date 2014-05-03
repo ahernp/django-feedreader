@@ -77,9 +77,9 @@ class LoadOPMLTest(TestCase):
 
     def test_loading_opml_file(self):
         """Load OPML file"""
-        url = '/feedreader/import_opml/'
+        url = '/feedreader/edit_feeds/'
         response = self.client.post(url, {'opml_file': self.opml_file})
         self.assertEqual(response.status_code,
-                         302,
-                         'URL %s: Unexpected status code, got %s expected 302' %
+                         200,
+                         'URL %s: Unexpected status code, got %s expected 200' %
                             (url, response.status_code))

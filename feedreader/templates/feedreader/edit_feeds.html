@@ -12,6 +12,7 @@
         $(function() {
             $('#spinner').hide();
             $('input:submit').button();
+            $("table").dataTable({"bPaginate": false, "aaSorting": []});
             $(document).hide().ajaxStart(function() {$('#spinner').show();})
                                .ajaxStop(function() {$('#spinner').hide();});
             $('.data_field').change(function() {
@@ -21,7 +22,7 @@
                     {'identifier' : identifier,
                     'data_value': data_value,
                     'csrfmiddlewaretoken': $('[name="csrfmiddlewaretoken"]').val()},
-                    function() {$('#'+identifier).parent().parent().hide();});
+                    function() {$('#'+identifier+':checkbox').parent().parent().hide();});
             });
         });
     </script>
@@ -43,7 +44,7 @@
     <form enctype="multipart/form-data" method="post" action="{% url 'feedreader:edit_feeds' %}">
         {% csrf_token %}
         <p>
-            <input type="submit" value="Add" id="add_button"/>
+            <input type="submit" value="Add Feed" id="add_feed_button"/>
             URL:
             {{ form.feed_url }}
             Group:
@@ -52,11 +53,21 @@
         {% if form.feed_url.errors %}
             <p>{{ form.feed_url.errors }}</p>
         {% endif %}
-        <h2>OPML</h2>
+        <p>
+            <input type="submit" value="Add Group" id="add_group_button"/>
+            {{ form.new_group }}
+        </p>
+        {% if form.new_group.errors %}
+            <p>{{ form.new_group.errors }}</p>
+        {% endif %}
+        <h2>Feed Import and Export in OPML Format</h2>
         <p>
             <input type="submit" value="Import" id="import"/>
             {{ form.opml_file }}
         </p>
+        {% if form.opml_file.errors %}
+            <p>{{ form.opml_file.errors }}</p>
+        {% endif %}
     </form>
     <form method="get" action="{% url 'feedreader:export_opml' %}">
         <input type="submit" value="Export" id="export"/>
@@ -77,7 +88,15 @@
                         <tr>
                             <td>{{ feed.title }}</td>
                             <td>{{ feed.xml_url }}</td>
-                            <td>{{ group }}</td>
+                            <td>
+                                <select id="feedreader-Feed-group-{{ feed.id }}" class="data_field">
+                                    <option value="">---------</option>
+                                    {% for feed_group in groups %}
+                                        <option {% if feed_group = group %}selected="selected"{% endif %}
+                                                value="{{ feed_group.id }}">{{ feed_group }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
                             <td>
                                 <input id="feedreader-Feed-delete-{{ feed.id }}"
                                     type="checkbox"
@@ -90,11 +109,39 @@
                     <tr>
                         <td>{{ feed.title }}</td>
                         <td>{{ feed.xml_url }}</td>
-                        <td>-</td>
+                        <td>
+                            <select id="feedreader-Feed-group-{{ feed.id }}" class="data_field">
+                                <option selected="selected" value="">---------</option>
+                                {% for group in groups %}
+                                    <option value="{{ group.id }}">{{ group }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
                         <td>
                             <input id="feedreader-Feed-delete-{{ feed.id }}"
                                 type="checkbox"
                                 class="data_field">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <h2>Current Groups</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group }}</td>
+                        <td>
+                            <input id="feedreader-Group-delete-{{ group.id }}"
+                                type="checkbox"
+                            class="data_field">
                         </td>
                     </tr>
                 {% endfor %}

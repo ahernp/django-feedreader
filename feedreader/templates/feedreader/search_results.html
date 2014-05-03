@@ -59,3 +59,11 @@
         {% endif %}
     {% endif %}
 {% endblock %}
+
+{% block footer %}
+    <p>
+    	<a href="#" title="Back to Top">Top</a>;
+        <a href="{% url 'admin:feedreader_feed_changelist' %}" title="Edit Feeds">Admin</a>;
+        <a href="{% url 'logout' %}">Logout</a>.
+    </p>
+{% endblock %}
