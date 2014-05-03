@@ -7,6 +7,7 @@ from xml.dom import minidom
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import get_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, render_to_response
 from django.template import RequestContext
@@ -106,8 +107,6 @@ class Search(LoginRequiredMixin, TemplateView):
         return self.render_to_response(context)
 
 
-
-
 class EditFeeds(LoginRequiredMixin, FormView):
     """
     Edit feed subscriptions
@@ -193,36 +192,36 @@ class ExportOpml(LoginRequiredMixin, View):
         response.write(minidom.parseString(ElementTree.tostring(root, 'utf-8')).toprettyxml(indent="  "))
         return response
 
-from django.contrib.auth.decorators import login_required
-from django.db.models import get_model
 
-@login_required
-def update_item(request):
+class UpdateItem(LoginRequiredMixin, View):
     """
     Update value in database.
     @param request: POST includes identifier and new value.
 
     @return Empty response.
     """
-    identifier = request.POST.get('identifier', None)
-    data_value = request.POST.get('data_value', None)
-    if identifier:
-        app_label, model_name, fieldname, primary_key = identifier.split('-')
-        model = get_model(app_label, model_name)
-        if primary_key.isdigit():
-            item = model.objects.get(pk=primary_key)
-            if fieldname == 'delete':
-                item.delete()
-            else:
-                field = model._meta.get_field(fieldname)
-                field_type = field.get_internal_type()
-                if field_type == 'BooleanField':
-                    data_value = data_value == 'true'
-                elif field_type == 'ForeignKey':
-                    if data_value:
-                        data_value = field.rel.to.objects.get(pk=data_value)
-                        setattr(item, fieldname, data_value)
+    def post(self, request, *args, **kwargs):
+        identifier = request.POST.get('identifier', None)
+        data_value = request.POST.get('data_value', None)
+        if identifier:
+            app_label, model_name, fieldname, primary_key = identifier.split('-')
+            model = get_model(app_label, model_name)
+            if primary_key.isdigit():
+                item = model.objects.get(pk=primary_key)
+                if fieldname == 'delete':
+                    item.delete()
+                else:
+                    field = model._meta.get_field(fieldname)
+                    field_type = field.get_internal_type()
+                    if field_type == 'BooleanField':
+                        data_value = data_value == 'true'
+                    elif field_type == 'ForeignKey':
+                        if data_value:
+                            data_value = field.rel.to.objects.get(pk=data_value)
+                            setattr(item, fieldname, data_value)
+                        else:
+                            setattr(item, fieldname, None)
                     else:
-                        setattr(item, fieldname, None)
-                item.save()
-    return HttpResponse('')
+                        setattr(item, fieldname, data_value)
+                    item.save()
+        return HttpResponse('')

@@ -8,7 +8,11 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.client import Client
 
-from .models import Entry
+from .forms import AddFeedsForm
+from .models import Entry, Feed, Group
+from .simple_test_server import (PORT, setUpModule as server_setup,
+                                 tearDownModule as server_teardown)
+from .views import EditFeeds, UpdateItem
 
 from mock import Mock, patch
 
@@ -83,3 +87,103 @@ class LoadOPMLTest(TestCase):
                          200,
                          'URL %s: Unexpected status code, got %s expected 200' %
                             (url, response.status_code))
+
+
+class EditFeedsTest(TestCase):
+    """
+    Test EditFeeds view
+    """
+    def setUp(self):
+        def dict_lookup(*args):
+            returns = {'feed_url': 'test_url',
+                       'feed_group': 'test_group',
+                       'new_group': 'test_new_group',
+                       'opml_file': None}
+            return returns[args[0]]
+        self.form_mock = Mock()
+        self.form_mock.cleaned_data.get.side_effect = dict_lookup
+        self.feed_class_mock = Mock(spec=Feed)
+        self.request_mock = Mock()
+
+    def test_add_new_feed(self):
+        """Mark create new feed and group"""
+        with patch('feedreader.views.AddFeedsForm', self.form_mock):
+            with patch('feedreader.views.Feed', self.feed_class_mock):
+                edit_feeds_view = EditFeeds()
+                edit_feeds_view.request = self.request_mock
+                response = edit_feeds_view.form_valid(self.form_mock)
+                self.assertEqual(response.status_code,
+                                 200,
+                                 'Unexpected status code, got %s expected 200' %
+                                 (response.status_code))
+
+def setUpModule():
+    server_setup()
+
+def tearDownModule():
+    server_teardown()
+
+class UpdateItemTest(TestCase):
+    """
+    Test UpdateItem view
+    """
+    def setUp(self):
+        """Create data and login"""
+        feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
+        group = Group.objects.create(name='Test Group')
+        feed.group = group
+        feed.save()
+
+        self.user = get_user_model().objects.create_user('john', 'john@montypython.com', 'password')
+        self.user.is_staff = True
+        self.user.save()
+        self.client = Client()
+        self.client.login(username='john', password='password')
+
+    def test_delete_item(self):
+        """Delete item"""
+        url = '/feedreader/update/'
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-delete-1', 'data_value': 'on'})
+        self.assertEqual(response.status_code,
+                         200,
+                         'Unexpected status code, got %s expected 200' %
+                         (response.status_code))
+
+    def test_update_text(self):
+        """Update text field"""
+        url = '/feedreader/update/'
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-title-1', 'data_value': 'Test Title 2'})
+        self.assertEqual(response.status_code,
+                         200,
+                         'Unexpected status code, got %s expected 200' %
+                         (response.status_code))
+        feed = Feed.objects.get(pk=1)
+        self.assertEqual(feed.title,
+                         'Test Title 2',
+                         'Unexpected feed name: Got "%s" expected "Test Title 2"' %
+                         (feed.title))
+
+
+    def test_update_boolean(self):
+        """Update boolean field"""
+        url = '/feedreader/update/'
+        response = self.client.post(url, {'identifier': 'auth-User-is_superuser-1', 'data_value': 'true'})
+        self.assertEqual(response.status_code,
+                         200,
+                         'Unexpected status code, got %s expected 200' %
+                         (response.status_code))
+
+    def test_update_foreignkey(self):
+        """Update foreign key"""
+        url = '/feedreader/update/'
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-1', 'data_value': '1'})
+        self.assertEqual(response.status_code,
+                         200,
+                         'Unexpected status code, got %s expected 200' %
+                         (response.status_code))
+        # Update foreign key to None
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-1', 'data_value': ''})
+        self.assertEqual(response.status_code,
+                         200,
+                         'Unexpected status code, got %s expected 200' %
+                         (response.status_code))

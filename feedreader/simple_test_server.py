@@ -64,5 +64,5 @@ def tearDownModule():
     """Stop server which returned test rss data"""
     test_server.shutdown()
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     test_server.serve_forever()

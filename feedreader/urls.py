@@ -4,7 +4,7 @@ from django.conf.urls import patterns, url
 
 from .views import (FeedList, Search, EntryList,
                     NumbersUnread, MarkEntryRead,
-                    EditFeeds, ExportOpml, update_item)
+                    EditFeeds, ExportOpml, UpdateItem)
 
 urlpatterns = patterns('',
     url(regex=r'^$',
@@ -29,6 +29,6 @@ urlpatterns = patterns('',
         view=ExportOpml.as_view(),
         name='export_opml'),
     url(regex=r'^update/$',
-        view=update_item,
+        view=UpdateItem.as_view(),
         name='update_item'),
 )
