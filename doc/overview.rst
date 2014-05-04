@@ -29,6 +29,9 @@ Sample Output
 Usage
 -----
 
+Feed List
+~~~~~~~~~
+
 .. _image-annotated-output:
 .. image:: _static/annotated_output.png
     :alt: annotated feedreader output
@@ -37,7 +40,7 @@ In the image above:
 
 1. Menu controlling what output is displayed.
 
-2. Most recent entries/stories.
+2. Most recent entries.
 
 3. Toggle between showing all entries or only those which are unread.
 
@@ -58,22 +61,42 @@ In the image above:
 
 8. String search feed and entry text.
 
-9. Link to Django Admin.
-
-10. Import feeds in OPML xml format.
-
-11. Export feeds in OPML xml format.
+9. Link to Edit Feeds page.
 
 In addition to explicitly marking sets of entries as read,
 scrolling to the end of the page causes all of the unread entries
 displayed to that point to be marked as read.
 Additional entries, if any exist, are added to list displayed.
 
-Django Admin can be used to add or remove feeds from the
-``Feed`` model.
-Adding a new feed causes it to be polled immediately.
 
 The numbers of entries initially displayed, how many entries are saved
 in the local database and how many additionally entries are displayed
-on scrolling tot he bottom of the page are set in the
+on scrolling to the bottom of the page are set in the
 ``Options`` model.
+
+Edit Feeds
+~~~~~~~~~~
+
+.. _image-annotated-output2:
+.. image:: _static/annotated_output2.png
+    :alt: annotated feedreader edit page output
+
+In the image above:
+
+1. Add feed. Optionally assign new feed to an existing group.
+
+2. Add group.
+
+3. Import feeds in OPML format.
+
+4. Export all current feeds in OPML format.
+
+5. Current feeds. Filter table using Search field. 
+   Can only delete or change group assignment of feeds.
+
+6. Existing groups. Can delete groups.
+
+7. Link to Django Admin for Feed model.
+
+Adding a new feed causes it to be polled immediately. 
+All edits are applied immediately.

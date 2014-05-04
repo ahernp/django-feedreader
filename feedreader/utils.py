@@ -86,7 +86,7 @@ def build_context(request, context={}):
             entries = Entry.objects.all()
         else:
             entries = Entry.objects.filter(read_flag=False)
-        context['entries_header'] = 'All items'
+        context['entries_header'] = 'All Entries'
 
     if last_entry:
         entry_list = list(entries)

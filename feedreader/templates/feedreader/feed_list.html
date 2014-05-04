@@ -12,6 +12,7 @@
         #content {width: 80%;}
         .feed_entry {padding: 0.2em 0.5em; margin: 0.5em; border: 1px solid #046; border-radius: 1em;}
         .read_entry {color:#888;}
+        #feed_entry_search {margin-top: 1em;}
         #spinner {position: fixed; top: 50%; left: 50%; margin-top: -64px; margin-left: -64px; z-index: 3;}
         #import_opml_label {color:#046; text-decoration:underline; cursor:pointer;}
     </style>
@@ -155,7 +156,7 @@
         <h3>
             <a class="load_request" 
                 href="{% url 'feedreader:feed_list' %}"
-                title="Show All feeds">All stories</a>
+                title="Show All feeds">All Entries</a>
             <span 
                 id="unread_total"
                 title="Mark as Read"
@@ -220,7 +221,7 @@
             </div>
         {% endfor %}
         <form name="input" action="{% url 'feedreader:search' %}" method="get" style="padding-right:1em;">
-            <input type="text" tabindex="2" size="10"
+            <input id="feed_entry_search" type="text" tabindex="2" size="10"
                 style="color:{% if feedreader_search_string %}#000;{% else %}#ccc{% endif %};"
                 name="feedreader_search_string" title="Search Feeds" class="text" 
                 value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
