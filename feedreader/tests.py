@@ -23,7 +23,7 @@ TEST_URLS = [
     ('/feedreader/', 200, 'Feed Reader'),
     ('/feedreader/num_unread/', 200, 'unread_feed'),
     # Poll Feed
-    ('/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id=1"'),
+    ('/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id='),
     # Poll Group
     ('/feedreader/entry_list/?group_id=1&poll_flag=1', 200, None),
     # Last entry_id included

@@ -129,12 +129,14 @@ class UpdateItemTest(TestCase):
     """
     def setUp(self):
         """Create data and login"""
-        feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
-        group = Group.objects.create(name='Test Group')
-        feed.group = group
-        feed.save()
+        self.feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
+        self.group = Group.objects.create(name='Test Group')
+        self.feed.group = self.group
+        self.feed.save()
 
-        self.user = get_user_model().objects.create_user('john', 'john@montypython.com', 'password')
+        self.user = get_user_model().objects.create_user('john',
+                                                         'john@montypython.com',
+                                                         'password')
         self.user.is_staff = True
         self.user.save()
         self.client = Client()
@@ -143,7 +145,8 @@ class UpdateItemTest(TestCase):
     def test_delete_item(self):
         """Delete item"""
         url = '/feedreader/update/'
-        response = self.client.post(url, {'identifier': 'feedreader-Feed-delete-1', 'data_value': 'on'})
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-delete-%s' % self.feed.id,
+                                          'data_value': 'on'})
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
@@ -152,12 +155,13 @@ class UpdateItemTest(TestCase):
     def test_update_text(self):
         """Update text field"""
         url = '/feedreader/update/'
-        response = self.client.post(url, {'identifier': 'feedreader-Feed-title-1', 'data_value': 'Test Title 2'})
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-title-%s' % self.feed.id,
+                                          'data_value': 'Test Title 2'})
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
                          (response.status_code))
-        feed = Feed.objects.get(pk=1)
+        feed = Feed.objects.get(pk=self.feed.id)
         self.assertEqual(feed.title,
                          'Test Title 2',
                          'Unexpected feed name: Got "%s" expected "Test Title 2"' %
@@ -167,7 +171,7 @@ class UpdateItemTest(TestCase):
     def test_update_boolean(self):
         """Update boolean field"""
         url = '/feedreader/update/'
-        response = self.client.post(url, {'identifier': 'auth-User-is_superuser-1', 'data_value': 'true'})
+        response = self.client.post(url, {'identifier': 'auth-User-is_superuser-%s' % self.user.id, 'data_value': 'true'})
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
@@ -176,13 +180,15 @@ class UpdateItemTest(TestCase):
     def test_update_foreignkey(self):
         """Update foreign key"""
         url = '/feedreader/update/'
-        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-1', 'data_value': '1'})
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-%s' % self.feed.id,
+                                          'data_value': self.group.id})
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
                          (response.status_code))
         # Update foreign key to None
-        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-1', 'data_value': ''})
+        response = self.client.post(url, {'identifier': 'feedreader-Feed-group-%s' % self.feed.id,
+                                          'data_value': ''})
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
