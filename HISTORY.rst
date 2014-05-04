@@ -3,6 +3,11 @@
 History
 -------
 
+1.0.0 (2014-05-04)
+++++++++++++++++++
+
+* Updated documentation with edit feeds page.
+
 0.9.5 (2014-05-03)
 ++++++++++++++++++
 
