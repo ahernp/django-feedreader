@@ -22,8 +22,6 @@ def build_context(request, context={}):
     to build a common context dictionary. Including the 
     list of entries to display.
     """
-
-
     options = Options.manager.get_options()
     poll_flag = request.GET.get('poll_flag', None)
     mark_read_flag = request.GET.get('mark_read_flag', None)
