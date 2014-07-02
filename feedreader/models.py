@@ -58,7 +58,7 @@ class Group(models.Model):
         return self.name
 
     def num_unread_entries(self):
-        return len(Entry.objects.filter(feed__group=self, read_flag=False))
+        return Entry.objects.filter(feed__group=self, read_flag=False).count()
 
 
 class Feed(models.Model):
@@ -97,7 +97,7 @@ class Feed(models.Model):
         return self.title or self.xml_url
 
     def num_unread_entries(self):
-        return len(Entry.objects.filter(feed=self, read_flag=False))
+        return Entry.objects.filter(feed=self, read_flag=False).count()
 
 
     def save(self, *args, **kwargs):
