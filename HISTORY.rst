@@ -3,6 +3,11 @@
 History
 -------
 
+1.0.2 (2014-09-20)
+++++++++++++++++++
+
+* Removed valid_form check as only valid forms reach that function.
+
 1.0.1 (2014-05-04)
 ++++++++++++++++++
 

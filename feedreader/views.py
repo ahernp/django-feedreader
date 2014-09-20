@@ -122,30 +122,29 @@ class EditFeeds(LoginRequiredMixin, FormView):
         return context
 
     def form_valid(self, form):
-        if form.is_valid():
-            feed_url = form.cleaned_data.get('feed_url')
-            feed_group = form.cleaned_data.get('feed_group')
-            if feed_url:
-                feed = Feed.objects.create(xml_url=feed_url)
-                if feed_group:
-                    feed.group = feed_group
-                    feed.save()
-            new_group = form.cleaned_data.get('new_group')
-            if new_group:
-                group = Group.objects.create(name=new_group)
-            tree = form.cleaned_data.get('opml_file')
-            group = None
-            if tree:
-                for node in tree.iter('outline'):
-                    name = node.attrib.get('text')
-                    url = node.attrib.get('xmlUrl')
-                    if name and url:
-                        try:
-                            feed = Feed.objects.get(xml_url=url)
-                        except Feed.DoesNotExist:
-                            Feed.objects.create(xml_url=url, group=group)
-                    else:
-                        group, created = Group.objects.get_or_create(name=name)
+        feed_url = form.cleaned_data.get('feed_url')
+        feed_group = form.cleaned_data.get('feed_group')
+        if feed_url:
+            feed = Feed.objects.create(xml_url=feed_url)
+            if feed_group:
+                feed.group = feed_group
+                feed.save()
+        new_group = form.cleaned_data.get('new_group')
+        if new_group:
+            group = Group.objects.create(name=new_group)
+        tree = form.cleaned_data.get('opml_file')
+        group = None
+        if tree:
+            for node in tree.iter('outline'):
+                name = node.attrib.get('text')
+                url = node.attrib.get('xmlUrl')
+                if name and url:
+                    try:
+                        feed = Feed.objects.get(xml_url=url)
+                    except Feed.DoesNotExist:
+                        Feed.objects.create(xml_url=url, group=group)
+                else:
+                    group, created = Group.objects.get_or_create(name=name)
         return self.render_to_response(self.get_context_data(form=form))
 
 
