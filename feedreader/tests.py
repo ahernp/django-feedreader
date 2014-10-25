@@ -87,7 +87,7 @@ class WorkingURLsTest(TestCase):
     def test_urls(self):
         """Visit each URL in turn"""
         for url, status_code, expected_text in TEST_URLS:
-            response = self.client.get(url)
+            response = self.client.get(url, secure=True)
             self.assertEqual(response.status_code,
                              status_code,
                              'URL %s: Unexpected status code, got %s expected %s' %

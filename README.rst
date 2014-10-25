@@ -34,10 +34,10 @@ Quick start
    project's static root.
 
 5. Start the development server and visit
-   `/admin/feedreader/feed/ <http://127.0.0.1:8000/admin/feedreader/feed>`__
+   `/admin/feedreader/feed/ <https://127.0.0.1:8000/admin/feedreader/feed>`__
    to add feeds. Only each feed's xml url is needed.
 
-6. Visit `/feedreader/ <http://127.0.0.1:8000/feedreader/>`__
+6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
 
 Dependencies
