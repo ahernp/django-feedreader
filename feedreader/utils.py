@@ -113,7 +113,7 @@ def poll_feed(db_feed, verbose=False):
     parsed = feedparser.parse(db_feed.xml_url)
     if hasattr(parsed.feed, 'bozo_exception'):
         # Malformed feed
-        msg = 'Feedreader poll_feeds found Malformed feed, %s: %s' % (db_feed.xml_url, parsed.feed.bozo_exception)
+        msg = 'Feedreader poll_feeds found Malformed feed, "%s": %s' % (db_feed.xml_url, parsed.feed.bozo_exception)
         logger.warning(msg)
         if verbose:
             print(msg)
