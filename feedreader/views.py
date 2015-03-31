@@ -4,6 +4,7 @@ import json
 
 from xml.etree import ElementTree
 from xml.dom import minidom
+from django.conf import settings
 
 from django.contrib import messages
 from django.conf import settings
