@@ -4,6 +4,7 @@ import json
 
 from xml.etree import ElementTree
 from xml.dom import minidom
+from django.conf import settings
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
@@ -78,6 +79,7 @@ class FeedList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(FeedList, self).get_context_data(**kwargs)
+        context['logout_url'] = settings.LOGOUT_URL
         context['no_group'] = Feed.objects.filter(group=None)
         self.extra_context.update(context)
         return self.extra_context
@@ -97,6 +99,7 @@ class Search(LoginRequiredMixin, TemplateView):
         form = StringSearchForm(request.GET)
         search_string = form.cleaned_data['feedreader_search_string'] if form.is_valid() else ''
         context['feedreader_search_string'] = search_string
+        context['logout_url'] = settings.LOGOUT_URL
         if len(search_string) < 3:
             context['too_small'] = True
         else:
@@ -117,6 +120,7 @@ class EditFeeds(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(EditFeeds, self).get_context_data(**kwargs)
+        context['logout_url'] = settings.LOGOUT_URL
         context['groups'] = Group.objects.select_related().all()
         context['no_group'] = Feed.objects.filter(group=None)
         return context

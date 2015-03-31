@@ -240,6 +240,6 @@
     <p>
     	<a href="#" title="Back to Top">Top</a>;
         <a href="{% url 'feedreader:edit_feeds' %}" title="Edit Feeds">Edit</a>;
-        <a href="{% url 'logout' %}">Logout</a>.
+        <a href="{{ logout_url }}">Logout</a>.
     </p>
 {% endblock %}
