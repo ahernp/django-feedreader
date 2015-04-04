@@ -11,7 +11,7 @@
     <script type="text/javascript">
         $(function() {
             $('#spinner').hide();
-            $("table").dataTable({"bPaginate": false, "aaSorting": []});
+            $("table").DataTable({"bPaginate": false, "aaSorting": []});
             $(document).hide().ajaxStart(function() {$('#spinner').show();})
                               .ajaxStop(function() {$('#spinner').hide();});
             $('.data_field').change(function() {
