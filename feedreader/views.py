@@ -4,12 +4,11 @@ import json
 
 from xml.etree import ElementTree
 from xml.dom import minidom
-from django.conf import settings
 
+from django.apps import apps
 from django.contrib import messages
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import get_model
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, render_to_response
 from django.template import RequestContext
@@ -209,7 +208,7 @@ class UpdateItem(LoginRequiredMixin, View):
         data_value = request.POST.get('data_value', None)
         if identifier:
             app_label, model_name, fieldname, primary_key = identifier.split('-')
-            model = get_model(app_label, model_name)
+            model = apps.get_model(app_label, model_name)
             if primary_key.isdigit():
                 item = model.objects.get(pk=primary_key)
                 if fieldname == 'delete':

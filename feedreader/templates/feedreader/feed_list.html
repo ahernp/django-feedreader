@@ -86,8 +86,6 @@
             $('a.load_request').click(function(e) { // Disable links
                 e.preventDefault();
             });
-            $('#accordion').accordion({heightStyle: 'content', collapsible: true, active: false});
-            $('.ui-accordion-content').css({'padding': '1em'});
             $(document).hide().ajaxStart(function() {$('#spinner').show();})
                                 .ajaxStop(function() {$('#spinner').hide();});
             $('.load_request').click(function() {
@@ -132,8 +130,16 @@
             });
             populate_unread_nums();
             mark_read_on_click();
-            $('#import_opml_label').click(function() {
-                $('#import_opml_body').toggle('slow', function() {});
+            {% for group in group_list %}
+                $('#group_{{ group.id }}_header').click(function() {
+                    $('#group_{{ group.id }}_feeds').toggle('slow', function() {});
+                });
+                $('#group_{{ group.id }}_feeds').hide();
+            {% endfor %}
+            $('#all_entries_header').click(function() {
+                {% for group in group_list %}
+                    $('#group_{{ group.id }}_feeds').hide();
+                {% endfor %}
             });
         });
     </script>
@@ -145,7 +151,7 @@
 
 {% block content %}
     <h1>Feed Reader</h1>
-    <div id="menu" style="width:20%;float:left">
+    <div id="menu" style="width:25%;float:left">
         <p>
             <input id="show_read" 
                 class="load_request"
@@ -153,7 +159,7 @@
                 name="Show Stories Already Read">
             Show Read Stories
         </p>
-        <h3>
+        <h3 id="all_entries_header">
             <a class="load_request" 
                 href="{% url 'feedreader:feed_list' %}"
                 title="Show All feeds">All Entries</a>
@@ -163,36 +169,29 @@
                 class="load_request mark_read_request">
             </span>
         </h3>
-        <div id="accordion">
-            {% for group in group_list %}
-                <h3>
-                    {{ group.name }} 
-                    <span 
-                        id="unread_group_button{{group.id}}" 
-                        class="load_request mark_read">
+        {% for group in group_list %}
+            <div id="group_id={{ group.id }}" class="group">
+                <h3 id="group_{{ group.id }}_header">
+                    <a class="load_request"
+                        href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}"
+                        title="Show All {{ group.name }} feeds">{{ group.name }}</a>
+                    <a class="load_request poll_request"
+                        href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}&poll_flag=1"
+                        title="Poll All {{ group.name }} feeds">&darr;</a>
+                    <span id="unread_group{{group.id}}"
+                        class="load_request mark_read_request"
+                        title="Mark as Read">
                     </span>
                 </h3>
-                <div id="group_id={{ group.id }}" class="group">
-                    <p class="feedreader_menu">
-                        <a class="load_request" 
-                            href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}"
-                            title="Show All {{ group.name }} feeds">All {{ group.name }}</a>
-                        <a class="load_request poll_request" 
-                            href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}&poll_flag=1"
-                            title="Poll All {{ group.name }} feeds">&darr;</a>
-                        <span id="unread_group{{group.id}}"
-                            class="load_request mark_read_request"
-                            title="Mark as Read">
-                        </span>
-                    <p>
+                <div id="group_{{ group.id }}_feeds">
                     {% for feed in group.feed_set.all %}
                         <div id="feed_id={{ feed.id }}" class="feed">
                             <p class="feedreader_menu">
-                                <a class="load_request" 
-                                    href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}" 
-                                    title="{{ feed.description|safe }}">{{ feed.title }}</a>
-                                <a class="load_request poll_request" 
-                                    href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}&poll_flag=1" 
+                                <a class="load_request"
+                                    href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}"
+                                    title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>
+                                <a class="load_request poll_request"
+                                    href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}&poll_flag=1"
                                     title="Poll {{ feed.title|safe }} feed">&darr;</a>
                                 <span id="unread_feed{{feed.id}}"
                                     class="load_request mark_read_request"
@@ -202,14 +201,14 @@
                         </div>
                     {% endfor %}
                 </div>
-            {% endfor %}
-        </div> <!-- accordion -->
+            </div>
+        {% endfor %}
         {% for feed in no_group %}
             <div id="feed_id={{ feed.id }}" class="feed">
                 <p>
                     <a class="load_request"
                         href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}" 
-                        title="{{ feed.description|safe }}">{{ feed.title }}</a>
+                        title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>
                     <a class="load_request poll_request" 
                         href="{% url 'feedreader:feed_list' %}?feed=_id{{ feed.id }}&poll_flag=1" 
                         title="Poll {{ feed.title|safe }} feed">&darr;</a>
@@ -227,7 +226,7 @@
                 value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
         </form> 
     </div>
-    <div id="entries" style="width:75%;float:left;padding-left:1em;">
+    <div id="entries" style="width:70%;float:left;padding-left:1em;">
         {% include "feedreader/entry_list.html" %}
     </div>
     <div style="clear:both"></div>

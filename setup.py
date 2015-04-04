@@ -29,11 +29,11 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-        'Django==1.7',
+        'Django==1.8',
         'django-braces==1.4.0',
-        'factory-boy==2.3.1',
+        'factory-boy==2.5.1',
         'feedparser==5.1.3',
         'mock==1.0.1',
-        'pytz>=2013.7',
+        'pytz>=2015.2',
     ],
 )
