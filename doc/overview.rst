@@ -48,14 +48,14 @@ In the image above:
    In brackets is number of unread entries.
    Clicking on this number marks them all as read.
 
-5. Accordion of feed groups.
-   As well as the group name each button shows the number of unread
+5. Feed groups.
+   As well as the group name, each entry shows the number of unread
    entries.
+   The down-arrows can be clicked to poll all the feeds in the group.
 
 6. Feed group. Shows the feed names.
    These can be individually selected.
-   The down-arrows can be clicked to poll an individual feed
-   or all those in the group.
+   The down-arrows can be clicked to poll an individual feed.
 
 7. Feeds not in any group.
 
@@ -91,12 +91,13 @@ In the image above:
 
 4. Export all current feeds in OPML format.
 
-5. Current feeds. Filter table using Search field. 
+5. Options controlling how man entries are displayed and stored
+   in the database.
+   
+6. Current feeds. Filter table using Search field. 
    Can only delete or change group assignment of feeds.
 
-6. Existing groups. Can delete groups.
-
-7. Link to Django Admin for Feed model.
+7. Existing groups. Can delete groups.
 
 Adding a new feed causes it to be polled immediately. 
 All edits are applied immediately.

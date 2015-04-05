@@ -40,37 +40,74 @@
         <img src="{% static 'spinner.gif' %}" alt="Please wait" title="Please Wait" />
     </div>
     <h1>Feeds</h1>
-    <form enctype="multipart/form-data" method="post" action="{% url 'feedreader:edit_feeds' %}">
-        {% csrf_token %}
+    <div style="float:left; width:75%">
+        <form enctype="multipart/form-data" method="post" action="{% url 'feedreader:edit_feeds' %}">
+            {% csrf_token %}
+            <p>
+                <button id="add_feed_button" type="submit">Add Feed</button>
+                URL:
+                {{ form.feed_url }}
+                Group:
+                {{ form.feed_group }}
+            </p>
+            {% if form.feed_url.errors %}
+                <p>{{ form.feed_url.errors }}</p>
+            {% endif %}
+            <p>
+                <button id="add_group_button" type="submit">Add Group</button>
+                {{ form.new_group }}
+            </p>
+            {% if form.new_group.errors %}
+                <p>{{ form.new_group.errors }}</p>
+            {% endif %}
+            <h2>Feed Import and Export in OPML Format</h2>
+            <p>
+                <button id="import" type="submit">Import</button>
+                {{ form.opml_file }}
+            </p>
+            {% if form.opml_file.errors %}
+                <p>{{ form.opml_file.errors }}</p>
+            {% endif %}
+        </form>
+        <form method="get" action="{% url 'feedreader:export_opml' %}">
+            <button id="export" type="submit">Export</button>
+        </form>
+        <h2>Options</h2>
         <p>
-            <button id="add_feed_button" type="submit">Add Feed</button>
-            URL:
-            {{ form.feed_url }}
-            Group:
-            {{ form.feed_group }}
+            Numbers of Entries:
+            Initially displayed
+            <input id="feedreader-Options-number_initially_displayed-{{ feedreader_options.id }}"
+                   type="text"
+                   size="1"
+                   class="data_field"
+                   value="{{ feedreader_options.number_initially_displayed }}">;
+            Added on scrolldown
+            <input id="feedreader-Options-number_additionally_displayed-{{ feedreader_options.id }}"
+                   type="text"
+                   size="1"
+                   class="data_field"
+                   value="{{ feedreader_options.number_additionally_displayed }}">;
+            Maximum saved per Feed
+            <input id="feedreader-Options-max_entries_saved-{{ feedreader_options.id }}"
+                   type="text"
+                   size="1"
+                   class="data_field"
+                   value="{{ feedreader_options.max_entries_saved }}">.
         </p>
-        {% if form.feed_url.errors %}
-            <p>{{ form.feed_url.errors }}</p>
-        {% endif %}
-        <p>
-            <button id="add_group_button" type="submit">Add Group</button>
-            {{ form.new_group }}
-        </p>
-        {% if form.new_group.errors %}
-            <p>{{ form.new_group.errors }}</p>
-        {% endif %}
-        <h2>Feed Import and Export in OPML Format</h2>
-        <p>
-            <button id="import" type="submit">Import</button>
-            {{ form.opml_file }}
-        </p>
-        {% if form.opml_file.errors %}
-            <p>{{ form.opml_file.errors }}</p>
-        {% endif %}
-    </form>
-    <form method="get" action="{% url 'feedreader:export_opml' %}">
-        <button id="export" type="submit">Export</button>
-    </form>
+    </div>
+    <div style="float:left; width:25%">
+        <h2>Current Groups</h2>
+        {% for group in groups %}
+            <p>
+                <span style="font-weight: bold">{{ group }}</span>
+                (delete
+                <input id="feedreader-Group-delete-{{ group.id }}"
+                       type="checkbox"
+                       class="data_field">)
+            </p>
+        {% endfor %}
+    </div>
+    <div style="clear:both;"></div>
     <h2>Current Feeds</h2>
         <table>
             <thead>
@@ -120,27 +157,6 @@
                             <input id="feedreader-Feed-delete-{{ feed.id }}"
                                 type="checkbox"
                                 class="data_field">
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    <h2>Current Groups</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for group in groups %}
-                    <tr>
-                        <td>{{ group }}</td>
-                        <td>
-                            <input id="feedreader-Group-delete-{{ group.id }}"
-                                type="checkbox"
-                            class="data_field">
                         </td>
                     </tr>
                 {% endfor %}

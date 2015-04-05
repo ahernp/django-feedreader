@@ -17,7 +17,7 @@ from django.views.generic import ListView, FormView, TemplateView, View
 from braces.views import LoginRequiredMixin
 
 from .forms import AddFeedsForm, StringSearchForm
-from .models import Group, Feed, Entry
+from .models import Group, Feed, Entry, Options
 from .utils import build_context
 
 
@@ -123,6 +123,7 @@ class EditFeeds(LoginRequiredMixin, FormView):
         context['logout_url'] = settings.LOGOUT_URL
         context['groups'] = Group.objects.select_related().all()
         context['no_group'] = Feed.objects.filter(group=None)
+        context['feedreader_options'] = Options.manager.get_options()
         return context
 
     def form_valid(self, form):
