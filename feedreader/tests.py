@@ -1,10 +1,7 @@
 """Feedreader Unit Test."""
 from __future__ import absolute_import
 
-import SimpleHTTPServer
 from StringIO import StringIO
-import SocketServer
-import threading
 
 from django.core.management import call_command
 from django.test import TestCase
@@ -58,8 +55,10 @@ TEST_URLS = [
     ('/feedreader/export_opml/', 200, 'feed')
 ]
 
+
 def setUpModule():
     server_setup()
+
 
 def tearDownModule():
     server_teardown()
@@ -69,6 +68,7 @@ class WorkingURLsTest(TestCase):
     """
     Visit various URLs in Feedreader to ensure they are working.
     """
+
     def setUp(self):
         """Create data and login"""
         entry = EntryFactory.create()
@@ -91,7 +91,7 @@ class WorkingURLsTest(TestCase):
             self.assertEqual(response.status_code,
                              status_code,
                              'URL %s: Unexpected status code, got %s expected %s' %
-                                (url, response.status_code, status_code))
+                             (url, response.status_code, status_code))
             if response.status_code == 200 and expected_text:
                 self.assertContains(response,
                                     expected_text,
@@ -102,6 +102,7 @@ class TestPollFeedsCommand(TestCase):
     """
     Test the command which polls the feeds.
     """
+
     def setUp(self):
         """Create data"""
         entry = EntryFactory.create()

@@ -6,12 +6,9 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 from django.apps import apps
-from django.contrib import messages
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
-from django.shortcuts import redirect, render, render_to_response
-from django.template import RequestContext
 from django.views.generic import ListView, FormView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
@@ -89,7 +86,7 @@ class Search(LoginRequiredMixin, TemplateView):
     """
     Simple string search.
 
-    Display entries with titles and/or descriptions which 
+    Display entries with titles and/or descriptions which
     contain the string searched for.
     """
     template_name = 'feedreader/search_results.html'
@@ -157,6 +154,7 @@ class ExportOpml(LoginRequiredMixin, View):
     """
     Return feed subscriptions in OPML format.
     """
+
     def get(self, request, *args, **kwargs):
         root = ElementTree.Element('opml')
         root.set('version', '2.0')
@@ -168,28 +166,28 @@ class ExportOpml(LoginRequiredMixin, View):
         feeds = Feed.objects.filter(group=None)
         for feed in feeds:
             feed_xml = ElementTree.SubElement(body,
-                                  'outline',
-                                  {'type': 'rss',
-                                   'text': feed.title,
-                                   'xmlUrl': feed.xml_url,
-                                   }
+                                              'outline',
+                                              {'type': 'rss',
+                                               'text': feed.title,
+                                               'xmlUrl': feed.xml_url,
+                                              }
             )
 
         groups = Group.objects.all()
         for group in groups:
             group_xml = ElementTree.SubElement(body,
-                                   'outline',
-                                   {'text': group.name,
-                                    }
+                                               'outline',
+                                               {'text': group.name,
+                                               }
             )
             feeds = Feed.objects.filter(group=group)
             for feed in feeds:
                 feed_xml = ElementTree.SubElement(group_xml,
-                                      'outline',
-                                      {'type': 'rss',
-                                       'text': feed.title,
-                                       'xmlUrl': feed.xml_url,
-                                       }
+                                                  'outline',
+                                                  {'type': 'rss',
+                                                   'text': feed.title,
+                                                   'xmlUrl': feed.xml_url,
+                                                  }
                 )
         response = HttpResponse(content_type='text/xml')
         response['Content-Disposition'] = 'attachment; filename="feedreader.opml"'
@@ -204,6 +202,7 @@ class UpdateItem(LoginRequiredMixin, View):
 
     @return Empty response.
     """
+
     def post(self, request, *args, **kwargs):
         identifier = request.POST.get('identifier', None)
         data_value = request.POST.get('data_value', None)

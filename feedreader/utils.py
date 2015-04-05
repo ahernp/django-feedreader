@@ -13,13 +13,14 @@ from django.utils import timezone
 from .models import Entry, Options, Group, Feed
 
 import logging
+
 logger = logging.getLogger('feedreader')
 
 
 def build_context(request, context={}):
     """
     Find flag and id values in the request and use them
-    to build a common context dictionary. Including the 
+    to build a common context dictionary. Including the
     list of entries to display.
     """
     options = Options.manager.get_options()

@@ -1,18 +1,16 @@
 """Feedreader Utils Unit Test."""
 from __future__ import absolute_import
 
-from StringIO import StringIO
 
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.client import Client
 
-from .forms import AddFeedsForm
 from .models import Entry, Feed, Group
 from .simple_test_server import (PORT, setUpModule as server_setup,
                                  tearDownModule as server_teardown)
-from .views import EditFeeds, UpdateItem
+from .views import EditFeeds
 
 from mock import Mock, patch
 
@@ -35,6 +33,7 @@ class MarkEntryReadTest(TestCase):
     """
     Test MarkEntryRead view
     """
+
     def setUp(self):
         self.user = get_user_model().objects.create_user('john', 'john@montypython.com', 'password')
         self.user.is_staff = True
@@ -71,6 +70,7 @@ class MarkEntryReadTest(TestCase):
 
 class LoadOPMLTest(TestCase):
     """Load OPML file"""
+
     def setUp(self):
         self.user = get_user_model().objects.create_user('john', 'john@montypython.com', 'password')
         self.user.is_staff = True
@@ -82,19 +82,20 @@ class LoadOPMLTest(TestCase):
     def test_loading_opml_file(self):
         """Load OPML file"""
         url = '/feedreader/edit_feeds/'
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'opml_file': self.opml_file},
                                     secure=True)
         self.assertEqual(response.status_code,
                          200,
                          'URL %s: Unexpected status code, got %s expected 200' %
-                            (url, response.status_code))
+                         (url, response.status_code))
 
 
 class EditFeedsTest(TestCase):
     """
     Test EditFeeds view
     """
+
     def setUp(self):
         def dict_lookup(*args):
             returns = {'feed_url': 'test_url',
@@ -102,6 +103,7 @@ class EditFeedsTest(TestCase):
                        'new_group': 'test_new_group',
                        'opml_file': None}
             return returns[args[0]]
+
         self.form_mock = Mock()
         self.form_mock.cleaned_data.get.side_effect = dict_lookup
         self.feed_class_mock = Mock(spec=Feed)
@@ -119,16 +121,20 @@ class EditFeedsTest(TestCase):
                                  'Unexpected status code, got %s expected 200' %
                                  (response.status_code))
 
+
 def setUpModule():
     server_setup()
 
+
 def tearDownModule():
     server_teardown()
+
 
 class UpdateItemTest(TestCase):
     """
     Test UpdateItem view
     """
+
     def setUp(self):
         """Create data and login"""
         self.feed = Feed.objects.create(xml_url='http://localhost:%s/test/feed' % (PORT))
@@ -147,9 +153,9 @@ class UpdateItemTest(TestCase):
     def test_delete_item(self):
         """Delete item"""
         url = '/feedreader/update/'
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'identifier': 'feedreader-Feed-delete-%s' % self.feed.id,
-                                        'data_value': 'on'},
+                                     'data_value': 'on'},
                                     secure=True)
         self.assertEqual(response.status_code,
                          200,
@@ -159,9 +165,9 @@ class UpdateItemTest(TestCase):
     def test_update_text(self):
         """Update text field"""
         url = '/feedreader/update/'
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'identifier': 'feedreader-Feed-title-%s' % self.feed.id,
-                                        'data_value': 'Test Title 2'},
+                                     'data_value': 'Test Title 2'},
                                     secure=True)
         self.assertEqual(response.status_code,
                          200,
@@ -177,7 +183,7 @@ class UpdateItemTest(TestCase):
     def test_update_boolean(self):
         """Update boolean field"""
         url = '/feedreader/update/'
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'identifier': 'auth-User-is_superuser-%s' % self.user.id, 'data_value': 'true'},
                                     secure=True)
         self.assertEqual(response.status_code,
@@ -188,18 +194,18 @@ class UpdateItemTest(TestCase):
     def test_update_foreignkey(self):
         """Update foreign key"""
         url = '/feedreader/update/'
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'identifier': 'feedreader-Feed-group-%s' % self.feed.id,
-                                         'data_value': self.group.id},
+                                     'data_value': self.group.id},
                                     secure=True)
         self.assertEqual(response.status_code,
                          200,
                          'Unexpected status code, got %s expected 200' %
                          (response.status_code))
         # Update foreign key to None
-        response = self.client.post(url, 
+        response = self.client.post(url,
                                     {'identifier': 'feedreader-Feed-group-%s' % self.feed.id,
-                                         'data_value': ''},
+                                     'data_value': ''},
                                     secure=True)
         self.assertEqual(response.status_code,
                          200,

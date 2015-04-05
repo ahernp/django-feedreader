@@ -11,6 +11,7 @@ from ...models import Feed, Entry, Options
 from ...utils import poll_feed
 
 import logging
+
 logger = logging.getLogger('feedreader')
 
 
@@ -18,11 +19,11 @@ class Command(BaseCommand):
     args = 'none'
     help = 'Polls all Feeds for Entries.'
     option_list = BaseCommand.option_list + (
-    make_option('--verbose',
-        action='store_true',
-        dest='verbose',
-        default=False,
-        help='Print progress on command line'),
+        make_option('--verbose',
+                    action='store_true',
+                    dest='verbose',
+                    default=False,
+                    help='Print progress on command line'),
     )
 
     def handle(self, *args, **options):

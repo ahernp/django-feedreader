@@ -17,6 +17,7 @@ class PollFeedTest(TestCase):
     """
     Test polling feeds.
     """
+
     def setUp(self):
         # Create feedparser.parse_mock object
         parse_mock = Mock()
@@ -70,6 +71,7 @@ class PollFeedBozoExceptionTest(TestCase):
     """
     Test polling feeds where Bozo Exception returned.
     """
+
     def setUp(self):
         feed_mock = Mock(spec=Feed)
         feed_mock.xml_url = 'test-feed-url'
@@ -105,7 +107,7 @@ class PollEntriesTest(TestCase):
         parse_mock = self.parse_mock
         entry_attrs = {'link': 'test_entry_link',
                        'published_parsed': (2014, 01, 01, 12, 0, 0, 2, 1, 0),  # 2014-01-01 12:00:00
-                       }
+        }
         entry_mock = Mock(**entry_attrs)
         entry_mock.title = ''
         parse_mock.return_value.entries = [entry_mock]
@@ -121,7 +123,7 @@ class PollEntriesTest(TestCase):
         parse_mock = self.parse_mock
         entry_attrs = {'link': 'test_entry_link',
                        'published_parsed': (2014, 01, 01, 12, 0, 0, 2, 1, 0),  # 2014-01-01 12:00:00
-                       }
+        }
         entry_mock = Mock(**entry_attrs)
         del entry_mock.description
         parse_mock.return_value.entries = [entry_mock]
@@ -137,7 +139,7 @@ class PollEntriesTest(TestCase):
         parse_mock = self.parse_mock
         entry_attrs = {'link': 'test_entry_link',
                        'published_parsed': (2114, 01, 01, 12, 0, 0, 2, 1, 0),  # 2114-01-01 12:00:00
-                       }
+        }
         entry_mock = Mock(**entry_attrs)
         entry_mock.description_detail.type = 'text/plain'
         entry_mock.description = 'Test Feed Description'

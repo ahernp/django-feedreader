@@ -3,6 +3,18 @@
 History
 -------
 
+1.1.2 (2015-04-05)
+++++++++++++++++++
+
+* Updated documentation; Added display options to edit page.
+
+
+1.1.1 (2015-04-05)
+++++++++++++++++++
+
+* Use triangles to toggle display in menu.
+
+
 1.1.0 (2015-04-03)
 ++++++++++++++++++
 

@@ -15,7 +15,7 @@ class OptionsManager(models.Manager):
 
 class Options(models.Model):
     """
-    Options controlling feed reader behavior
+    Options controlling feedreader behavior
 
     :Fields:
 
@@ -108,6 +108,7 @@ class Feed(models.Model):
         except Feed.DoesNotExist:
             super(Feed, self).save(*args, **kwargs)
             from feedreader.utils import poll_feed
+
             poll_feed(self)
 
 

@@ -49,20 +49,25 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         """Suppress display of status code messages on terminal"""
         pass
 
+
 class TestServer(SocketServer.TCPServer):
     allow_reuse_address = True
 
+
 test_server = TestServer(('', PORT), Handler)
+
 
 def setUpModule():
     """Start server to return test rss data"""
-    thread = threading.Thread(target = test_server.serve_forever)
+    thread = threading.Thread(target=test_server.serve_forever)
     thread.daemon = True
     thread.start()
+
 
 def tearDownModule():
     """Stop server which returned test rss data"""
     test_server.shutdown()
+
 
 if __name__ == '__main__':  # pragma: no cover
     test_server.serve_forever()
