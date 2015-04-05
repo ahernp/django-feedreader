@@ -131,14 +131,24 @@
             populate_unread_nums();
             mark_read_on_click();
             {% for group in group_list %}
-                $('#group_{{ group.id }}_header').click(function() {
-                    $('#group_{{ group.id }}_feeds').toggle('slow', function() {});
+                $('#group_{{ group.id }}_show').click(function() {
+                    $('#group_{{ group.id }}_feeds').show('slow', function() {});
+                    $('#group_{{ group.id }}_show').hide();
+                    $('#group_{{ group.id }}_hide').show();
+                });
+                $('#group_{{ group.id }}_hide').click(function() {
+                    $('#group_{{ group.id }}_feeds').hide('slow', function() {});
+                    $('#group_{{ group.id }}_show').show();
+                    $('#group_{{ group.id }}_hide').hide();
                 });
                 $('#group_{{ group.id }}_feeds').hide();
+                $('#group_{{ group.id }}_hide').hide();
             {% endfor %}
             $('#all_entries_header').click(function() {
                 {% for group in group_list %}
                     $('#group_{{ group.id }}_feeds').hide();
+                    $('#group_{{ group.id }}_show').show();
+                    $('#group_{{ group.id }}_hide').hide();
                 {% endfor %}
             });
         });
@@ -171,7 +181,9 @@
         </h3>
         {% for group in group_list %}
             <div id="group_id={{ group.id }}" class="group">
-                <h3 id="group_{{ group.id }}_header">
+                <h3>
+                    <span id="group_{{ group.id }}_show">&#9658;</span>
+                    <span id="group_{{ group.id }}_hide">&#9660;</span>
                     <a class="load_request"
                         href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}"
                         title="Show All {{ group.name }} feeds">{{ group.name }}</a>
