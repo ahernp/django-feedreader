@@ -3,6 +3,12 @@
 History
 -------
 
+1.1.3 (2015-04-18)
+++++++++++++++++++
+
+* Updated documentation; Added namespace to project urls.py entry.
+
+
 1.1.2 (2015-04-05)
 ++++++++++++++++++
 

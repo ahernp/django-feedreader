@@ -26,7 +26,7 @@ Quick start
 
 2. Include the feedreader URLconf in your project urls.py like this::
 
-     url(r'^feedreader/', include('feedreader.urls')),
+     url(r'^feedreader/', include('feedreader.urls', namespace='feedreader')),
 
 3. Run ``python manage.py syncdb`` to create the feedreader models.
 
