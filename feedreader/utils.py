@@ -125,7 +125,7 @@ def poll_feed(db_feed, verbose=False):
         if db_feed.published_time and db_feed.published_time >= published_time:
             return
         db_feed.published_time = published_time
-    for attr in ['title', 'title_detail', 'link', 'description', 'description_detail']:
+    for attr in ['title', 'title_detail', 'link']:
         if not hasattr(parsed.feed, attr):
             msg = 'Feedreader poll_feeds. Feed "%s" has no %s' % (db_feed.xml_url, attr)
             logger.error(msg)
@@ -137,10 +137,13 @@ def poll_feed(db_feed, verbose=False):
     else:
         db_feed.title = parsed.feed.title
     db_feed.link = parsed.feed.link
-    if parsed.feed.description_detail.type == 'text/plain':
-        db_feed.description = html.escape(parsed.feed.description)
+    if hasattr(parsed.feed, 'description_detail') and hasattr(parsed.feed, 'description'):
+        if parsed.feed.description_detail.type == 'text/plain':
+            db_feed.description = html.escape(parsed.feed.description)
+        else:
+            db_feed.description = parsed.feed.description
     else:
-        db_feed.description = parsed.feed.description
+        db_feed.description = ''
     db_feed.last_polled_time = timezone.now()
     db_feed.save()
     if verbose:
