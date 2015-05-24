@@ -122,7 +122,7 @@
                 {% for group in groups %}
                     {% for feed in group.feed_set.all %}
                         <tr>
-                            <td>{{ feed.title }}</td>
+                            <td>{{ feed.title|safe }}</td>
                             <td>{{ feed.xml_url }}</td>
                             <td>
                                 <select id="feedreader-Feed-group-{{ feed.id }}" class="data_field">
@@ -143,7 +143,7 @@
                 {% endfor %}
                 {% for feed in no_group %}
                     <tr>
-                        <td>{{ feed.title }}</td>
+                        <td>{{ feed.title|safe }}</td>
                         <td>{{ feed.xml_url }}</td>
                         <td>
                             <select id="feedreader-Feed-group-{{ feed.id }}" class="data_field">

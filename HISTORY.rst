@@ -3,11 +3,15 @@
 History
 -------
 
+1.2.1 (2015-05-24)
+++++++++++++++++++
+
+* Mark Feed titles as safe on edit page.
+
 1.2.0 (2015-04-25)
 ++++++++++++++++++
 
 * Make Feed descriptions options.
-
 
 1.1.3 (2015-04-18)
 ++++++++++++++++++
