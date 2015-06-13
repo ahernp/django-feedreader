@@ -161,19 +161,19 @@
 
 {% block content %}
     <h1>Feed Reader</h1>
-    <div id="menu" style="width:25%;float:left">
+    <div id="menu" style="width:20%;float:left">
         <p>
-            <input id="show_read" 
+            <input id="show_read"
                 class="load_request"
-                type="checkbox" 
+                type="checkbox"
                 name="Show Stories Already Read">
             Show Read Stories
         </p>
         <h3 id="all_entries_header">
-            <a class="load_request" 
+            <a class="load_request"
                 href="{% url 'feedreader:feed_list' %}"
                 title="Show All feeds">All Entries</a>
-            <span 
+            <span
                 id="unread_total"
                 title="Mark as Read"
                 class="load_request mark_read_request">
@@ -186,8 +186,7 @@
                     <span id="group_{{ group.id }}_hide">&#9660;</span>
                     <a class="load_request"
                         href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}"
-                        title="Show All {{ group.name }} feeds">{{ group.name }}</a>
-                    <a class="load_request poll_request"
+                        title="Show All {{ group.name }} feeds">{{ group.name }}</a>&nbsp;<a class="load_request poll_request"
                         href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}&poll_flag=1"
                         title="Poll All {{ group.name }} feeds">&darr;</a>
                     <span id="unread_group{{group.id}}"
@@ -201,8 +200,7 @@
                             <p class="feedreader_menu">
                                 <a class="load_request"
                                     href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}"
-                                    title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>
-                                <a class="load_request poll_request"
+                                    title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>&nbsp;<a class="load_request poll_request"
                                     href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}&poll_flag=1"
                                     title="Poll {{ feed.title|safe }} feed">&darr;</a>
                                 <span id="unread_feed{{feed.id}}"
@@ -219,10 +217,9 @@
             <div id="feed_id={{ feed.id }}" class="feed">
                 <p>
                     <a class="load_request"
-                        href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}" 
-                        title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>
-                    <a class="load_request poll_request" 
-                        href="{% url 'feedreader:feed_list' %}?feed=_id{{ feed.id }}&poll_flag=1" 
+                        href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}"
+                        title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>&nbsp;<a class="load_request poll_request"
+                        href="{% url 'feedreader:feed_list' %}?feed=_id{{ feed.id }}&poll_flag=1"
                         title="Poll {{ feed.title|safe }} feed">&darr;</a>
                     <span id="unread_feed{{feed.id}}"
                         class="load_request mark_read_request"
@@ -234,11 +231,11 @@
         <form name="input" action="{% url 'feedreader:search' %}" method="get" style="padding-right:1em;">
             <input id="feed_entry_search" type="text" tabindex="2" size="10"
                 style="color:{% if feedreader_search_string %}#000;{% else %}#ccc{% endif %};"
-                name="feedreader_search_string" title="Search Feeds" class="text" 
+                name="feedreader_search_string" title="Search Feeds" class="text"
                 value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
-        </form> 
+        </form>
     </div>
-    <div id="entries" style="width:70%;float:left;padding-left:1em;">
+    <div id="entries" style="width:75%;float:left;padding-left:1em;">
         {% include "feedreader/entry_list.html" %}
     </div>
     <div style="clear:both"></div>
