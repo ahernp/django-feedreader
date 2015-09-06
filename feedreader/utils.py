@@ -9,6 +9,7 @@ import pytz
 from django.conf import settings
 from django.utils import html
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 
 from .models import Entry, Options, Group, Feed
 
@@ -85,7 +86,7 @@ def build_context(request, context={}):
             entries = Entry.objects.all()
         else:
             entries = Entry.objects.filter(read_flag=False)
-        context['entries_header'] = 'All Entries'
+        context['entries_header'] = _('All Entries')
 
     if last_entry:
         entry_list = list(entries)

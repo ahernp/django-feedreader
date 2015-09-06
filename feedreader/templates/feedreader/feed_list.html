@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
+{% load i18n staticfiles %}
 
 {% block extra_head %}
     <style type="text/css">
@@ -155,27 +155,27 @@
     </script>
 {% endblock %}
 
-{% block title %}{{ site.domain }}: Feed Reader{% endblock %}
+{% block title %}{{ site.domain }}: {% trans 'Feed Reader' %}{% endblock %}
 
-{% block nav_path %}<a href="/">{{ site.domain }}</a> &rsaquo; Feed Reader{% endblock %}
+{% block nav_path %}<a href="/">{{ site.domain }}</a> &rsaquo; {% trans 'Feed Reader' %}{% endblock %}
 
 {% block content %}
-    <h1>Feed Reader</h1>
+    <h1>{% trans 'Feed Reader' %}</h1>
     <div id="menu" style="width:20%;float:left">
         <p>
             <input id="show_read"
                 class="load_request"
                 type="checkbox"
-                name="Show Stories Already Read">
-            Show Read Stories
+                name="{% trans 'Show Stories Already Read' %}">
+            {% trans 'Show Read Stories' %}
         </p>
         <h3 id="all_entries_header">
             <a class="load_request"
                 href="{% url 'feedreader:feed_list' %}"
-                title="Show All feeds">All Entries</a>
+                title="{% trans 'Show All feeds' %}">{% trans 'All Entries' %}</a>
             <span
                 id="unread_total"
-                title="Mark as Read"
+                title="{% trans 'Mark as Read' %}"
                 class="load_request mark_read_request">
             </span>
         </h3>
@@ -186,12 +186,12 @@
                     <span id="group_{{ group.id }}_hide">&#9660;</span>
                     <a class="load_request"
                         href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}"
-                        title="Show All {{ group.name }} feeds">{{ group.name }}</a>&nbsp;<a class="load_request poll_request"
+                        title="{% trans 'Show All' %} {{ group.name }} feeds">{{ group.name }}</a>&nbsp;<a class="load_request poll_request"
                         href="{% url 'feedreader:feed_list' %}?group_id={{ group.id }}&poll_flag=1"
-                        title="Poll All {{ group.name }} feeds">&darr;</a>
+                        title="{% trans 'Poll All' %} {{ group.name }} feeds">&darr;</a>
                     <span id="unread_group{{group.id}}"
                         class="load_request mark_read_request"
-                        title="Mark as Read">
+                        title="{% trans 'Mark as Read' %}">
                     </span>
                 </h3>
                 <div id="group_{{ group.id }}_feeds">
@@ -202,10 +202,10 @@
                                     href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}"
                                     title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>&nbsp;<a class="load_request poll_request"
                                     href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}&poll_flag=1"
-                                    title="Poll {{ feed.title|safe }} feed">&darr;</a>
+                                    title="{% trans 'Poll' %} {{ feed.title|safe }} feed">&darr;</a>
                                 <span id="unread_feed{{feed.id}}"
                                     class="load_request mark_read_request"
-                                    title="Mark as Read">
+                                    title="{% trans 'Mark as Read' %}">
                                 </span>
                             </p>
                         </div>
@@ -220,10 +220,10 @@
                         href="{% url 'feedreader:feed_list' %}?feed_id={{ feed.id }}"
                         title="{{ feed.description|safe }}">{{ feed.title|safe }}</a>&nbsp;<a class="load_request poll_request"
                         href="{% url 'feedreader:feed_list' %}?feed=_id{{ feed.id }}&poll_flag=1"
-                        title="Poll {{ feed.title|safe }} feed">&darr;</a>
+                        title="{% trans 'Poll' %} {{ feed.title|safe }} feed">&darr;</a>
                     <span id="unread_feed{{feed.id}}"
                         class="load_request mark_read_request"
-                        title="Mark as Read">
+                        title="{% trans 'Mark as Read' %}">
                     </span>
                 </p>
             </div>
@@ -231,8 +231,8 @@
         <form name="input" action="{% url 'feedreader:search' %}" method="get" style="padding-right:1em;">
             <input id="feed_entry_search" type="text" tabindex="2" size="10"
                 style="color:{% if feedreader_search_string %}#000;{% else %}#ccc{% endif %};"
-                name="feedreader_search_string" title="Search Feeds" class="text"
-                value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
+                name="feedreader_search_string" title="{% trans 'Search Feeds' %}" class="text"
+                value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}{% trans 'Search Feeds' %}{% endif %}"/>
         </form>
     </div>
     <div id="entries" style="width:75%;float:left;padding-left:1em;">
@@ -240,14 +240,14 @@
     </div>
     <div style="clear:both"></div>
     <div id="spinner">
-        <img src="{% static 'spinner.gif' %}" alt="Please wait" title="Please Wait" />
+        <img src="{% static 'spinner.gif' %}" alt="{% trans 'Please Wait' %}" title="{% trans 'Please Wait' %}" />
     </div>
 {% endblock %}
 
 {% block footer %}
     <p>
-    	<a href="#" title="Back to Top">Top</a>;
-        <a href="{% url 'feedreader:edit_feeds' %}" title="Edit Feeds">Edit</a>;
-        <a href="{{ logout_url }}">Logout</a>.
+        <a href="#" title="{% trans 'Back to Top' %}">{% trans 'Top' %}</a>;
+        <a href="{% url 'feedreader:edit_feeds' %}" title="{% trans 'Edit Feeds' %}">{% trans 'Edit' %}</a>;
+        <a href="{{ logout_url }}">{% trans 'Logout' %}</a>.
     </p>
 {% endblock %}

@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-06 11:44+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/feedreader/edit_feeds.html:30
+#: templates/feedreader/feed_list.html:158
+#: templates/feedreader/feed_list.html:160
+#: templates/feedreader/feed_list.html:163
+msgid "Feed Reader"
+msgstr "Feed Reader"
+
+#: templates/feedreader/edit_feeds.html:34
+msgid "Feedreader"
+msgstr "Feedreader"
+
+#: templates/feedreader/edit_feeds.html:35
+#: templates/feedreader/feed_list.html:250
+msgid "Edit"
+msgstr "Redigieren"
+
+#: templates/feedreader/edit_feeds.html:40
+#: templates/feedreader/feed_list.html:243
+msgid "Please Wait"
+msgstr "Bitte Warten"
+
+#: templates/feedreader/edit_feeds.html:42
+msgid "Feeds"
+msgstr "Feeds"
+
+#: templates/feedreader/edit_feeds.html:47
+msgid "Add Feed"
+msgstr "Feeds hinzufügen"
+
+#: templates/feedreader/edit_feeds.html:48
+#: templates/feedreader/edit_feeds.html:116
+msgid "URL"
+msgstr "URL"
+
+#: templates/feedreader/edit_feeds.html:50
+#: templates/feedreader/edit_feeds.html:117
+msgid "Group"
+msgstr "Gruppe"
+
+#: templates/feedreader/edit_feeds.html:57
+msgid "Add Group"
+msgstr "Gruppe hinzufügen"
+
+#: templates/feedreader/edit_feeds.html:63
+msgid "Feed Import and Export in OPML Format"
+msgstr "Feed-Import und Export in OPML Format"
+
+#: templates/feedreader/edit_feeds.html:65
+msgid "Import"
+msgstr "Import"
+
+#: templates/feedreader/edit_feeds.html:73
+msgid "Export"
+msgstr "Export"
+
+#: templates/feedreader/edit_feeds.html:75
+msgid "Options"
+msgstr "Optionen"
+
+#: templates/feedreader/edit_feeds.html:77
+msgid "Numbers of Entries"
+msgstr "Anzahl der Einträge"
+
+#: templates/feedreader/edit_feeds.html:78
+msgid "Initially displayed"
+msgstr "Zunächst angezeigt"
+
+#: templates/feedreader/edit_feeds.html:84
+msgid "Added on scrolldown"
+msgstr "Hinzugefügt am scroll"
+
+#: templates/feedreader/edit_feeds.html:90
+msgid "Maximum saved per Feed"
+msgstr "Maximale pro-Feed gespeichert"
+
+#: templates/feedreader/edit_feeds.html:99
+msgid "Current Groups"
+msgstr "Aktuelle Gruppen"
+
+#: templates/feedreader/edit_feeds.html:103
+msgid "delete"
+msgstr "löschen"
+
+#: templates/feedreader/edit_feeds.html:111
+msgid "Current Feeds"
+msgstr "Aktuelle Feeds"
+
+#: templates/feedreader/edit_feeds.html:115
+msgid "Title"
+msgstr "Titel"
+
+#: templates/feedreader/edit_feeds.html:118
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/feedreader/edit_feeds.html:169
+#: templates/feedreader/feed_list.html:249
+#: templates/feedreader/search_results.html:65
+msgid "Back to Top"
+msgstr "Zurück nach Oben"
+
+#: templates/feedreader/edit_feeds.html:169
+#: templates/feedreader/feed_list.html:249
+#: templates/feedreader/search_results.html:65
+msgid "Top"
+msgstr "Top"
+
+#: templates/feedreader/edit_feeds.html:170
+#: templates/feedreader/feed_list.html:250
+#: templates/feedreader/search_results.html:66
+msgid "Edit Feeds"
+msgstr "Feeds bearbeiten"
+
+#: templates/feedreader/edit_feeds.html:170
+#: templates/feedreader/search_results.html:66
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/feedreader/edit_feeds.html:171
+#: templates/feedreader/feed_list.html:251
+#: templates/feedreader/search_results.html:67
+msgid "Logout"
+msgstr "Abmelden"
+
+#: templates/feedreader/entry_list.html:21
+msgid "No stories found"
+msgstr "Keine Geschichten gefunden"
+
+#: templates/feedreader/entry_list.html:23
+msgid "No unread stories found"
+msgstr "Keine neuen Geschichten gefunden"
+
+#: templates/feedreader/feed_list.html:169
+msgid "Show Stories Already Read"
+msgstr "Zeige Stories schon gelesen"
+
+#: templates/feedreader/feed_list.html:170
+msgid "Show Read Stories"
+msgstr "Zeigen Lesegeschichten"
+
+#: templates/feedreader/feed_list.html:175
+msgid "Show All feeds"
+msgstr "Alle anzeigen feeds"
+
+#: templates/feedreader/feed_list.html:175 utils.py:89
+msgid "All Entries"
+msgstr "Alle Einträge"
+
+#: templates/feedreader/feed_list.html:178
+#: templates/feedreader/feed_list.html:194
+#: templates/feedreader/feed_list.html:208
+#: templates/feedreader/feed_list.html:226
+msgid "Mark as Read"
+msgstr "Als gelesen markieren"
+
+#: templates/feedreader/feed_list.html:189
+msgid "Show All"
+msgstr "Zeige Alles"
+
+#: templates/feedreader/feed_list.html:191
+msgid "Poll All"
+msgstr "Umfrage Alles"
+
+#: templates/feedreader/feed_list.html:205
+#: templates/feedreader/feed_list.html:223
+msgid "Poll"
+msgstr "Umfrage"
+
+#: templates/feedreader/feed_list.html:234
+#: templates/feedreader/feed_list.html:235
+msgid "Search Feeds"
+msgstr "Suche nach Feeds"
+
+#: templates/feedreader/search_results.html:9
+msgid "Feed Reader Search Results"
+msgstr "Feed-Reader Suchergebnisse"
+
+#: templates/feedreader/search_results.html:29
+msgid "No Search Results"
+msgstr "Suche nach Feeds"
+
+#: templates/feedreader/search_results.html:30
+msgid "Search string too small"
+msgstr "Such-String zu klein"
+
+#: templates/feedreader/search_results.html:32
+msgid "Search Results for"
+msgstr "Suchergebnisse für"
+
+#: templates/feedreader/search_results.html:33
+msgid "Title Matches"
+msgstr "Titel Spielen"
+
+#: templates/feedreader/search_results.html:44
+msgid "No matching titles found."
+msgstr "Keine passenden Titel gefunden"
+
+#: templates/feedreader/search_results.html:46
+msgid "Description Matches"
+msgstr "Beschreibung Spiele"
+
+#: templates/feedreader/search_results.html:58
+msgid "No matching content found."
+msgstr "Keine passenden Ergebnis"

@@ -39,6 +39,11 @@ Quick start
 
 6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
+   
+Feedreader includes support for Django's ``i18n`` Internationalization and
+localization functionality. Enable this by adding the Feedreader URLs using
+``i18n_patterns`` and including the ``django.middleware.locale.LocaleMiddleware``
+in your project's settings.
 
 Dependencies
 ------------

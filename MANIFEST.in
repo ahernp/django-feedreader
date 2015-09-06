@@ -3,6 +3,8 @@ include LICENSE
 include README.rst
 recursive-include feedreader/fixtures *
 recursive-include feedreader/management *
+recursive-include feedreader/migrations *
+recursive-include feedreader/locale *
 recursive-include feedreader/static *
 recursive-include feedreader/templates *
 recursive-include doc *

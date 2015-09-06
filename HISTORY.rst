@@ -3,6 +3,21 @@
 History
 -------
 
+1.3.2 (2015-09-06)
+++++++++++++++++++
+
+* Fix tests.
+
+1.3.1 (2015-09-06)
+++++++++++++++++++
+
+* Include locale and migrations in package.
+
+1.3.0 (2015-09-06)
+++++++++++++++++++
+
+* Added support for Django's i18n Internationalization and localization.
+
 1.2.2 (2015-05-24)
 ++++++++++++++++++
 

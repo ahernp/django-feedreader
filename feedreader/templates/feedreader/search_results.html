@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block extra_head %}
     <style type="text/css">
         #content {width: 80%;}
     </style>
 {% endblock %}
 
-{% block title %}{{ site.domain }}: Feed Reader Search Results{% endblock %}
+{% block title %}{{ site.domain }}: {% trans 'Feed Reader Search Results' %}{% endblock %}
 
 {% block nav_path %}
-    <a href="/">{{ site.domain }}</a> &rsaquo; 
-    <a href="{% url 'feedreader:feed_list' %}">Feed Reader</a> &rsaquo; 
+    <a href="/">{{ site.domain }}</a> &rsaquo;
+    <a href="{% url 'feedreader:feed_list' %}">Feed Reader</a> &rsaquo;
     Search Results
 {% endblock %}
 
@@ -20,17 +22,17 @@
             New Search:
             <input type="text" tabindex="2" size="10"
                 {% if feedreader_search_string %}style="color:#000;"{% else %}style="color:#ccc;"{% endif %}
-                name="feedreader_search_string" title="Search Feeds" class="text" 
+                name="feedreader_search_string" title="Search Feeds" class="text"
                 value="{% if feedreader_search_string %}{{ feedreader_search_string }}{% else %}Search Feeds{% endif %}"/>
-        </form> 
+        </form>
     </div>
-    
+
     {% if too_small %}
-        <h1>No Search Results</h1>
-        <p>Search string "{{ feedreader_search_string }}" too small.</p>
+        <h1>{% trans 'No Search Results' %}</h1>
+        <p>{% trans 'Search string too small' %}: "{{ feedreader_search_string }}".</p>
     {% else %}
-        <h1>Search Results for "{{ feedreader_search_string }}"</h1>
-        <h2>Title Matches</h2> 
+        <h1>{% trans 'Search Results for' %}: "{{ feedreader_search_string }}"</h1>
+        <h2>{% trans 'Title Matches' %}</h2>
         {% if title_matches %}
             <ol>
             {% for entry in title_matches %}
@@ -41,9 +43,9 @@
             {% endfor %}
             </ol>
         {% else %}
-            <p>No matching titles found.</p>
+            <p>{% trans 'No matching titles found.' %}</p>
         {% endif %}
-        <h2>Description Matches</h2> 
+        <h2>{% trans 'Description Matches' %}</h2>
         {% if description_matches %}
             <ol>
             {% for entry in description_matches %}
@@ -55,15 +57,15 @@
             {% endfor %}
             </ol>
         {% else %}
-            <p>No matching content found.</p>
+            <p>{% trans 'No matching content found.' %}</p>
         {% endif %}
     {% endif %}
 {% endblock %}
 
 {% block footer %}
     <p>
-    	<a href="#" title="Back to Top">Top</a>;
-        <a href="{% url 'admin:feedreader_feed_changelist' %}" title="Edit Feeds">Admin</a>;
-        <a href="{{ logout_url }}">Logout</a>.
+        <a href="#" title="{% trans 'Back to Top' %}">{% trans 'Top' %}</a>;
+        <a href="{% url 'admin:feedreader_feed_changelist' %}" title="{% trans 'Edit Feeds' %}">{% trans 'Admin' %}</a>;
+        <a href="{{ logout_url }}">{% trans 'Logout' %}</a>.
     </p>
 {% endblock %}
