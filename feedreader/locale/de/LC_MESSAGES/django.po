@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-06 11:44+0100\n"
+"POT-Creation-Date: 2015-09-07 20:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,32 +115,40 @@ msgstr "Löschen"
 
 #: templates/feedreader/edit_feeds.html:169
 #: templates/feedreader/feed_list.html:249
-#: templates/feedreader/search_results.html:65
+#: templates/feedreader/search_results.html:67
 msgid "Back to Top"
 msgstr "Zurück nach Oben"
 
 #: templates/feedreader/edit_feeds.html:169
 #: templates/feedreader/feed_list.html:249
-#: templates/feedreader/search_results.html:65
+#: templates/feedreader/search_results.html:67
 msgid "Top"
 msgstr "Top"
 
 #: templates/feedreader/edit_feeds.html:170
 #: templates/feedreader/feed_list.html:250
-#: templates/feedreader/search_results.html:66
+#: templates/feedreader/search_results.html:68
 msgid "Edit Feeds"
 msgstr "Feeds bearbeiten"
 
 #: templates/feedreader/edit_feeds.html:170
-#: templates/feedreader/search_results.html:66
+#: templates/feedreader/search_results.html:68
 msgid "Admin"
 msgstr "Admin"
 
 #: templates/feedreader/edit_feeds.html:171
 #: templates/feedreader/feed_list.html:251
-#: templates/feedreader/search_results.html:67
+#: templates/feedreader/search_results.html:69
 msgid "Logout"
 msgstr "Abmelden"
+
+#: templates/feedreader/entry_list.html:8
+msgid "from"
+msgstr "von"
+
+#: templates/feedreader/entry_list.html:12
+msgid "on"
+msgstr "um"
 
 #: templates/feedreader/entry_list.html:21
 msgid "No stories found"
@@ -191,34 +199,34 @@ msgstr "Umfrage"
 msgid "Search Feeds"
 msgstr "Suche nach Feeds"
 
-#: templates/feedreader/search_results.html:9
+#: templates/feedreader/search_results.html:11
 msgid "Feed Reader Search Results"
 msgstr "Feed-Reader Suchergebnisse"
 
-#: templates/feedreader/search_results.html:29
+#: templates/feedreader/search_results.html:31
 msgid "No Search Results"
 msgstr "Suche nach Feeds"
 
-#: templates/feedreader/search_results.html:30
+#: templates/feedreader/search_results.html:32
 msgid "Search string too small"
 msgstr "Such-String zu klein"
 
-#: templates/feedreader/search_results.html:32
+#: templates/feedreader/search_results.html:34
 msgid "Search Results for"
 msgstr "Suchergebnisse für"
 
-#: templates/feedreader/search_results.html:33
+#: templates/feedreader/search_results.html:35
 msgid "Title Matches"
 msgstr "Titel Spielen"
 
-#: templates/feedreader/search_results.html:44
+#: templates/feedreader/search_results.html:46
 msgid "No matching titles found."
 msgstr "Keine passenden Titel gefunden"
 
-#: templates/feedreader/search_results.html:46
+#: templates/feedreader/search_results.html:48
 msgid "Description Matches"
 msgstr "Beschreibung Spiele"
 
-#: templates/feedreader/search_results.html:58
+#: templates/feedreader/search_results.html:60
 msgid "No matching content found."
 msgstr "Keine passenden Ergebnis"
