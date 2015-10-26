@@ -34,6 +34,6 @@ setup(
         'factory-boy==2.5.1',
         'feedparser==5.1.3',
         'mock==1.0.1',
-        'pytz>=2015.2',
+        'pytz>=2015.6',
     ],
 )

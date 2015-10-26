@@ -122,7 +122,11 @@ def poll_feed(db_feed, verbose=False):
         return
     if hasattr(parsed.feed, 'published_parsed'):
         published_time = datetime.fromtimestamp(mktime(parsed.feed.published_parsed))
-        published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+        try:
+            published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+        except pytz.exceptions.AmbiguousTimeError:
+            pytz_timezone = pytz.timezone(settings.TIME_ZONE)
+            published_time = pytz_timezone.localize(published_time, is_dst=False)
         if db_feed.published_time and db_feed.published_time >= published_time:
             return
         db_feed.published_time = published_time
@@ -172,7 +176,11 @@ def poll_feed(db_feed, verbose=False):
         if created:
             if hasattr(entry, 'published_parsed'):
                 published_time = datetime.fromtimestamp(mktime(entry.published_parsed))
-                published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+                try:
+                    published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+                except pytz.exceptions.AmbiguousTimeError:
+                    pytz_timezone = pytz.timezone(settings.TIME_ZONE)
+                    published_time = pytz_timezone.localize(published_time, is_dst=False)
                 now = timezone.now()
                 if published_time > now:
                     published_time = now

@@ -3,6 +3,16 @@
 History
 -------
 
+1.3.5 (2015-10-26)
+++++++++++++++++++
+
+* Allow for from ambiguous times (around summer time changes).
+
+1.3.4 (2015-10-25)
+++++++++++++++++++
+
+* Upgrade library pytz to version 2015.6
+
 1.3.3 (2015-09-07)
 ++++++++++++++++++
 
