@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
-from django.conf.urls import patterns, url
+from django.conf import settings
+from django.conf.urls import patterns, url, include
 
 from .views import (FeedList, Search, EntryList,
                     NumbersUnread, MarkEntryRead,
@@ -32,3 +33,22 @@ urlpatterns = patterns('',
                            view=UpdateItem.as_view(),
                            name='update_item'),
 )
+
+if 'rest_framework' in settings.INSTALLED_APPS:
+    print('Loading REST extensions for django-feedreader')
+    from rest_framework.routers import DefaultRouter
+    from .api import EntryViewSet, FeedViewSet, GroupViewSet, OptionsViewSet
+
+
+    # Create a router and register our ViewSets with it.
+    router = DefaultRouter()
+    router.register(r'options', OptionsViewSet)
+    router.register(r'group', GroupViewSet)
+    router.register(r'feed', FeedViewSet)
+    router.register(r'entry', EntryViewSet)
+
+    # The API URLs are now determined automatically by the router.
+    # Additionally, we include the login URLs for the browsable API.
+    urlpatterns += [
+        url(r'^api/', include(router.urls)),
+    ]

@@ -49,6 +49,7 @@ Dependencies
 ------------
 
 -  `Django 1.8 <https://pypi.python.org/pypi/Django/1.8>`__
+-  `djangorestframework 3.2.2 <http://django-rest-framework.org>`__
 -  `django-braces 1.4.0 <https://pypi.python.org/pypi/django-braces/1.4.0>`__
 -  `factory_boy 2.5.1 <https://pypi.python.org/pypi/factory_boy/2.5.1>`__
 -  `feedparser 5.2.0 <https://pypi.python.org/pypi/feedparser/5.2.0>`__
