@@ -39,7 +39,7 @@ Quick start
 
 6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
-   
+
 Feedreader includes support for Django's ``i18n`` Internationalization and
 localization functionality. Enable this by adding the Feedreader URLs using
 ``i18n_patterns`` and including the ``django.middleware.locale.LocaleMiddleware``
@@ -48,10 +48,10 @@ in your project's settings.
 Dependencies
 ------------
 
--  `Django 1.8 <https://pypi.python.org/pypi/Django/1.8>`__
--  `django-braces 1.4.0 <https://pypi.python.org/pypi/django-braces/1.4.0>`__
--  `factory_boy 2.5.1 <https://pypi.python.org/pypi/factory_boy/2.5.1>`__
--  `feedparser 5.2.0 <https://pypi.python.org/pypi/feedparser/5.2.0>`__
--  `mock 1.0.1 <https://pypi.python.org/pypi/mock/1.0.1>`__
--  `pytz <https://pypi.python.org/pypi/pytz/2015.2>`__
+-  `Django 1.9.1 <https://pypi.python.org/pypi/Django/1.9.1>`__
+-  `django-braces 1.8.1 <https://pypi.python.org/pypi/django-braces/1.8.1>`__
+-  `factory_boy 2.6.0 <https://pypi.python.org/pypi/factory_boy/2.6.0>`__
+-  `feedparser 5.2.1 <https://pypi.python.org/pypi/feedparser/5.2.1>`__
+-  `mock 1.3.0 <https://pypi.python.org/pypi/mock/1.3.0>`__
+-  `pytz 2015.7 <https://pypi.python.org/pypi/pytz/2015.7>`__
 
