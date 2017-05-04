@@ -3,6 +3,11 @@
 History
 -------
 
+1.3.7 (2017-05-04)
+++++++++++++++++++
+
+* Allow for invalid pubDates on Feeds and Entries.
+
 1.3.6 (2016-01-22)
 ++++++++++++++++++
 

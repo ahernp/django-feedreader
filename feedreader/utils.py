@@ -121,7 +121,10 @@ def poll_feed(db_feed, verbose=False):
             print(msg)
         return
     if hasattr(parsed.feed, 'published_parsed'):
-        published_time = datetime.fromtimestamp(mktime(parsed.feed.published_parsed))
+        if parsed.feed.published_parsed is None:
+            published_time = timezone.now()
+        else:
+            published_time = datetime.fromtimestamp(mktime(parsed.feed.published_parsed))
         try:
             published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
         except pytz.exceptions.AmbiguousTimeError:
@@ -175,15 +178,18 @@ def poll_feed(db_feed, verbose=False):
         db_entry, created = Entry.objects.get_or_create(feed=db_feed, link=entry.link)
         if created:
             if hasattr(entry, 'published_parsed'):
-                published_time = datetime.fromtimestamp(mktime(entry.published_parsed))
-                try:
-                    published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
-                except pytz.exceptions.AmbiguousTimeError:
-                    pytz_timezone = pytz.timezone(settings.TIME_ZONE)
-                    published_time = pytz_timezone.localize(published_time, is_dst=False)
-                now = timezone.now()
-                if published_time > now:
-                    published_time = now
+                if entry.published_parsed is None:
+                    published_time = timezone.now()
+                else:
+                    published_time = datetime.fromtimestamp(mktime(entry.published_parsed))
+                    try:
+                        published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
+                    except pytz.exceptions.AmbiguousTimeError:
+                        pytz_timezone = pytz.timezone(settings.TIME_ZONE)
+                        published_time = pytz_timezone.localize(published_time, is_dst=False)
+                    now = timezone.now()
+                    if published_time > now:
+                        published_time = now
                 db_entry.published_time = published_time
             if entry.title_detail.type == 'text/plain':
                 db_entry.title = html.escape(entry.title)
