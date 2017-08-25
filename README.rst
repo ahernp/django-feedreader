@@ -23,21 +23,29 @@ Quick start
      INSTALLED_APPS = (...
                        'feedreader',
                        )
+2. Add LOGOUT_UTL to settings file::
 
-2. Include the feedreader URLconf in your project urls.py like this::
+     LOGOUT_URL = '/accounts/logout/'
+
+
+3. Include the feedreader URLconf in your project urls.py like this::
 
      url(r'^feedreader/', include('feedreader.urls', namespace='feedreader')),
 
-3. Run ``python manage.py syncdb`` to create the feedreader models.
+4. Install additional dependencies::
 
-4. Run ``python manage.py collectstatic`` to copy static files to your
+     ``pip install django-braces feedreader`
+
+5. Run ``python manage.py migrate`` to create the feedreader models.
+
+6. Run ``python manage.py collectstatic`` to copy static files to your
    project's static root.
 
-5. Start the development server and visit
+7. Start the development server and visit
    `/admin/feedreader/feed/ <https://127.0.0.1:8000/admin/feedreader/feed>`__
    to add feeds. Only each feed's xml url is needed.
 
-6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
+8. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
 
 Feedreader includes support for Django's ``i18n`` Internationalization and
@@ -48,10 +56,10 @@ in your project's settings.
 Dependencies
 ------------
 
--  `Django 1.9.1 <https://pypi.python.org/pypi/Django/1.9.1>`__
--  `django-braces 1.8.1 <https://pypi.python.org/pypi/django-braces/1.8.1>`__
+-  `Django 1.11.1 <https://pypi.python.org/pypi/Django/1.11.4>`__
+-  `django-braces 1.11.0 <https://pypi.python.org/pypi/django-braces/1.11.0>`__
 -  `factory_boy 2.6.0 <https://pypi.python.org/pypi/factory_boy/2.6.0>`__
 -  `feedparser 5.2.1 <https://pypi.python.org/pypi/feedparser/5.2.1>`__
 -  `mock 1.3.0 <https://pypi.python.org/pypi/mock/1.3.0>`__
--  `pytz 2015.7 <https://pypi.python.org/pypi/pytz/2015.7>`__
+-  `pytz 2017.2 <https://pypi.python.org/pypi/pytz/2017.2>`__
 
