@@ -6,13 +6,13 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 from django.apps import apps
-from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import ListView, FormView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
 
+from .constants import LOGOUT_URL
 from .forms import AddFeedsForm, StringSearchForm
 from .models import Group, Feed, Entry, Options
 from .utils import build_context
@@ -76,7 +76,7 @@ class FeedList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(FeedList, self).get_context_data(**kwargs)
-        context['logout_url'] = settings.LOGOUT_URL
+        context['logout_url'] = LOGOUT_URL
         context['no_group'] = Feed.objects.filter(group=None)
         self.extra_context.update(context)
         return self.extra_context
@@ -96,7 +96,7 @@ class Search(LoginRequiredMixin, TemplateView):
         form = StringSearchForm(request.GET)
         search_string = form.cleaned_data['feedreader_search_string'] if form.is_valid() else ''
         context['feedreader_search_string'] = search_string
-        context['logout_url'] = settings.LOGOUT_URL
+        context['logout_url'] = LOGOUT_URL
         if len(search_string) < 3:
             context['too_small'] = True
         else:
@@ -117,7 +117,7 @@ class EditFeeds(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(EditFeeds, self).get_context_data(**kwargs)
-        context['logout_url'] = settings.LOGOUT_URL
+        context['logout_url'] = LOGOUT_URL
         context['groups'] = Group.objects.select_related().all()
         context['no_group'] = Feed.objects.filter(group=None)
         context['feedreader_options'] = Options.manager.get_options()

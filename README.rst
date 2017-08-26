@@ -23,29 +23,20 @@ Quick start
      INSTALLED_APPS = (...
                        'feedreader',
                        )
-2. Add LOGOUT_UTL to settings file::
-
-     LOGOUT_URL = '/accounts/logout/'
-
-
-3. Include the feedreader URLconf in your project urls.py like this::
+2. Include the feedreader URLconf in your project urls.py like this::
 
      url(r'^feedreader/', include('feedreader.urls', namespace='feedreader')),
 
-4. Install additional dependencies::
+3. Run ``python manage.py migrate`` to create the feedreader models.
 
-     ``pip install django-braces feedreader`
-
-5. Run ``python manage.py migrate`` to create the feedreader models.
-
-6. Run ``python manage.py collectstatic`` to copy static files to your
+4. Run ``python manage.py collectstatic`` to copy static files to your
    project's static root.
 
-7. Start the development server and visit
+5. Start the development server and visit
    `/admin/feedreader/feed/ <https://127.0.0.1:8000/admin/feedreader/feed>`__
    to add feeds. Only each feed's xml url is needed.
 
-8. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
+6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
 
 Feedreader includes support for Django's ``i18n`` Internationalization and

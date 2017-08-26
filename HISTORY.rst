@@ -3,6 +3,12 @@
 History
 ---
 
+1.4.0 (2017-08-26)
+++++++++++++++++++
+
+* Add default settings as constants.
+* Updated Quick start instructions.
+
 1.3.8 (2017-08-25)
 ++++++++++++++++++
 

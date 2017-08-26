@@ -3,9 +3,9 @@ This command polls all of the Feeds and removes old entries.
 """
 from __future__ import absolute_import
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 
+from ...constants import MAX_ENTRIES_SAVED
 from ...models import Feed, Entry
 from ...utils import poll_feed
 
@@ -45,7 +45,7 @@ class Command(BaseCommand):
             poll_feed(feed, verbose)
 
             # Remove older entries
-            entries = Entry.objects.filter(feed=feed)[settings.MAX_ENTRIES_SAVED:]
+            entries = Entry.objects.filter(feed=feed)[MAX_ENTRIES_SAVED:]
 
             for entry in entries:
                 entry.delete()
