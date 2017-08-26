@@ -25,8 +25,8 @@ sys.path.append(parent)
 import feedreader
 
 # Add path to project settings file to allow autodoc to work
-sys.path.append('/home/ahernp/code/django-ahernp/ahernp')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ahernp.settings.production")
+sys.path.append('/home/ahernp/code/mysite/mysite')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 # -- General configuration -----------------------------------------------------
 

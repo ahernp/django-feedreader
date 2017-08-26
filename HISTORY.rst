@@ -3,6 +3,12 @@
 History
 ---
 
+1.4.1 (2017-08-26)
+++++++++++++++++++
+
+* Updated dependencies.
+* Removed multi-lingual support.
+
 1.4.0 (2017-08-26)
 ++++++++++++++++++
 

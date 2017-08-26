@@ -17,42 +17,42 @@ from mock import patch
 
 TEST_URLS = [
     # (url, status_code, text_on_page)
-    ('/en-gb/feedreader/', 200, 'Feed Reader'),
-    ('/en-gb/feedreader/num_unread/', 200, 'unread_feed'),
+    ('/feedreader/', 200, 'Feed Reader'),
+    ('/feedreader/num_unread/', 200, 'unread_feed'),
     # Poll Feed
-    ('/en-gb/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id='),
     # Poll Group
-    ('/en-gb/feedreader/entry_list/?group_id=1&poll_flag=1', 200, None),
+    ('/feedreader/entry_list/?group_id=1&poll_flag=1', 200, None),
     # Last entry_id included
-    ('/en-gb/feedreader/entry_list/?feed_id=1&entry_id=1', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list/?feed_id=1&entry_id=1', 200, '<div id="entry_id='),
     # Non-existant Group and Feed
-    ('/en-gb/feedreader/entry_list/?group_id=99&feed_id=99&entry_id=99', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list/?group_id=99&feed_id=99&entry_id=99', 200, '<div id="entry_id='),
     # Mark group as Read
-    ('/en-gb/feedreader/entry_list/?group_id=1&mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?group_id=1&mark_read_flag=1', 200, None),
     # Mark feed as Read
-    ('/en-gb/feedreader/entry_list/?feed_id=1&mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?feed_id=1&mark_read_flag=1', 200, None),
     # Mark all as Read
-    ('/en-gb/feedreader/entry_list/?mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?mark_read_flag=1', 200, None),
     # Mark entry as Read
-    ('/en-gb/feedreader/mark_entry_read/?entry_id=1', 200, None),
+    ('/feedreader/mark_entry_read/?entry_id=1', 200, None),
     # Feed show read
-    ('/en-gb/feedreader/entry_list/?feed_id=1&show_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?feed_id=1&show_read_flag=1', 200, None),
     # Group show read
-    ('/en-gb/feedreader/entry_list/?group_id=1&show_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?group_id=1&show_read_flag=1', 200, None),
     # Show all read
-    ('/en-gb/feedreader/entry_list/?show_read_flag=1', 200, None),
+    ('/feedreader/entry_list/?show_read_flag=1', 200, None),
     # Entry not found
-    ('/en-gb/feedreader/entry_list/?feed_id=1&entry_id=1', 200, None),
+    ('/feedreader/entry_list/?feed_id=1&entry_id=1', 200, None),
     # No entries found in Group
-    ('/en-gb/feedreader/entry_list/?group_id=1', 200, '<p id="no_entries">'),
+    ('/feedreader/entry_list/?group_id=1', 200, '<p id="no_entries">'),
     # No entries found in Feed
-    ('/en-gb/feedreader/entry_list/?feed_id=1', 200, '<p id="no_entries">'),
+    ('/feedreader/entry_list/?feed_id=1', 200, '<p id="no_entries">'),
     # Search
-    ('/en-gb/feedreader/search/?feedreader_search_string=co-op', 200, 'Search Results for'),
+    ('/feedreader/search/?feedreader_search_string=co-op', 200, 'Search Results for'),
     # Search string too small
-    ('/en-gb/feedreader/search/?feedreader_search_string=py', 200, 'Search string too small: "py".'),
+    ('/feedreader/search/?feedreader_search_string=py', 200, 'Search string too small: "py".'),
     # Export feeds in OPML format
-    ('/en-gb/feedreader/export_opml/', 200, 'feed')
+    ('/feedreader/export_opml/', 200, 'feed')
 ]
 
 

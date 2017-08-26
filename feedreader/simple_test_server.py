@@ -13,7 +13,6 @@ TEST_RSS = """<?xml version="1.0" encoding="utf-8"?>
         <link>http://example.com/test/</link>
         <description>Test Feed.</description>
         <atom:link href="http://example.com/test/feed/" rel="self"></atom:link>
-        <language>en-gb</language>
         <lastBuildDate>Sun, 13 Apr 2014 09:33:47 +0000</lastBuildDate>
         <item>
             <title>Test Entry</title>

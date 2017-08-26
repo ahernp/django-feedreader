@@ -128,7 +128,7 @@
                                 <select id="feedreader-Feed-group-{{ feed.id }}" class="data_field">
                                     <option value="">---------</option>
                                     {% for feed_group in groups %}
-                                        <option {% if feed_group = group %}selected="selected"{% endif %}
+                                        <option {% if feed_group == group %}selected="selected"{% endif %}
                                                 value="{{ feed_group.id }}">{{ feed_group }}</option>
                                     {% endfor %}
                                 </select>
