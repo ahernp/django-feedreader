@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from django.db import models
 
 
@@ -36,7 +34,7 @@ class Options(models.Model):
     class Meta:
         verbose_name_plural = "options"
 
-    def __unicode__(self):
+    def __str__(self):
         return u'Options'
 
 
@@ -54,7 +52,7 @@ class Group(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def num_unread_entries(self):
@@ -88,12 +86,12 @@ class Feed(models.Model):
     description = models.TextField(blank=True, null=True)
     published_time = models.DateTimeField(blank=True, null=True)
     last_polled_time = models.DateTimeField(blank=True, null=True)
-    group = models.ForeignKey(Group, blank=True, null=True)
+    group = models.ForeignKey(Group, blank=True, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['title']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title or self.xml_url
 
     def num_unread_entries(self):
@@ -134,7 +132,7 @@ class Entry(models.Model):
         updated_time : date_time
             When entry was last updated.
     """
-    feed = models.ForeignKey(Feed)
+    feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     title = models.CharField(max_length=2000, blank=True, null=True)
     link = models.CharField(max_length=2000)
     description = models.TextField(blank=True, null=True)
@@ -145,7 +143,7 @@ class Entry(models.Model):
         ordering = ['-published_time']
         verbose_name_plural = 'entries'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     objects = models.Manager()

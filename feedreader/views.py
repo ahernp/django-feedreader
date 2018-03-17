@@ -6,7 +6,7 @@ from xml.etree import ElementTree
 from xml.dom import minidom
 
 from django.apps import apps
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import ListView, FormView, TemplateView, View
 
@@ -220,7 +220,7 @@ class UpdateItem(LoginRequiredMixin, View):
                         data_value = data_value == 'true'
                     elif field_type == 'ForeignKey':
                         if data_value:
-                            data_value = field.rel.to.objects.get(pk=data_value)
+                            data_value = field.remote_field.model.objects.get(pk=data_value)
                             setattr(item, fieldname, data_value)
                         else:
                             setattr(item, fieldname, None)

@@ -1,6 +1,4 @@
 """Feedreader Models Unit Test."""
-from __future__ import absolute_import
-
 from django.test import TestCase
 
 from .models import Entry, Feed, Group, Options
@@ -24,13 +22,13 @@ class OptionsTest(TestCase):
     def setUp(self):
         self.options = Options.manager.get_options()
 
-    def test_options_unicode(self):
-        """Retrieve Options object's unicode string."""
-        options_unicode = self.options.__unicode__()
-        self.assertEqual(options_unicode,
+    def test_options_str(self):
+        """Retrieve Options object's str string."""
+        options_str = self.options.__str__()
+        self.assertEqual(options_str,
                          'Options',
-                         'Options: Unexpected __unicode__ value: Got %s expected "Options"' %
-                         (options_unicode))
+                         'Options: Unexpected __str__ value: Got %s expected "Options"' %
+                         (options_str))
 
 
 class GroupTest(TestCase):
@@ -41,13 +39,13 @@ class GroupTest(TestCase):
     def setUp(self):
         self.group = Group.objects.create(name='Test Group')
 
-    def test_group_unicode(self):
-        """Retrieve Group object's unicode string."""
-        group_unicode = self.group.__unicode__()
-        self.assertEqual(group_unicode,
+    def test_group_str(self):
+        """Retrieve Group object's str string."""
+        group_str = self.group.__str__()
+        self.assertEqual(group_str,
                          'Test Group',
-                         'Group: Unexpected __unicode__ value: Got %s expected "Test Group"' %
-                         (group_unicode))
+                         'Group: Unexpected __str__ value: Got %s expected "Test Group"' %
+                         (group_str))
 
 
 class FeedTest(TestCase):
@@ -60,13 +58,13 @@ class FeedTest(TestCase):
         self.feed.title = 'Test Feed'
         self.feed.save()
 
-    def test_feed_unicode(self):
-        """Retrieve Feed object's unicode string."""
-        feed_unicode = self.feed.__unicode__()
-        self.assertEqual(feed_unicode,
+    def test_feed_str(self):
+        """Retrieve Feed object's str string."""
+        feed_str = self.feed.__str__()
+        self.assertEqual(feed_str,
                          'Test Feed',
-                         'Feed: Unexpected __unicode__ value: Got %s expected "Test Feed"' %
-                         (feed_unicode))
+                         'Feed: Unexpected __str__ value: Got %s expected "Test Feed"' %
+                         (feed_str))
 
 
 class EntryTest(TestCase):
@@ -80,10 +78,10 @@ class EntryTest(TestCase):
                                           title='Test Entry',
                                           link='http://example.com/test')
 
-    def test_entry_unicode(self):
-        """Retrieve Entry object's unicode string."""
-        entry_unicode = self.entry.__unicode__()
-        self.assertEqual(entry_unicode,
+    def test_entry_str(self):
+        """Retrieve Entry object's str string."""
+        entry_str = self.entry.__str__()
+        self.assertEqual(entry_str,
                          'Test Entry',
-                         'Entry: Unexpected __unicode__ value: Got %s expected "Test Entry"' %
-                         (entry_unicode))
+                         'Entry: Unexpected __str__ value: Got %s expected "Test Entry"' %
+                         (entry_str))

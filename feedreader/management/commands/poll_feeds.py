@@ -1,8 +1,6 @@
 """
 This command polls all of the Feeds and removes old entries.
 """
-from __future__ import absolute_import
-
 from django.core.management.base import BaseCommand
 
 from ...constants import MAX_ENTRIES_SAVED

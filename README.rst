@@ -25,7 +25,7 @@ Quick start
                        )
 2. Include the feedreader URLconf in your project urls.py like this::
 
-     url(r'^feedreader/', include('feedreader.urls', namespace='feedreader')),
+     path('feedreader/', include('feedreader.urls')),
 
 3. Run ``python manage.py migrate`` to create the feedreader models.
 
@@ -42,10 +42,7 @@ Quick start
 Dependencies
 ------------
 
--  `Django 1.11.4 <https://pypi.python.org/pypi/Django/1.11.4>`__
--  `django-braces 1.11.0 <https://pypi.python.org/pypi/django-braces/1.11.0>`__
--  `factory_boy 2.9.2 <https://pypi.python.org/pypi/factory_boy/2.9.2>`__
+-  `Django 2.0.3 <https://pypi.python.org/pypi/Django/2.0.3>`__
+-  `django-braces 1.12.0 <https://pypi.python.org/pypi/django-braces/1.12.0>`__
+-  `factory_boy 2.10.0 <https://pypi.python.org/pypi/factory_boy/2.10.0>`__
 -  `feedparser 5.2.1 <https://pypi.python.org/pypi/feedparser/5.2.1>`__
--  `mock 2.0.0 <https://pypi.python.org/pypi/mock/2.0.0>`__
--  `pytz 2017.2 <https://pypi.python.org/pypi/pytz/2017.2>`__
-

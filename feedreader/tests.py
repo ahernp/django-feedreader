@@ -1,7 +1,5 @@
 """Feedreader Unit Test."""
-from __future__ import absolute_import
-
-from StringIO import StringIO
+from io import StringIO
 
 from django.core.management import call_command
 from django.test import TestCase
@@ -18,41 +16,41 @@ from mock import patch
 TEST_URLS = [
     # (url, status_code, text_on_page)
     ('/feedreader/', 200, 'Feed Reader'),
-    ('/feedreader/num_unread/', 200, 'unread_feed'),
+    ('/feedreader/num_unread', 200, 'unread_feed'),
     # Poll Feed
-    ('/feedreader/entry_list/?feed_id=1&poll_flag=1', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list?feed_id=1&poll_flag=1', 200, '<div id="entry_id='),
     # Poll Group
-    ('/feedreader/entry_list/?group_id=1&poll_flag=1', 200, None),
+    ('/feedreader/entry_list?group_id=1&poll_flag=1', 200, None),
     # Last entry_id included
-    ('/feedreader/entry_list/?feed_id=1&entry_id=1', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list?feed_id=1&entry_id=1', 200, '<div id="entry_id='),
     # Non-existant Group and Feed
-    ('/feedreader/entry_list/?group_id=99&feed_id=99&entry_id=99', 200, '<div id="entry_id='),
+    ('/feedreader/entry_list?group_id=99&feed_id=99&entry_id=99', 200, '<div id="entry_id='),
     # Mark group as Read
-    ('/feedreader/entry_list/?group_id=1&mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list?group_id=1&mark_read_flag=1', 200, None),
     # Mark feed as Read
-    ('/feedreader/entry_list/?feed_id=1&mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list?feed_id=1&mark_read_flag=1', 200, None),
     # Mark all as Read
-    ('/feedreader/entry_list/?mark_read_flag=1', 200, None),
+    ('/feedreader/entry_list?mark_read_flag=1', 200, None),
     # Mark entry as Read
-    ('/feedreader/mark_entry_read/?entry_id=1', 200, None),
+    ('/feedreader/mark_entry_read?entry_id=1', 200, None),
     # Feed show read
-    ('/feedreader/entry_list/?feed_id=1&show_read_flag=1', 200, None),
+    ('/feedreader/entry_list?feed_id=1&show_read_flag=1', 200, None),
     # Group show read
-    ('/feedreader/entry_list/?group_id=1&show_read_flag=1', 200, None),
+    ('/feedreader/entry_list?group_id=1&show_read_flag=1', 200, None),
     # Show all read
-    ('/feedreader/entry_list/?show_read_flag=1', 200, None),
+    ('/feedreader/entry_list?show_read_flag=1', 200, None),
     # Entry not found
-    ('/feedreader/entry_list/?feed_id=1&entry_id=1', 200, None),
+    ('/feedreader/entry_list?feed_id=1&entry_id=1', 200, None),
     # No entries found in Group
-    ('/feedreader/entry_list/?group_id=1', 200, '<p id="no_entries">'),
+    ('/feedreader/entry_list?group_id=1', 200, '<p id="no_entries">'),
     # No entries found in Feed
-    ('/feedreader/entry_list/?feed_id=1', 200, '<p id="no_entries">'),
+    ('/feedreader/entry_list?feed_id=1', 200, '<p id="no_entries">'),
     # Search
-    ('/feedreader/search/?feedreader_search_string=co-op', 200, 'Search Results for'),
+    ('/feedreader/search?feedreader_search_string=co-op', 200, 'Search Results for'),
     # Search string too small
-    ('/feedreader/search/?feedreader_search_string=py', 200, 'Search string too small: "py".'),
+    ('/feedreader/search?feedreader_search_string=py', 200, 'Search string too small: "py".'),
     # Export feeds in OPML format
-    ('/feedreader/export_opml/', 200, 'feed')
+    ('/feedreader/export_opml', 200, 'feed')
 ]
 
 
@@ -87,7 +85,7 @@ class WorkingURLsTest(TestCase):
     def test_urls(self):
         """Visit each URL in turn"""
         for url, status_code, expected_text in TEST_URLS:
-            response = self.client.get(url, secure=True)
+            response = self.client.get(url)
             self.assertEqual(response.status_code,
                              status_code,
                              'URL %s: Unexpected status code, got %s expected %s' %

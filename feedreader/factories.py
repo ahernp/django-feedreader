@@ -1,6 +1,4 @@
 """Factories used to create data for testing."""
-from __future__ import absolute_import
-
 from .models import Group, Feed, Entry
 from .simple_test_server import PORT
 

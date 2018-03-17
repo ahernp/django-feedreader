@@ -1,12 +1,10 @@
 """Local Server to return RSS feed data for unit testing"""
-from __future__ import absolute_import
-
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import socketserver
 import threading
 
 PORT = 8081
-TEST_RSS = """<?xml version="1.0" encoding="utf-8"?>
+TEST_RSS = b"""<?xml version="1.0" encoding="utf-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>test feed</title>
@@ -32,7 +30,7 @@ TEST_RSS = """<?xml version="1.0" encoding="utf-8"?>
 </rss>"""
 
 
-class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class Handler(http.server.SimpleHTTPRequestHandler):
     """Local Server to return RSS feed data"""
 
     def do_GET(self):
@@ -49,7 +47,7 @@ class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
         pass
 
 
-class TestServer(SocketServer.TCPServer):
+class TestServer(socketserver.TCPServer):
     allow_reuse_address = True
 
 

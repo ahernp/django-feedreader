@@ -1,10 +1,8 @@
-from __future__ import absolute_import
-
 from xml.etree import ElementTree
 
 from django import forms
 
-from .models import Feed, Group
+from feedreader.models import Feed, Group
 
 
 class StringSearchForm(forms.Form):
