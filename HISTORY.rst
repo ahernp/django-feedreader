@@ -3,6 +3,10 @@
 Release History
 ===============
 
+2.2.0 (2019-07-02)
+
+* Upgrade to Django 2.2.3.
+
 2.0.0 (2018-03-17)
 
 * Upgrade to Django 2.0.3.
