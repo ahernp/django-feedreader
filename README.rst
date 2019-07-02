@@ -39,7 +39,7 @@ Quick start
 6. Visit `/feedreader/ <https://127.0.0.1:8000/feedreader/>`__
    to see the contents of the feeds.
 
-Dependenciesgit s
+Dependencies
 ------------
 
 -  `Django 2.2.3 <https://pypi.python.org/pypi/Django/2.2.3>`__
