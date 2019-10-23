@@ -42,7 +42,7 @@ Quick start
 Dependencies
 ------------
 
--  `Django 2.2.3 <https://pypi.python.org/pypi/Django/2.2.3>`__
+-  `Django 2.2.6 <https://pypi.python.org/pypi/Django/2.2.6>`__
 -  `django-braces 1.13.0 <https://pypi.python.org/pypi/django-braces/1.13.0>`__
 -  `factory_boy 2.12.0 <https://pypi.python.org/pypi/factory_boy/2.12.0>`__
 -  `feedparser 5.2.1 <https://pypi.python.org/pypi/feedparser/5.2.1>`__

@@ -26,7 +26,7 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
     install_requires=[
-        'Django==2.2.3',
+        'Django==2.2.6',
         'django-braces==1.13.0',
         'factory-boy==2.12.0',
         'feedparser==5.2.1',
