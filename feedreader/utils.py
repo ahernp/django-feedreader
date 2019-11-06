@@ -180,12 +180,14 @@ def poll_feed(db_feed, verbose=False):
                     published_time = timezone.now()
                 else:
                     published_time = datetime.fromtimestamp(mktime(entry.published_parsed))
-                    try:
-                        published_time = pytz.timezone(settings.TIME_ZONE).localize(published_time, is_dst=None)
-                    except pytz.exceptions.AmbiguousTimeError:
-                        pytz_timezone = pytz.timezone(settings.TIME_ZONE)
-                        published_time = pytz_timezone.localize(published_time, is_dst=False)
                     now = timezone.now()
+                    pytz_timezone = pytz.timezone(settings.TIME_ZONE)
+                    try:
+                        published_time = pytz_timezone.localize(published_time, is_dst=None)
+                        now = pytz_timezone.localize(now, is_dst=None)
+                    except pytz.exceptions.AmbiguousTimeError:
+                        published_time = pytz_timezone.localize(published_time, is_dst=False)
+                        now = pytz_timezone.localize(now, is_dst=False)
                     if published_time > now:
                         published_time = now
                 db_entry.published_time = published_time
