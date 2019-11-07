@@ -3,6 +3,10 @@
 Release History
 ===============
 
+2.2.6 (2019-11-07)
+
+* Compare timezone-aware timestamps.
+
 2.2.1 (2019-10-23)
 
 * Upgrade to Django 2.2.6.
