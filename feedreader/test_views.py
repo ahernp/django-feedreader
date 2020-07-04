@@ -10,7 +10,7 @@ from .simple_test_server import (PORT, setUpModule as server_setup,
                                  tearDownModule as server_teardown)
 from .views import EditFeeds
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 
 OPML = b"""<?xml version="1.0" ?>
 <opml version="2.0">

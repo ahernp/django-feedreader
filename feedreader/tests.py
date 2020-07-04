@@ -11,7 +11,7 @@ from .models import Options
 from .simple_test_server import (PORT, setUpModule as server_setup,
                                  tearDownModule as server_teardown)
 
-from mock import patch
+from unittest.mock import patch
 
 TEST_URLS = [
     # (url, status_code, text_on_page)

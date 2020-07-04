@@ -7,7 +7,7 @@ from django.test import TestCase
 from .models import Feed
 from .utils import poll_feed
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 import pytz
 
 
@@ -148,4 +148,3 @@ class PollEntriesTest(TestCase):
             with patch('feedreader.utils.Entry', db_entry_mock):
                 with patch('sys.stdout', new=StringIO()):  # Suppress printed output from test
                     poll_feed(self.feed_mock, verbose=True)
-
