@@ -47,6 +47,7 @@ class EntryAdmin(admin.ModelAdmin):
             'fields': (('link',),
                        ('title', 'feed',),
                        ('description',),
+                       ('media_link',),
                        ('published_time', 'read_flag'),
             )
         }),

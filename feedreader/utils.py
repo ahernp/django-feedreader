@@ -198,4 +198,6 @@ def poll_feed(db_feed, verbose=False):
                 db_entry.description = entry.description
             else:
                 db_entry.description = html.escape(entry.description)
+            if len(entry.enclosures) > 0:
+                db_entry.media_link = entry.enclosures[0].get('href', None)
             db_entry.save()
