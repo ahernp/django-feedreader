@@ -43,7 +43,7 @@ Quick start
 Dependencies
 ------------
 
--  `Django 3.0.8 <https://pypi.python.org/pypi/Django/3.0.8>`__
+-  `Django 3.1.7 <https://pypi.python.org/pypi/Django/3.1.7>`__
 -  `django-braces 1.14.0 <https://pypi.python.org/pypi/django-braces/1.14.0>`__
 -  `factory_boy 2.12.0 <https://pypi.python.org/pypi/factory_boy/2.12.0>`__
 -  `feedparser 5.2.1 <https://pypi.python.org/pypi/feedparser/5.2.1>`__
