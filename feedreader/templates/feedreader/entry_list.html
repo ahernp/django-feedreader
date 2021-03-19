@@ -11,6 +11,11 @@
                 {% trans 'on' %} {{ entry.published_time|date:"d M Y" }} ({{ entry.published_time|timesince }} ago)
             </p>
             <p>{{ entry.description|safe }}</p>
+            {% if entry.media_link %}
+              <audio controls>
+                <source src="{{ entry.media_link }}">
+              </audio>
+            {% endif %}
         </div>
     {% endfor %}
 {% else %}

@@ -97,7 +97,6 @@ class Feed(models.Model):
     def num_unread_entries(self):
         return Entry.objects.filter(feed=self, read_flag=False).count()
 
-
     def save(self, *args, **kwargs):
         """Poll new Feed"""
         try:
@@ -131,6 +130,8 @@ class Entry(models.Model):
             Description of entry.
         updated_time : date_time
             When entry was last updated.
+        media_link: char
+            URL of linked media
     """
     feed = models.ForeignKey(Feed, on_delete=models.CASCADE)
     title = models.CharField(max_length=2000, blank=True, null=True)
@@ -138,6 +139,7 @@ class Entry(models.Model):
     description = models.TextField(blank=True, null=True)
     published_time = models.DateTimeField(auto_now_add=True)
     read_flag = models.BooleanField(default=False)
+    media_link = models.URLField(max_length=2000, blank=True, null=True)
 
     class Meta:
         ordering = ['-published_time']
